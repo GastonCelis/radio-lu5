@@ -1,0 +1,30 @@
+@import '../../styles/globalStyles.css';
+
+.container-home-oyente, .nav-home-oyente{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.nav-home-oyente{
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.opcion-nav-home-oyente{
+    font-size: 22px;
+    cursor: pointer;
+    color: rgb(190, 190, 190);
+}
+
+.opcion-nav-home-oyente-selected{
+    color: black;
+    border-bottom: solid 5px var(--color-rojo);
+}
+
+.box-home-oyente{
+    width: 100%;
+    margin-top: 40px;
+}

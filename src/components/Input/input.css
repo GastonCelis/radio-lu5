@@ -1,0 +1,78 @@
+@import '../../styles/globalStyles.css';
+
+.main-input{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+    height: 30px;
+    border: solid 1px #b9b8b8;
+    padding-left: 14px;
+    color: black;
+    cursor: pointer;
+}
+
+.main-input::placeholder{
+    font-family: var(--font-family-regular);
+    font-style: normal;
+    font-size: 12px;
+    font-weight: bold;
+    color: rgb(190, 190, 190);
+}
+
+.input-pswd{
+    position: relative;
+}
+
+.icon-input{
+    position: absolute;
+    top: 4px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.width2{
+    width: 712px;
+}
+
+.span-date{
+    position: absolute;
+    top: 7px;
+    left: 14px;
+    font-family: var(--font-family-regular);
+    font-style: normal;
+    font-size: 12px;
+    font-weight: bold;
+    color: rgb(190, 190, 190);
+    cursor: default;
+    z-index: -1;
+}
+
+.input-date-placeholder[type="date"] {
+    font-family: var(--font-family-regular);
+    font-style: normal;
+    font-size: 12px;
+    font-weight: bold;
+    color: rgb(190, 190, 190);
+}
+
+.input-date[type="date"]{
+    justify-content: flex-end;
+    padding-right: 15px;
+    background-color: transparent;
+}
+
+.input-date[type="date"]::-webkit-calendar-picker-indicator{
+    padding-top: 5px;
+    cursor: pointer;
+}
+
+.main-input[type='number']::-webkit-inner-spin-button,
+.main-input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.defaultValue{
+    color: rgb(190, 190, 190);
+}

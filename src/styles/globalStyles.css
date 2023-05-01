@@ -1,0 +1,38 @@
+@font-face {
+    font-family: "GalanoGrotesqueMedium";
+    src: url("../assets/fonts/galano-grotesque-alt-cufonfonts/GalanoGrotesqueMedium.otf");
+}
+
+@font-face {
+    font-family: "GalanoGrotesqueSemiBold";
+    src: url("../assets/fonts/galano-grotesque-alt-cufonfonts/GalanoGrotesqueSemiBold.otf");
+}
+
+@font-face {
+    font-family: "GalanoGrotesqueBold";
+    src: url("../assets/fonts/galano-grotesque-alt-cufonfonts/GalanoGrotesqueBold.otf");
+}
+
+@font-face {
+    font-family: 'GalanoGrotesqueRegular';
+    src: url('../assets/fonts/galano-grotesque-alt-cufonfonts/GalanoGrotesqueRegular.otf');
+}
+
+:root {
+    /* Colors: */
+    --color-blanco: #ffffff;
+    --color-blanco2: #e1e1e1;
+    --color-gris: #707070;
+    --color-gris2: #797473;
+    --color-negro: #000000;
+    --color-negro2: #1d1d1b;
+    --color-rojo: #db0d15;
+    --color-rosa: #ffc3c5;
+    --color-celeste: #64b0ea;
+
+    /* Font/text values */
+    --font-family-regular: GalanoGrotesqueRegular;
+    --font-family-bold: GalanoGrotesqueBold;
+    --font-family-semibold: GalanoGrotesqueSemiBold;
+    --font-family-medium: GalanoGrotesqueMedium;
+}

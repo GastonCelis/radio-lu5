@@ -1,0 +1,17 @@
+@import '../../styles/globalStyles.css';
+
+.container-modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+.box-modal{
+    border: solid 2px rgb(190, 190, 190);
+}

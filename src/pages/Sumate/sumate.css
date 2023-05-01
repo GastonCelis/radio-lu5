@@ -1,0 +1,82 @@
+@import '../../styles/globalStyles.css';
+
+.container-sesion, 
+.header-sesion, 
+.main-sesion, 
+.header-seccion,
+.seccion-sesion,
+.btns1-seccion,
+.btn2-seccion{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container-sesion{
+    width: 100vw;
+    height: 100vh;
+}
+
+.header-sesion{
+    margin-bottom: 25px;
+    gap: 10px;
+}
+
+.titulo-sesion{
+    color: var(--color-rojo);
+    font-family: var(--font-family-bold);
+}
+
+.main-sesion{
+    max-width: 510px;
+}
+
+.parrafo-sesion{
+    width: 80%;
+    text-align: center;
+    color: var(--color-gris);
+    font-size: 16px;
+    line-height: 25px;
+}
+
+.span-header{
+    color: var(--color-gris2);
+    font-family: var(--font-family-bold);
+}
+
+.logo-sesion{
+    width: 160px;
+}
+
+.seccion-sesion{
+    margin-top: 35px;
+}
+
+.header-seccion{
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+.titulo-seccion{
+    color: var(--color-gris);
+}
+
+.subtitulo-seccion{
+    font-weight: 900;
+    color: var(--color-rojo);
+    font-family: var(--font-family-bold);
+}
+
+.btns1-seccion{
+    gap: 15px;
+}
+
+.btn2-seccion{
+    margin-top: 22px;
+    gap: 7px;
+}
+
+.text-seccion{
+    font-size: 12px;
+}

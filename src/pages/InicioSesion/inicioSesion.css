@@ -1,0 +1,71 @@
+@import '../../styles/globalStyles.css';
+
+.container-sesion, 
+.header-sesion, 
+.main-sesion, 
+.seccion-sesion,
+.btns1-seccion,
+.inputs-seccion,
+.link-pwd-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container-sesion{
+    width: 100vw;
+    height: 100vh;
+}
+
+.header-sesion{
+    margin-bottom: 25px;
+    gap: 10px;
+}
+
+.titulo-sesion{
+    color: var(--color-rojo);
+    font-family: var(--font-family-bold);
+}
+
+.main-sesion{
+    max-width: 510px;
+}
+
+.span-header{
+    color: var(--color-gris2);
+    font-family: var(--font-family-bold);
+}
+
+.logo-sesion{
+    width: 160px;
+}
+
+.seccion-sesion{
+    margin-top: 35px;
+}
+
+.titulo-seccion{
+    color: var(--color-gris);
+}
+
+.btns1-seccion{
+    gap: 15px;
+}
+
+.inputs-seccion{
+    gap: 12px;
+    margin-bottom: 50px;
+}
+
+.link-pwd-container{
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-top: -10px;
+}
+
+.link-pwd{
+    font-size: 10px;
+    color: var(--color-gris2);
+}

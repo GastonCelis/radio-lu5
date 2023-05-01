@@ -1,0 +1,34 @@
+.container-perfil-oyente, .box-inputs-perfil-oyente, .botones-perfil-oyente, .box-volver-perfil{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.box-inputs-perfil-oyente{
+    flex-direction: row;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.texto-perfil-oyente{
+    margin: 10px 0 20px 0;
+    text-align: start;
+    font-size: 12px;
+}
+
+.botones-perfil-oyente{
+    width: 100%;
+    margin-top: 35px;
+    gap: 15px;
+}
+
+.box-volver-perfil{
+    flex-direction: row;
+    cursor: pointer;
+}
+
+.texto-volver-perfil{
+    font-size: 11px;
+}

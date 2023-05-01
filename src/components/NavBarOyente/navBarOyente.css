@@ -1,0 +1,56 @@
+@import '../../styles/globalStyles.css';
+
+.container-nav-oyente, .box1-nav-oyente, .box2-nav-oyente, .opcion-nav-oyente{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-nav-oyente{
+    justify-content: space-between;
+}
+
+.box1-nav-oyente{
+    justify-content: flex-start;
+}
+
+.box2-nav-oyente{
+    justify-content: flex-end;
+    gap: 18px;
+}
+
+.hola-nav-oyente{
+    position: relative;
+    margin-left: 20px;
+}
+
+.edit-foto-nav{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5px;
+    gap: 4px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.img-nav-oyente{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+.opcion-nav-oyente{
+    font-size: 13px;
+    width: max-content;
+    gap: 3px;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+}
+
+.opcion-nav-oyente-selected{
+    color: var(--color-rojo);
+}

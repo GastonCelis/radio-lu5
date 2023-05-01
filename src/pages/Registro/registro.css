@@ -1,0 +1,79 @@
+@import '../../styles/globalStyles.css';
+
+.container-registro, 
+.header-registro, 
+.main-registro, 
+.seccion-registro,
+.btns1-seccion-registro,
+.inputs-seccion-registro,
+.link-politicas-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container-registro{
+    width: 100vw;
+    height: 100vh;
+}
+
+.header-registro{
+    margin-bottom: 12px;
+    gap: 10px;
+}
+
+.titulo-registro{
+    color: var(--color-rojo);
+    font-family: var(--font-family-bold);
+}
+
+.main-registro{
+    max-width: 510px;
+}
+
+.span-header-registro{
+    color: var(--color-gris2);
+    font-family: var(--font-family-bold);
+}
+
+.logo-registro{
+    width: 160px;
+}
+
+.seccion-registro{
+    margin-top: 35px;
+}
+
+.titulo-seccion-registro{
+    color: var(--color-gris);
+}
+
+.btns1-seccion-registro{
+    margin-top: 10px;
+    gap: 15px;
+}
+
+.inputs-seccion-registro{
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.link-politicas-container{
+    flex-direction: row;
+    width: 100%;
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+.link-politicas{
+    font-size: 11.5px;
+    font-weight: bold;
+    color: var(--color-gris2);
+}
+
+.checkbox-politicas{
+    cursor: pointer;
+}

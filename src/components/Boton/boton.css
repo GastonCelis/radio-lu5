@@ -1,0 +1,39 @@
+@import '../../styles/globalStyles.css';
+
+.main-boton, .red-boton, .gray-boton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    width: 220px;
+    height: 50px;
+    cursor: pointer;
+    box-shadow: 0px 2px 4px 0.2px #d6d6d6;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.main-boton{
+    background-color: white;
+    border: solid 1px #b9b8b8;
+    color: var(--color-negro2);
+    font-weight: bold;
+}
+
+.red-boton{
+    background-color: var(--color-rojo);
+    border: solid 1px var(--color-rojo);
+    color: var(--color-blanco);
+}
+
+.gray-boton{
+    background-color: var(--color-gris2);
+    border: solid 1px var(--color-gris2);
+    color: var(--color-blanco);
+    cursor: default;
+    pointer-events: none;
+}
+
+.icon-google{
+    width: 16px;
+}

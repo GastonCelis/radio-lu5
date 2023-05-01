@@ -1,0 +1,39 @@
+@import '../../styles/globalStyles.css';
+
+.main-input-select{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+    height: 30px;
+    border: solid 1px #b9b8b8;
+    padding-left: 12px;
+    font-family: var(--font-family-regular);
+    font-style: normal;
+    font-size: 12px;
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url('../../assets/flecha.png');
+    background-size: 14px 14px;
+    background-repeat: no-repeat;
+    background-position: 95% center;
+}
+
+.main-input-select option{
+    font-family: var(--font-family-regular);
+    font-style: normal;
+    font-size: 12px;
+    font-weight: bold;
+    color: black;
+}
+
+.placeholder-select{
+    color: rgb(190, 190, 190);
+}
+
+.width2{
+    width: 712px;
+}
