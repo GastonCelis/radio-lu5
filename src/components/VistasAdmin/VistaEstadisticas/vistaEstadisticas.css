@@ -1,0 +1,26 @@
+@import '../../../styles/globalStyles.css';
+
+.container-graficos-estadisticas{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.titulo-vista-estadisticas-admin{
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.titulo-grafico-estadisticas{
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 17px;
+    font-family: var(--font-family-bold);
+}
+
+.box-grafico-estadisticas{
+    margin-top: 50px;
+    width: max-content;
+}

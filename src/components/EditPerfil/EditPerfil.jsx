@@ -1,25 +1,25 @@
 import React from 'react';
-import './perfilOyente.css'
+import './editPerfil.css'
 import Input from '../Input/Input';
 import Select from '../Select/Select';
 import Boton from '../Boton/Boton'
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 
-const PerfilOyente = (props) => {
+const EditPerfil = (props) => {
     const {setPerfil} = props
 
     return (
         <div className='container-perfil-oyente'>
-            <form>
+            <form className='container-box-perfil-oyente'>
                 <div className='box-inputs-perfil-oyente'>
                     <Input type={'text'} placeholder={'Nombre y apellido'} defaultValue={'Oyente 1'} width={2}/>
                     <Input type={'email'} placeholder={'Email'} defaultValue={'oyente1@test.com'} width={2}/>
                     <Input type={'date'} placeholder={'Fecha de nacimiento'} defaultValue={'1990-10-20'}/>
-                    <Select opciones={'genero'} seleccion={'Masculino'}/>
-                    <Select opciones={'ocupacion'} seleccion={'Docente'}/>
+                    <Select opciones={'genero'} genero={'Femenino'}/>
+                    <Select opciones={'ocupacion'} ocupacion={'Ingeniero'}/>
                     <Input type={'number'} placeholder={'D.N.I'} defaultValue={'20123456'}/>
-                    <Select opciones={'provincia'} seleccion={'Neuquén'}/>
-                    <Select opciones={'ciudad'} seleccion={'Villa La Angostura'}/>
+                    <Select opciones={'provincia'} provincia={'Misiones'}/>
+                    <Select opciones={'localidad'} localidad={'azara'}/>
                 </div>
                 
                 <p className='texto-perfil-oyente'>Modificar contraseña</p>
@@ -43,4 +43,4 @@ const PerfilOyente = (props) => {
     );
 };
 
-export default PerfilOyente;
+export default EditPerfil;

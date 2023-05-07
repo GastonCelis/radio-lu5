@@ -1,0 +1,11 @@
+.container-admin{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: start;
+}
+
+.box-section-vistas-admin{
+    margin-top: 120px;
+    width: 60%;
+}

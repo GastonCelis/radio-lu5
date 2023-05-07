@@ -1,0 +1,35 @@
+@import '../../../../styles/globalStyles.css';
+
+.container-table-vistas-admin{
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.header-table-vistas > th:nth-child(-n + 3){
+    border-right: solid gray 1px;
+}
+
+.header-table-vistas > th{
+    padding: 5px;
+}
+
+.header-table-vistas-hidden{
+    opacity: 0;
+}
+
+.body-table-vistas > td:nth-child(-n + 4){
+    border: solid 1px gray;
+    padding: 8px 5px;
+}
+
+.body-table-vistas:nth-child(even){
+    background-color: var(--color-rosa);
+}
+
+.body-table-vistas > td:nth-child(n + 5){
+    background-color: white;
+    padding-left: 5px;
+    cursor: pointer;
+}

@@ -57,13 +57,15 @@
 }
 
 .input-date[type="date"]{
+    text-align: end;
+    gap: 12px;
     justify-content: flex-end;
     padding-right: 15px;
     background-color: transparent;
 }
 
 .input-date[type="date"]::-webkit-calendar-picker-indicator{
-    padding-top: 5px;
+    padding-top: 3px;
     cursor: pointer;
 }
 

@@ -12,6 +12,62 @@
     background-color: white;
 }
 
-.box-modal{
+.box-modal, .box-modal-concurso{
+    width: 400px;
+    height: 300px;
     border: solid 2px rgb(190, 190, 190);
+}
+
+.box-modal-concurso{
+    height: 600px;
+}
+
+.box-close-modal{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 12px;
+}
+
+.box-info-modal, .box-info-modal-concurso{
+    width: 100%;
+    height: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.box-info-modal-concurso{
+    height: 90%;
+    justify-content: space-around;
+    gap: 10px;
+    text-align: center;
+}
+
+.h2-info-modal{
+    text-align: center;
+    font-size: 20px;
+    color: var(--color-rojo);
+}
+
+.p-info-modal{
+    font-size: 14px;
+    text-align: center;
+    width: 80%;
+}
+
+.box-titulos-modal{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.img-modal-concurso{
+    width: 350px;
+    height: 200px;
 }

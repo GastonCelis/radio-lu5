@@ -8,7 +8,7 @@
 
 .container-oyente{
     justify-content: flex-start;
-    margin-top: 60px;
+    margin-top: 80px;
 }
 
 .box-oyente, .box2-oyente{
@@ -20,5 +20,10 @@
 }
 
 .box-oyente{
+    margin-top: 20px;
     margin-bottom: 40px;
+}
+
+.box2-oyente-perfil-home{
+    margin-top: 30px;
 }

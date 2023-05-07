@@ -1,0 +1,54 @@
+@import '../../styles/globalStyles.css';
+
+.container-nav-admin{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.img-logo-nav-admin{
+    width: 60%;
+}
+
+.img-avatar-nav-admin{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+.opciones-nav-admin{
+    width: 250px;
+    border-left: solid 1px rgb(190, 190, 190);
+    border-right: solid 1px rgb(190, 190, 190);
+    border-bottom: solid 1px rgb(190, 190, 190);
+    padding: 8px;
+    text-align: center;
+    font-size: 12px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.opciones-nav-admin1{
+    border-top: solid 1px rgb(190, 190, 190);
+}
+
+.opciones-nav-admin-select{
+    border: solid 2px var(--color-rojo);
+    color: var(--color-rojo);
+    font-family: var(--font-family-bold);
+}
+
+.opcion-nav-admin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    width: max-content;
+    gap: 3px;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+}

@@ -4,7 +4,7 @@ import logoGoogle from '../../assets/icon-google.png'
 import './boton.css'
 
 const Boton = (props) => {
-    const {text, type, iconGoogle, path} = props
+    const {text, type, iconGoogle, path, onClick} = props
 
     const handlerStyles = () =>{
         if(type === 2) return 'red-boton'
@@ -13,7 +13,7 @@ const Boton = (props) => {
     }
 
     return (
-        <Link to={path} className={handlerStyles()}>
+        <Link to={path} className={handlerStyles()} onClick={onClick}>
             {iconGoogle && <img src={logoGoogle} alt='Google Icon' className='icon-google'/>}
             {text}
         </Link>

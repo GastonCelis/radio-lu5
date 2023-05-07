@@ -38,34 +38,3 @@ export const opcionesOcupacion = [
     'Trabajador social',
     'Veterinario'
 ]
-
-export const opcionesProvincia = [
-    'CABA',
-    'Buenos Aires',
-    'Catamarca',
-    'Chaco',
-    'Chubut',
-    'Cordoba',
-    'Corrientes',
-    'Entre Rios',
-    'Formosa',
-    'Jujuy',
-    'La Pampa',
-    'La Rioja',
-    'Mendoza',
-    'Misiones',
-    'Neuquén',
-    'Rio Negro',
-    'Salta',
-    'San Juan',
-    'San Luis',
-    'Santa Cruz',
-    'Santa Fe',
-    'Santiago del Estero',
-    'Tierra del Fuego',
-    'Tucuman'
-]
-
-export const opcionesCiudades = [
-    'Villa La Angostura'
-]

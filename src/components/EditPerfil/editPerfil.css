@@ -6,6 +6,10 @@
     flex-direction: column;
 }
 
+.container-box-perfil-oyente{
+    width: 712px;
+}
+
 .box-inputs-perfil-oyente{
     flex-direction: row;
     gap: 12px;

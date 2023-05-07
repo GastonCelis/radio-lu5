@@ -1,0 +1,24 @@
+@import '../../../../styles/globalStyles.css';
+
+.container-nav-concursos-admin{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.opciones-nav-admin-concursos{
+    width: 25%;
+    border: solid 1px rgb(190, 190, 190);
+    padding: 8px;
+    text-align: center;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.opciones-nav-admin-concursos-select{
+    width: 48%;
+    font-family: var(--font-family-bold);
+    border: solid 2px var(--color-rojo);
+    color: var(--color-rojo);
+}

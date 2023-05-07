@@ -5,9 +5,29 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import Modal from "../Modal/Modal";
 
 const TarjetaOyente = (props) => {
-    const { estadoSorteo, tipo, programaSorteo, finalizacionConcurso, titulo, img, estadoMiSorteo, fechaParticipacion, codigoParticipacion, resultadoMiSorteo, codigoDescuento, fechaFinBeneficio, usoBeneficio, topeReintegro } = props;
+    const { estadoSorteo, 
+        tipo, 
+        programaSorteo, 
+        finalizacionConcurso, 
+        titulo, 
+        img, 
+        estadoMiSorteo, 
+        fechaParticipacion, 
+        codigoParticipacion, 
+        resultadoMiSorteo, 
+        codigoDescuento, 
+        fechaFinBeneficio, 
+        usoBeneficio, 
+        topeReintegro,
+        infoModal,
+        fechConcurso,
+        nombrePrograma,
+        parrafo,
+        imgModalConcurso
+    } = props
     const [codigo, setCodigo] = useState(false)
     const [openModal, setOpenModal] = useState(false)
+    const [openModalConcurso, setOpenModalConcurso] = useState(false)
 
     const handleCopy = (text) => {
         navigator.clipboard.writeText(text);
@@ -17,6 +37,11 @@ const TarjetaOyente = (props) => {
             setCodigo(false);
         }, 1000);
     };
+
+    const handlerModalConcurso = () =>{
+        setOpenModalConcurso(false)
+        setOpenModal(true)
+    }
 
     return (
         <>
@@ -36,12 +61,20 @@ const TarjetaOyente = (props) => {
                             {estadoSorteo === "finalizado" ? (
                                 <Boton text={"Sorteo finalizado"} type={3} />
                             ) : (
-                                <Boton text={"Inscribirse"} type={2} />
+                                <Boton text={"Inscribirse"} type={2} onClick={() => setOpenModal(true)}/>
                             )}
                         </div>
 
-                        <p className="ver-mas-tarjeta">+ Ver más</p>
+                        <p className="ver-mas-tarjeta" onClick={() => setOpenModalConcurso(true)}>+ Ver más</p>
                     </div>
+                    {
+                        openModal &&
+                        <Modal setOpenModal={setOpenModal} info={infoModal} titulo={titulo} iconOk={true}/>
+                    }
+                    {
+                        openModalConcurso &&
+                        <Modal setOpenModalConcurso={setOpenModalConcurso} onClick={handlerModalConcurso} titulo={titulo} concurso={true} fechConcurso={fechConcurso} nombrePrograma={nombrePrograma} parrafo={parrafo} imgConcurso={imgModalConcurso}/>
+                    }
                 </div>
             )}
 
@@ -91,7 +124,7 @@ const TarjetaOyente = (props) => {
                     </div>
                     {
                         openModal &&
-                        <Modal setOpenModal={setOpenModal}/>
+                        <Modal setOpenModal={setOpenModal} info={infoModal} titulo={titulo} ganado={true}/>
                     }
                 </div>
             )}

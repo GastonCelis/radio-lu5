@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../../assets/logo.png'
+import logo from '../../assets/logo-lu5.svg'
 import './sumate.css'
 import Boton from '../../components/Boton/Boton';
 
@@ -9,7 +9,6 @@ const Sumate = () => {
             <div className='main-sesion'>
                 <div className='header-sesion'>
                     <img src={logo} alt='Logo LU5' className='logo-sesion'/>
-                    <h1 className='titulo-sesion'><span className='span-header'>Club</span> de oyentes</h1>
                 </div>
                 
                 <p className='parrafo-sesion'>

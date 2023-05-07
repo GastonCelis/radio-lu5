@@ -46,6 +46,7 @@
 }
 
 .titulo-seccion-registro{
+    margin-top: 15px;
     color: var(--color-gris);
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../../assets/logo.png'
+import logo from '../../assets/logo-lu5.svg'
 import Boton from '../../components/Boton/Boton';
 import Input from '../../components/Input/Input';
 import Select from '../../components/Select/Select';
@@ -11,7 +11,6 @@ const Registro = () => {
             <div className='main-registro'>
                 <div className='header-registro'>
                     <img src={logo} alt='Logo LU5' className='logo-registro'/>
-                    <h1 className='titulo-registro'><span className='span-header-registro'>Club</span> de oyentes</h1>
                 </div>
 
                 <h2 className='titulo-seccion-registro'>Registrarse</h2>
@@ -25,7 +24,7 @@ const Registro = () => {
                         <Select placeholder={'Ocupación'} opciones={'ocupacion'}/>
                         <Input type={'number'} placeholder={'D.N.I'} required={true}/>
                         <Select placeholder={'Provincia'} opciones={'provincia'}/>
-                        <Input type={'text'} placeholder={'Localidad'} required={true}/>
+                        <Select placeholder={'Localidad'} opciones={'localidad'}/>
                     </div>
 
                     <div className='link-politicas-container'>
