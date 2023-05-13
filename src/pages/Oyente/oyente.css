@@ -27,3 +27,10 @@
 .box2-oyente-perfil-home{
     margin-top: 30px;
 }
+
+@media only screen and (max-width: 600px){
+    .container-oyente{
+        margin-top: 20px;
+    }
+}
+

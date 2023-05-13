@@ -19,7 +19,7 @@ const NavBarAdmin = (props) => {
                 <div className="hola-nav-oyente">
                     <h2>Hola Admin 1!</h2>
 
-                    <p className="edit-foto-nav">
+                    <p className={`edit-foto-nav ${opcion === 'perfil' && "edit-foto-nav-select"}`} onClick={() => setOpcion('perfil')}>
                         <EditIcon sx={{ fontSize: '12px' }} />
                         Modificar mis datos
                     </p>
@@ -33,7 +33,7 @@ const NavBarAdmin = (props) => {
                 <p className={`opciones-nav-admin ${opcion === 'beneficios' && 'opciones-nav-admin-select'}`} onClick={() => setOpcion('beneficios')}>Beneficios</p>
             </section>
 
-            <Link to={'/sesion'} className="opcion-nav-admin">
+            <Link to={'/'} className="opcion-nav-admin">
                 <LogoutIcon sx={{ fontSize: '18px' }} />
                 Cerrar sesión
             </Link>

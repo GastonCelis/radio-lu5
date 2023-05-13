@@ -3,6 +3,8 @@ import './vistasAdmin.css'
 import VistaConcursos from './VistaConcursos/VistaConcursos';
 import VistaUsuarios from './VistaUsuarios/VistaUsuarios';
 import VistaEstadisticas from './VistaEstadisticas/VistaEstadisticas';
+import VistaPerfil from './VistaPerfil/VistaPerfil';
+import VistaBeneficios from './VistaBeneficios/VistaBeneficios';
 
 const VistasAdmin = (props) => {
     const { opcion } = props
@@ -24,9 +26,15 @@ const VistasAdmin = (props) => {
                 <VistaEstadisticas/>
             }
 
-            {/* {
+            {
                 opcion === 'beneficios' &&
-            } */}
+                <VistaBeneficios/>
+            }
+
+            {
+                opcion === 'perfil' &&
+                <VistaPerfil/>
+            }
 
         </section>
     );

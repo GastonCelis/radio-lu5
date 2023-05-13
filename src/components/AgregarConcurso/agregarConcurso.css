@@ -1,0 +1,186 @@
+@import '../../styles/globalStyles.css';
+
+.container-agregar-concurso{
+    width: 100%;
+    height: 500px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+}
+
+.img-principal-agregar-concurso{
+    width: 45%;
+}
+
+.box-agregar-concurso{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.titulo-agregar-concurso{
+    font-size: 18px;
+}
+
+.span-agregar-concurso{
+    font-size: 12px;
+}
+
+.parrafo-agregar-concurso{
+    font-size: 14px;
+}
+
+.inbox2-agregar-concurso{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.boxsuperior-agregar-concurso{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.boxsuperior2-agregar-concurso{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 25px;
+    position: relative;
+}
+
+.boton-eliminar-agregar-concurso, .boton-guardar-agregar-concurso{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 3px 5px 3px 0;
+    background-color: white;
+    border: solid 1px var(--color-rojo);
+    color: var(--color-rojo);
+    transition: all 400ms;
+    width: 100px;
+}
+
+.boton-guardar-agregar-concurso{
+    background-color: green;
+    color: white;
+    gap: 5px;
+    border: solid 1px green;
+}
+
+.boton-guardar-agregar-concurso:hover{
+    background-color: rgb(0, 94, 0);
+}
+
+.boton-eliminar-agregar-concurso:hover{
+    background-color: var(--color-rojo);
+    color: white;
+}
+
+.box-botones-agregar-concurso{
+    border: dotted 1px rgb(190, 190, 190);
+    border-top: none;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    padding: 20px;
+}
+
+.box-informacion-agregar-concurso{
+    border: dotted 1px rgb(190, 190, 190);
+    width: 100%;
+    height: 500px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.textarea-agregar-concurso{
+    width: 100%;
+    height: 140px;
+    resize: none;
+    border: solid 1px rgb(190, 190, 190);
+}
+
+.img-input-concurso-agregar, .img-input-banner-concurso-agregar{
+    position: relative;
+    width: 140px;
+    height: 140px;
+    border: solid 1px rgb(190, 190, 190);
+}
+
+.img-input-concurso-agregar > input, .img-input-banner-concurso-agregar > input{
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.img-input-concurso-agregar > span{
+    position: absolute;
+    top: 55px;
+    left: 6px;
+    cursor: pointer;
+}
+
+.img-input-banner-concurso-agregar > span{
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 55px;
+    left: 0;
+    cursor: pointer;
+}
+
+.img-input-concurso-agregar > div, .img-input-banner-concurso-agregar > div {
+    position: absolute;
+    bottom: 0;
+    right: 6px;
+    cursor: pointer;
+}
+
+.img-input-banner-concurso-agregar{
+    width: 260px;
+}
+
+.img-mini-agregar-concurso{
+    width: 138px;
+    height: 137px;
+}
+
+.img-banner-agregar-concurso{
+    width: 258px;
+    height: 137px;
+}
+
+.box-icon-imagen-agregar-concurso{
+    color: var(--color-rojo);
+    background-color: white;
+    height: 25px;
+}
+
+.inbox-agregar-concurso-titulo{
+    display: flex;
+    height: 140px;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import logo from '../../assets/logo-lu5.svg'
 import './sumate.css'
 import Boton from '../../components/Boton/Boton';
+import LoginGoogle from '../../components/LoginGoogle/LoginGoogle';
 
 const Sumate = () => {
     return (
@@ -23,7 +24,7 @@ const Sumate = () => {
 
                     <div className='btns1-seccion'>
                         <Boton text={'Registrarse'} path={'/registro'}/>
-                        <Boton text={'Iniciar sesión con Google'} iconGoogle={true}/>
+                        <LoginGoogle/>
                     </div>
 
                     <div className='btn2-seccion'>

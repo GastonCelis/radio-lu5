@@ -1,0 +1,44 @@
+.container-perfil-admin, .box-inputs-perfil-admin, .botones-perfil-admin, .box-volver-perfil{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.container-perfil-admin{
+    justify-content: space-evenly;
+    width: 100%;
+    height: 80vh;
+}
+
+.container-box-perfil-admin{
+    width: 100%;
+}
+
+.box-inputs-perfil-admin{
+    flex-direction: row;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.texto-perfil-admin{
+    margin: 10px 0 20px 0;
+    text-align: center;
+    font-size: 12px;
+}
+
+.botones-perfil-admin{
+    width: 100%;
+    margin-top: 35px;
+    gap: 15px;
+}
+
+.box-volver-perfil{
+    flex-direction: row;
+    cursor: pointer;
+}
+
+.titulo-perfil-edit-administrador{
+    text-align: center;
+}

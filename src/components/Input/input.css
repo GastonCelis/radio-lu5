@@ -35,6 +35,14 @@
     width: 712px;
 }
 
+.width3{
+    width: 175px;
+}
+
+.width4{
+    width: 240px;
+}
+
 .span-date{
     position: absolute;
     top: 7px;

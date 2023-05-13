@@ -4,9 +4,13 @@ import storage from 'redux-persist/lib/storage';
 import { persistReducer } from 'redux-persist';
 import thunk from 'redux-thunk';
 import registroSlice from './silices/registro/registroSlice';
+import beneficioSlice from './silices/beneficio/beneficioSlice';
+import concursoSlice from './silices/concurso/concursoSlice';
 
 const reducers = combineReducers({
-    registroSlice
+    registroSlice,
+    beneficioSlice,
+    concursoSlice
 });
 
 const persistConfig = {

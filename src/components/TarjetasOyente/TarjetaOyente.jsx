@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./tarjetaOyente.css";
 import Boton from "../Boton/Boton";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -28,6 +28,19 @@ const TarjetaOyente = (props) => {
     const [codigo, setCodigo] = useState(false)
     const [openModal, setOpenModal] = useState(false)
     const [openModalConcurso, setOpenModalConcurso] = useState(false)
+    const [isScreenWidth600, setIsScreenWidth600] = useState(false);
+
+    useEffect(() => {
+        const handleResize = () => {
+            const { innerWidth: width } = window;
+            setIsScreenWidth600(width <= 600);
+        };
+
+        window.addEventListener("resize", handleResize);
+        handleResize();
+
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     const handleCopy = (text) => {
         navigator.clipboard.writeText(text);
@@ -59,13 +72,20 @@ const TarjetaOyente = (props) => {
                             </div>
 
                             {estadoSorteo === "finalizado" ? (
-                                <Boton text={"Sorteo finalizado"} type={3} />
+                                <Boton text={"Sorteo finalizado"} type={3} hidden={isScreenWidth600}/>
                             ) : (
-                                <Boton text={"Inscribirse"} type={2} onClick={() => setOpenModal(true)}/>
+                                <Boton text={"Inscribirse"} type={2} onClick={() => setOpenModal(true)} hidden={isScreenWidth600}/>
                             )}
                         </div>
-
-                        <p className="ver-mas-tarjeta" onClick={() => setOpenModalConcurso(true)}>+ Ver más</p>
+                        
+                        <div className="mobile-botones-tarjetas">
+                            <p className="ver-mas-tarjeta" onClick={() => setOpenModalConcurso(true)}>+ Ver más</p>
+                            {estadoSorteo === "finalizado" ? (
+                                <Boton text={"Sorteo finalizado"} type={5} hidden={!isScreenWidth600 && true}/>
+                            ) : (
+                                <Boton text={"Inscribirse"} type={4} onClick={() => setOpenModal(true)} hidden={!isScreenWidth600 && true}/>
+                            )}
+                        </div>
                     </div>
                     {
                         openModal &&
@@ -133,18 +153,18 @@ const TarjetaOyente = (props) => {
                 <div className="container-tarjeta-oyente">
                     <img src={img} alt="Mis concursos" className="img-tarjeta-oyente" />
 
-                    <div className="box-tarjeta-oyente">
+                    <div className="box-tarjeta-oyente box-tarjeta-oyente-mobile">
                         <h2 className="titulo-tarjeta-oyente">{titulo}</h2>
 
-                        <div className="box-texto-tarjeta-oyente">
+                        <div className="box-texto-tarjeta-oyente box-tarjeta-oyente-mobile">
                             <div>
                                 <p className="texto-tarjeta-oyente">Válido hasta el: {fechaFinBeneficio}</p>
                                 <p className="texto-tarjeta-oyente">Para ser usado en {usoBeneficio}</p>
                                 <p className="texto-tarjeta-oyente">Tope de reintegro: {topeReintegro}</p>
                             </div>
 
-                            <div>
-                                <h2 className="info-tarjeta-oyente">Código de descuento</h2>
+                            <div className="codigo-descuento-mobile">
+                                <h2 className="info-tarjeta-oyente info-tarjeta-oyente-mobile">Código de descuento</h2>
                                 {
                                     codigo ?
                                         <p className="info-descuento-tarjeta-oyente">¡Código copiado!</p>

@@ -33,3 +33,7 @@
     padding-left: 5px;
     cursor: pointer;
 }
+
+.hidden-boder-right{
+    border-right: none !important;
+}

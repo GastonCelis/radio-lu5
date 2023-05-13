@@ -78,3 +78,16 @@
 .checkbox-politicas{
     cursor: pointer;
 }
+
+.volver-registro{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    margin: 20px 0 30px 0;
+    cursor: pointer;
+    gap: 5px;
+    text-decoration: none;
+    color: black;
+}

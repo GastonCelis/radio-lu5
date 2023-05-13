@@ -3,8 +3,9 @@ import logo from '../../assets/logo-lu5.svg'
 import Boton from '../../components/Boton/Boton';
 import Input from '../../components/Input/Input';
 import { Link } from "react-router-dom";
-
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import './inicioSesion.css'
+import LoginGoogle from '../../components/LoginGoogle/LoginGoogle';
 
 const InicioSesion = () => {
     return (
@@ -27,7 +28,8 @@ const InicioSesion = () => {
 
                     <div className='btns1-seccion'>
                         <Boton text={'Iniciar sesión'} type={2} path={'/oyente'}/>
-                        <Boton text={'Iniciar sesión con Google'} iconGoogle={true}/>
+                        <LoginGoogle/>
+                        <Link to={'/'} className='volver-registro'><ArrowBackIosNewIcon sx={{fontSize: '14px'}}/> <p>Volver</p></Link>
                     </div>
                 </section>
             </div>

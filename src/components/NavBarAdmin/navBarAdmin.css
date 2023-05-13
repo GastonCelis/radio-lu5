@@ -52,3 +52,7 @@
     text-decoration: none;
     color: black;
 }
+
+.edit-foto-nav-select{
+    color: var(--color-rojo);
+}

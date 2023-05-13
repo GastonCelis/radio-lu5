@@ -1,0 +1,94 @@
+@import '../../styles/globalStyles.css';
+
+.container-beneficio-concurso{
+    border: dotted 1px rgb(190, 190, 190);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding: 15px;
+}
+
+.img-principal-beneficio-concurso{
+    width: 45%;
+}
+
+.box-beneficio-concurso{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
+.titulo-beneficio-concurso{
+    font-size: 18px;
+}
+
+.span-beneficio-concurso{
+    font-size: 12px;
+}
+
+.parrafo-beneficio-concurso{
+    font-size: 14px;
+}
+
+.inbox-beneficio-concurso{
+    margin: 7px 0;
+}
+
+.inbox2-beneficio-concurso{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.img-banner-beneficio-concurso{
+    width: 90%;
+}
+
+.boxsuperior-beneficio-concurso, .boxsuperior2-beneficio-concurso{
+    width: 50%;
+}
+
+.boxsuperior-beneficio-concurso{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.boxsuperior2-beneficio-concurso{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+}
+
+.boton-eliminar-beneficio-concurso{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    padding: 3px 5px 3px 0;
+    background-color: var(--color-rojo);
+    border: none;
+    color: white;
+    transition: all 400ms;
+}
+
+.boton-eliminar-beneficio-concurso:hover{
+    background-color: #910a0f;
+}
+
+.container-beneficio-concurso-hidden{
+    display: none;
+}

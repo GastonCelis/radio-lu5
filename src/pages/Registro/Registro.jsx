@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 import logo from '../../assets/logo-lu5.svg'
 import Boton from '../../components/Boton/Boton';
 import Input from '../../components/Input/Input';
 import Select from '../../components/Select/Select';
 import './registro.css'
+import { Link } from "react-router-dom";
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 const Registro = () => {
+    const [isScreenWidth600, setIsScreenWidth600] = useState(false);
+
+    useEffect(() => {
+        const handleResize = () => {
+            const { innerWidth: width } = window;
+            setIsScreenWidth600(width <= 600);
+        };
+
+        window.addEventListener("resize", handleResize);
+        handleResize();
+
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
     return (
         <section className='container-registro'>
             <div className='main-registro'>
@@ -17,8 +33,8 @@ const Registro = () => {
                 
                 <form className='seccion-registro'>
                     <div className='inputs-seccion-registro'>
-                        <Input type={'text'} placeholder={'Nombre y apellido'} required={true} width={2}/>
-                        <Input type={'email'} placeholder={'Email'} required={true} width={2}/>
+                        <Input type={'text'} placeholder={'Nombre y apellido'} required={true} width={isScreenWidth600 ? '' : 2}/>
+                        <Input type={'email'} placeholder={'Email'} required={true} width={isScreenWidth600 ? '' : 2}/>
                         <Input type={'date'} placeholder={'Fecha de nacimiento'} required={true}/>
                         <Select placeholder={'Género'} opciones={'genero'}/>
                         <Select placeholder={'Ocupación'} opciones={'ocupacion'}/>
@@ -45,6 +61,7 @@ const Registro = () => {
                     </div>
                 </form>
             </div>
+            <Link to={'/'} className='volver-registro'><ArrowBackIosNewIcon sx={{fontSize: '14px'}}/> <p>Volver</p></Link>
         </section>
     );
 };

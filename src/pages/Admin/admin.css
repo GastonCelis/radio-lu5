@@ -2,7 +2,7 @@
     width: 100%;
     display: flex;
     justify-content: space-evenly;
-    align-items: start;
+    align-items: flex-start;
 }
 
 .box-section-vistas-admin{

@@ -32,7 +32,7 @@ const NavBarOyente = (props) => {
                     Mi perfil
                 </div>
 
-                <Link to={'/sesion'} className="opcion-nav-oyente" onClick={() => setPerfil(false)}>
+                <Link to={'/'} className="opcion-nav-oyente" onClick={() => setPerfil(false)}>
                     <LogoutIcon sx={{fontSize: '18px'}}/>
                     Cerrar sesión
                 </Link>

@@ -36,3 +36,13 @@
 .texto-volver-perfil{
     font-size: 11px;
 }
+
+@media only screen and (max-width: 600px){
+    .container-box-perfil-oyente{
+        width: 100%;
+    }
+
+    .texto-perfil-oyente{
+        text-align: center;
+    }
+}

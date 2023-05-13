@@ -1,6 +1,6 @@
 @import '../../styles/globalStyles.css';
 
-.main-boton, .red-boton, .gray-boton{
+.main-boton, .red-boton, .gray-boton, .mobile-boton-red, .mobile-boton-gray{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -36,4 +36,28 @@
 
 .icon-google{
     width: 16px;
+}
+
+.hidden{
+    display: none;
+}
+
+.mobile-boton-red{
+    background-color: var(--color-rojo);
+    border: solid 1px var(--color-rojo);
+    color: var(--color-blanco);
+    width: 120px;
+    height: 30px;
+    font-size: 12px;
+}
+
+.mobile-boton-gray{
+    background-color: var(--color-gris2);
+    border: solid 1px var(--color-gris2);
+    color: var(--color-blanco);
+    cursor: default;
+    pointer-events: none;
+    width: 120px;
+    height: 30px;
+    font-size: 12px;
 }
