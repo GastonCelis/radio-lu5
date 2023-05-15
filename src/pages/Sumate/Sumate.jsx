@@ -6,17 +6,17 @@ import LoginGoogle from '../../components/LoginGoogle/LoginGoogle';
 
 const Sumate = () => {
     return (
-        <section className='container-sesion'>
-            <div className='main-sesion'>
-                <div className='header-sesion'>
-                    <img src={logo} alt='Logo LU5' className='logo-sesion'/>
+        <section className='container-sumate'>
+            <div className='main-sumate'>
+                <div className='header-sumate'>
+                    <img src={logo} alt='Logo LU5' className='logo-sumate'/>
                 </div>
                 
-                <p className='parrafo-sesion'>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem, voluptate optio expedita eius dolor autem molestiae cumque
+                <p className='parrafo-sumate'>
+                    Accedé a beneficios exclusivos para oyentes, concursos emocionantes y contenido adicional. Unite a nuestra comunidad y disfruta de privilegios únicos.
                 </p>
 
-                <section className='seccion-sesion'>
+                <section className='seccion-sumate'>
                     <div className='header-seccion'>
                         <h2 className='titulo-seccion'>¿Todavía no sos parte?</h2>
                         <h2 className='subtitulo-seccion'>¡Sumate acá!</h2>

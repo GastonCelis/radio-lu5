@@ -11,19 +11,13 @@ const Select = (props) => {
 
     useEffect(() =>{
         const findProvincia = dataRegistro.provincias.find(prov => prov === provincia)
-        findProvincia !== undefined && dispatch(setProvincia(provincia))
+        if(findProvincia !== undefined){
+            dispatch(setProvincia(provincia))
+            dispatch(setAllLocalidades(provincia))
+        } 
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
-    useEffect(() => {
-        if (dataRegistro.provinciaSeleccionada !== '') {
-            const provinciaSlect = dataRegistro.provincias.find(provincia => provincia === dataRegistro.provinciaSeleccionada)
-            dispatch(setAllLocalidades(provinciaSlect))
-        }
-        
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [dataRegistro.provinciaSeleccionada])
 
     const handlerOnChange = (event) => {
         if (opciones === 'genero') dispatch(setGenero(event.target.value))
@@ -34,6 +28,7 @@ const Select = (props) => {
                 dispatch(setProvincia(''))
             } else{
                 dispatch(setProvincia(event.target.value))
+                dispatch(setAllLocalidades(event.target.value))
             }
         }
 
