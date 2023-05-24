@@ -1,51 +1,32 @@
-import React, { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
 import './vistaBeneficios.css'
 import Beneficio from '../../Beneficio/Beneficio';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import AgregarBeneficio from '../../AgregarBeneficio/AgregarBeneficio';
-import imagen from '../../../assets/img-test-concurso.png'
-
-
-const beneficios = [
-    {
-        img: imagen,
-        titulo: 'Beneficio 1',
-        codigoDescuento: '#1234',
-        fechaFinalizacion: '15/04/2025 23:59hs',
-        info: 'Info benficio número 1 cordigo #1234'
-    },
-    {
-        img: imagen,
-        titulo: 'Beneficio 2',
-        codigoDescuento: '#1234',
-        fechaFinalizacion: '15/04/2025 23:59hs',
-        info: 'Info benficio número 2 cordigo #1234'
-    },
-    {
-        img: imagen,
-        titulo: 'Beneficio 3',
-        codigoDescuento: '#1234',
-        fechaFinalizacion: '15/04/2025 23:59hs',
-        info: 'Info benficio número 3 cordigo #1234'
-    },
-    {
-        img: imagen,
-        titulo: 'Beneficio 4',
-        codigoDescuento: '#1234',
-        fechaFinalizacion: '15/04/2025 23:59hs',
-        info: 'Info benficio número 4 cordigo #1234'
-    },
-    {
-        img: imagen,
-        titulo: 'Beneficio 5',
-        codigoDescuento: '#1234',
-        fechaFinalizacion: '15/04/2025 23:59hs',
-        info: 'Info benficio número 5 cordigo #1234'
-    }
-]
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllBeneficiosAsync } from '../../../app/silices/beneficio/beneficioThunk';
+import { setStatusMessageBenefit } from '../../../app/silices/beneficio/beneficioSlice';
+import { format } from 'date-fns';
 
 const VistaBeneficios = (props) => {
+    const { login } = props
     const [agregar, setAgregar] = useState(false)
+    const dispatch = useDispatch()
+    const { beneficios, nuevoBeneficio, statusMessageBenefit } = useSelector(state => state.beneficioSlice)
+
+    useEffect(() => {
+        dispatch(getAllBeneficiosAsync({ token: login.token }))
+    }, [])
+
+    useEffect(() => {
+        if (statusMessageBenefit === 'fulfilledPostConcurso' || statusMessageBenefit === 'fulfilledPatchWinner') {
+            setTimeout(() => {
+                dispatch(getAllBeneficiosAsync({ token: login.token }))
+                dispatch(setStatusMessageBenefit(''))
+            }, 2500);
+        }
+    }, [statusMessageBenefit])
 
     return (
         <section>
@@ -63,7 +44,16 @@ const VistaBeneficios = (props) => {
 
                     {
                         beneficios.map((beneficio, index) =>
-                            <Beneficio key={index} img={beneficio.img} titulo={beneficio.titulo} codigoDescuento={beneficio.codigoDescuento} fechaFinalizacion={beneficio.fechaFinalizacion} info={beneficio.info} />
+                            <Beneficio 
+                                key={index} 
+                                img={`data:image/jpg;base64,${beneficio.image}`} 
+                                titulo={beneficio.title} 
+                                codigoDescuento={beneficio.discountCode} 
+                                fechaFinalizacion={format(new Date(beneficio.endDate), 'dd-MM-yyyy')} 
+                                info={beneficio.benefitUse} 
+                                login={login}
+                                idBeneficio={beneficio.id}
+                            />
                         )
                     }
                 </>
@@ -71,7 +61,7 @@ const VistaBeneficios = (props) => {
 
             {
                 agregar &&
-                <AgregarBeneficio setAgregar={setAgregar}/>
+                <AgregarBeneficio setAgregar={setAgregar} nuevoBeneficio={nuevoBeneficio} statusMessageBenefit={statusMessageBenefit} login={login}/>
             }
         </section>
     )

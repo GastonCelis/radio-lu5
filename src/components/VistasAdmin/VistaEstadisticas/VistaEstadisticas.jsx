@@ -1,29 +1,33 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from 'react';
 import './vistaEstadisticas.css'
 import { BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
+import { useSelector, useDispatch } from 'react-redux';
+import { getParticipantesEnConcursosAsync } from '../../../app/silices/concurso/concursoThunk';
 
-const concursosRealizados = [
-    { name: 'Concurso A', Cantidad: 700 },
-    { name: 'Concurso B', Cantidad: 500 },
-    { name: 'Concurso C', Cantidad: 300 },
-    { name: 'Concurso C', Cantidad: 100 }
-]
+const VistaEstadisticas = (props) => {
+    const { login } = props
+    const { concursos, cantidadParticipantes } = useSelector(state => state.concursoSlice)
+    const dispatch = useDispatch()
 
-const participacionPrograma = [
-    { name: 'Programa A', Cantidad: 1000 },
-    { name: 'Programa B', Cantidad: 700 },
-    { name: 'Programa C', Cantidad: 400 },
-    { name: 'Programa C', Cantidad: 300 }
-]
+    useEffect(()=>{
+        dispatch(getParticipantesEnConcursosAsync({ token: login.token }))
+    }, [])
 
-const participantesConcursos = [
-    { name: 'Concurso A', Cantidad: 1200 },
-    { name: 'Concurso B', Cantidad: 900 },
-    { name: 'Concurso C', Cantidad: 500 },
-    { name: 'Concurso C', Cantidad: 200 }
-]
+    const statsConcursos = concursos.map(concurso => {
+        const filter = concursos.filter(data => data.title === concurso.title)
+        return {name: concurso.title, Cantidad: filter.length}
+    })
 
-const VistaEstadisticas = () => {
+    const statsPrograma = concursos.map(concurso => {
+        const filter = concursos.filter(data => data.program === concurso.program)
+        return {name: concurso.program, Cantidad: filter.length}
+    })
+
+    const statsParticipantes = cantidadParticipantes.map(participante => {
+        return {name: participante.contestName, Cantidad: participante.participants}
+    })
+
     const renderCustomBarLabel = ({ payload, x, y, width, height, value }) => {
         return <text x={x + width / 2} y={y} fill="#666" textAnchor="middle" dy={-6}>{value}</text>;
     };
@@ -36,7 +40,7 @@ const VistaEstadisticas = () => {
                 <div className='box-grafico-estadisticas'>
                     <h2 className='titulo-grafico-estadisticas'>Cantidad de concursos realizados</h2>
 
-                    <BarChart width={350} height={250} data={concursosRealizados}>
+                    <BarChart width={350} height={250} data={statsConcursos}>
                         <XAxis dataKey="name" style={{fontSize: '12px'}}/>
                         <YAxis />
                         <Tooltip />
@@ -48,7 +52,7 @@ const VistaEstadisticas = () => {
                 <div className='box-grafico-estadisticas'>
                     <h2 className='titulo-grafico-estadisticas'>Programa con más participación</h2>
 
-                    <BarChart width={350} height={250} data={participacionPrograma}>
+                    <BarChart width={350} height={250} data={statsPrograma}>
                         <XAxis dataKey="name" style={{fontSize: '12px'}}/>
                         <YAxis />
                         <Tooltip />
@@ -60,7 +64,7 @@ const VistaEstadisticas = () => {
                 <div className='box-grafico-estadisticas'>
                     <h2 className='titulo-grafico-estadisticas'>Cantidad de participantes en concursos</h2>
 
-                    <BarChart width={350} height={250} data={participantesConcursos}>
+                    <BarChart width={350} height={250} data={statsParticipantes}>
                         <XAxis dataKey="name" style={{fontSize: '12px'}}/>
                         <YAxis />
                         <Tooltip />

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react';
 import './oyenteMobile.css'
 import { Link } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -10,8 +11,8 @@ import logo from '../../assets/logo-lu5.svg'
 import EditPerfil from '../../components/EditPerfil/EditPerfil';
 import EditIcon from "@mui/icons-material/Edit";
 import useCustomGoogleLogin from '../../hooks/useGoogleLogin';
-import { setRefreshState } from '../../app/silices/login/loginSlice';
-import { useDispatch } from 'react-redux';
+import { setRefreshState, setStatusMessageLogin } from '../../app/silices/login/loginSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import { redirectToNewPage } from '../../utils/functions';
 import { setRefreshStateGoogle } from '../../app/silices/usuarios/usuarioGoogleSlice';
 import { setRefreshStateUser } from '../../app/silices/usuarios/usuarioSlice';
@@ -21,6 +22,19 @@ const OyenteMobile = (props) => {
     const [opciones, setOpciones] = useState('')
     const { googleLogOut } = useCustomGoogleLogin()
     const dispatch = useDispatch()
+    const login = useSelector(state => state.loginSlice)
+
+    useEffect(()=>{
+        if(login.statusMessage === 'rejectedToken'){
+            googleLogOut()
+            dispatch(setRefreshState())
+            dispatch(setRefreshStateGoogle())
+            dispatch(setRefreshStateUser())
+            dispatch(setStatusMessageLogin(''))
+            redirectToNewPage('/')
+        }
+
+    }, [login.statusMessage])
 
     const handleTituloNav = () => {
         if (opciones === 'concursos') return 'Concursos'

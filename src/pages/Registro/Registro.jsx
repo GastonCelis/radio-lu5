@@ -22,6 +22,7 @@ const Registro = () => {
     const [ validMail, setValidMail ] = useState(true)
     const [ validate, setValidate ] = useState(true)
     const [ registerOk, setRegisterOk ] = useState('')
+    const [ politicas, setPoliticas ] = useState(false)
 
     useEffect(() => {
         const handleResize = () => {
@@ -126,6 +127,10 @@ const Registro = () => {
         }
     }
 
+    const handlePoliticas = ()=>{
+        setPoliticas(!politicas)
+    }
+
     const handleRegister = ()=>{
         if(data.password !== data.password2){
             setValidass({...validPass, passOk: false})
@@ -144,7 +149,8 @@ const Registro = () => {
                 localidadSeleccionada.length > 0 &&
                 provinciaSeleccionada.length > 0 &&
                 data.profile_image.length > 0 &&
-                validMail
+                validMail &&
+                politicas === true
             ){
                 setValidate(true)
                 const arrayName = data.full_name.split(' ')
@@ -195,7 +201,7 @@ const Registro = () => {
                     </div>
 
                     <div className='link-politicas-container'>
-                        <input name='politicas' id='politicas' type='checkbox' className='checkbox-politicas'></input>
+                        <input name='politicas' id='politicas' type='checkbox' className='checkbox-politicas' onClick={handlePoliticas}></input>
                         <label id='politicas' className='link-politicas'>
                             Acepto las políticas de privacidad
                         </label>
@@ -224,6 +230,9 @@ const Registro = () => {
                         }
                         {
                             registerOk === 'si' && <span className='span-ok-registro'>¡Se registró correctamente!</span>
+                        }
+                        {
+                            politicas === false && <span className='span-error-registro'>¡Debe aceptar las políticas de privacidad!</span>
                         }
                         <Boton text={'Registrarse'} type={2} onClick={handleRegister}/>
                         <Boton text={'Registrarse con Google'} iconGoogle={true}/>

@@ -1,23 +1,36 @@
 import React from 'react';
 import './navBarAdmin.css'
 import logo from '../../assets/logo-lu5.svg'
-import avatar from '../../assets/foto-perfil.png'
 import EditIcon from "@mui/icons-material/Edit";
 import { Link } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import useCustomGoogleLogin from '../../hooks/useGoogleLogin';
 import { setRefreshState } from '../../app/silices/login/loginSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { redirectToNewPage } from '../../utils/functions';
 import { setRefreshStateGoogle } from '../../app/silices/usuarios/usuarioGoogleSlice';
-import { setRefreshStateUser } from '../../app/silices/usuarios/usuarioSlice';
+import { setProfileuUsuario, setRefreshStateUser } from '../../app/silices/usuarios/usuarioSlice';
 
 const NavBarAdmin = (props) => {
     const { opcion, setOpcion } = props
     const { googleLogOut } = useCustomGoogleLogin()
     const dispatch = useDispatch()
+    const { profile } = useSelector(state => state.usuarioSlice)
 
-    const handleLogout = ()=>{
+    const hanlderChangeImage = (event)=>{
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = () => {
+        const base64String = reader.result;
+        const data64Imagen = base64String.split(',')
+        dispatch(setProfileuUsuario({profileImage: data64Imagen[1]}))
+        };
+
+        reader.readAsDataURL(file);
+    }
+
+    const handleLogout = () => {
         googleLogOut()
         dispatch(setRefreshState())
         dispatch(setRefreshStateGoogle())
@@ -30,15 +43,27 @@ const NavBarAdmin = (props) => {
             <img src={logo} alt='Logo LU5' className='img-logo-nav-admin' />
 
             <section className="box1-nav-oyente">
-                <img src={avatar} alt="Oyente" className="img-nav-oyente" />
+                <img src={`data:image/jpg;base64,${profile.profileImage}`} alt="Admin" className="img-nav-oyente" />
 
                 <div className="hola-nav-oyente">
-                    <h2>Hola Admin 1!</h2>
+                    <h2>Hola {profile.fullName}!</h2>
 
-                    <p className={`edit-foto-nav ${opcion === 'perfil' && "edit-foto-nav-select"}`} onClick={() => setOpcion('perfil')}>
-                        <EditIcon sx={{ fontSize: '12px' }} />
-                        Modificar mis datos
-                    </p>
+                    {
+                        opcion === 'perfil' ?
+                            <div className="edit-foto-nav">
+                                <div className="edit-foto-nav-p">
+                                    <EditIcon sx={{ fontSize: '12px' }} />
+                                    <span>Editar foto de perfil</span>
+                                    <input type="file" className="input-file-editar-perfil-oyente" onChange={hanlderChangeImage} />
+                                </div>
+                            </div>
+                            :
+                            <p className={`edit-foto-nav ${opcion === 'perfil' && "edit-foto-nav-select"}`} onClick={() => setOpcion('perfil')}>
+                                <EditIcon sx={{ fontSize: '12px' }} />
+                                Modificar mis datos
+                            </p>
+                    }
+
                 </div>
             </section>
 

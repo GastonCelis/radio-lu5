@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getAllConcursosAsync, getConcursoAsync, postParticipanteConcursoAsync, postConcursoAsync, deleteConcursoAsync, getConcursosWinnersAsync, patchWinnerConcursoAsync } from './concursoThunk'
+import { getAllConcursosAsync, postParticipanteConcursoAsync, postConcursoAsync, deleteConcursoAsync, getConcursosWinnersAsync, patchWinnerConcursoAsync, getConcursosOyenteAsync, getParticipantesEnConcursosAsync } from './concursoThunk'
 
 const initialState = {
     concursos: [],
@@ -13,7 +13,9 @@ const initialState = {
         banner_image: '',
         aditional_information: ''
     },
+    cantidadParticipantes: [],
     ganadores: [],
+    concursosOyente: [],
     loading: '',
     statusMessage: ''
 }
@@ -73,19 +75,46 @@ export const concursoSlice = createSlice({
                 state.loading = false
             })
 
-            // .addCase(getConcursoAsync.pending, (state, action)=>{
-            //     state.statusMessage = 'pendingConcurso'
-            //     state.loading = true
-            // })
-            // .addCase(getConcursoAsync.fulfilled, (state, action)=>{
-            //     console.log(action.payload.data)
-            //     state.statusMessage = 'fulfilledConcurso'
-            //     state.loading = false
-            // })
-            // .addCase(getConcursoAsync.rejected, (state, action)=>{
-            //     state.statusMessage = 'rejectedConcurso'
-            //     state.loading = false
-            // })
+            .addCase(getConcursosOyenteAsync.pending, (state, action)=>{
+                state.statusMessage = 'pendingConcursosOyente'
+                state.loading = true
+            })
+            .addCase(getConcursosOyenteAsync.fulfilled, (state, action)=>{
+                state.concursosOyente = action.payload.data.data
+                state.statusMessage = 'fulfilledConcursosOyente'
+                state.loading = false
+            })
+            .addCase(getConcursosOyenteAsync.rejected, (state, action)=>{
+                state.statusMessage = 'rejectedConcursosOyente'
+                state.loading = false
+            })
+
+            .addCase(getParticipantesEnConcursosAsync.pending, (state, action)=>{
+                state.statusMessage = 'pendingCantidadParticipantes'
+                state.loading = true
+            })
+            .addCase(getParticipantesEnConcursosAsync.fulfilled, (state, action)=>{
+                state.cantidadParticipantes = action.payload.data.data
+                state.statusMessage = 'fulfilledCantidadParticipantes'
+                state.loading = false
+            })
+            .addCase(getParticipantesEnConcursosAsync.rejected, (state, action)=>{
+                state.statusMessage = 'rejectedCantidadParticipantes'
+                state.loading = false
+            })
+
+            .addCase(postParticipanteConcursoAsync.pending, (state, action)=>{
+                state.statusMessage = 'pendingParticipanteConcurso'
+                state.loading = true
+            })
+            .addCase(postParticipanteConcursoAsync.fulfilled, (state, action)=>{
+                state.statusMessage = 'fulfilledParticipanteConcurso'
+                state.loading = false
+            })
+            .addCase(postParticipanteConcursoAsync.rejected, (state, action)=>{
+                state.statusMessage = 'rejectedParticipanteConcurso'
+                state.loading = false
+            })
 
             .addCase(postConcursoAsync.pending, (state, action)=>{
                 state.statusMessage = 'pendingPostConcurso'

@@ -5,6 +5,7 @@ import { postLoginAsync } from '../app/silices/login/loginThunk'
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserGoogleAsync } from '../app/silices/usuarios/usuarioThunk';
 import { setRedirectGoogle } from '../app/silices/usuarios/usuarioGoogleSlice';
+import { DATA_GOOGLE } from '../constants';
 
 const useCustomGoogleLogin = () => {
     const dispatch = useDispatch()
@@ -19,7 +20,7 @@ const useCustomGoogleLogin = () => {
 
     useEffect(()=>{
         if(profileGoogle.email !== '' && redirect){
-            dispatch(postLoginAsync({email: profileGoogle.email, password: profileGoogle.idGoogle}))
+            dispatch(postLoginAsync({email: profileGoogle.email, password: DATA_GOOGLE}))
             dispatch(setRedirectGoogle(false))
         }
     }, [profileGoogle, redirect])

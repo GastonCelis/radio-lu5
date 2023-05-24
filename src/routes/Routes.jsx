@@ -9,7 +9,6 @@ import CambiarContraseña from "../pages/CambiarContraseña/CambiarContraseña";
 import RegistroGoogle from "../pages/RegistroGoogle/RegistroGoogle";
 import { useSelector } from 'react-redux';
 
-
 const Routes = () => {
     const { role } = useSelector(state => state.loginSlice)
     const {statusMessage} = useSelector(state => state.usuarioGoogleSlice)

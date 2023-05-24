@@ -2,19 +2,38 @@
 import React, { useEffect, useState } from 'react';
 import './homeOyente.css'
 import TarjetaOyente from '../TarjetasOyente/TarjetaOyente';
-import imgConcurso from '../../assets/img-test-concurso.png'
-import imgCinemark from '../../assets/img-cinemark.png'
-import { getAllConcursosAsync } from '../../app/silices/concurso/concursoThunk';
-import { useSelector, useDispatch } from 'react-redux';
+import { getAllConcursosAsync, getConcursosOyenteAsync } from '../../app/silices/concurso/concursoThunk';
+import { useDispatch, useSelector } from 'react-redux';
+import { format } from 'date-fns';
+import { getAllBeneficiosAsync } from '../../app/silices/beneficio/beneficioThunk';
 
 const HomeOyente = (props) => {
-    const {profile, login} = props
+    const { login } = props
     const [opcion, setOpcion] = useState('concursos')
     const dispatch = useDispatch()
+    const { concursos, statusMessage, concursosOyente } = useSelector(state => state.concursoSlice)
+    const { profile } = useSelector(state => state.usuarioSlice)
+    const { beneficios } = useSelector(state => state.beneficioSlice)
 
-    useEffect(()=>{
-        dispatch(getAllConcursosAsync({token: login.token}))
+    useEffect(() => {
+        dispatch(getAllConcursosAsync({ token: login.token }))
+        dispatch(getAllBeneficiosAsync({ token: login.token }))
+        dispatch(getConcursosOyenteAsync({ token: login.token, idUsuario: profile.id }))
     }, [])
+
+    const handleResultConcurso = (isWinner, contestState) => {
+        if (isWinner === false && contestState === 'ENTREGADO') {
+            return 'perdido'
+        }
+
+        if (isWinner === false && contestState === 'PENDIENTE') {
+            return 'pendiente'
+        }
+
+        if (isWinner === true && contestState === 'ENTREGADO') {
+            return 'ganado'
+        }
+    }
 
     return (
         <section className='container-home-oyente'>
@@ -27,54 +46,52 @@ const HomeOyente = (props) => {
             <div className='box-home-oyente'>
                 {
                     opcion === 'concursos' &&
-                    <>
-                        <TarjetaOyente 
-                            tipo={'concursos'} 
-                            titulo={'Showcase | Entradas al cine'} 
-                            img={imgConcurso} 
-                            programaSorteo={'Número 1515'} 
-                            finalizacionConcurso={'15/12/2025'}
-                            infoModal={'El concurso se realizará el dd/mm/aaaa a las hh/mm durante el programa <programa 1>. Te enviaremos una notificación cuando el concurso haya sido finalizado.'}
-                            fechConcurso={'20/03/2023 - 14:00hs'}
-                            nombrePrograma={'Programa 1'}
-                            parrafo={'Par de entradas para usar de lunes a viernes en cualquier funcion no estreno.'}
-                            imgModalConcurso={imgCinemark}
+                    concursos.map(concurso =>
+                        <TarjetaOyente
+                            tipo={'concursos'}
+                            titulo={concurso.title}
+                            img={`data:image/jpg;base64,${concurso.image}`}
+                            programaSorteo={concurso.program}
+                            finalizacionConcurso={format(new Date(concurso.endDate), 'dd-MM-yyyy')}
+                            infoModal={concurso.aditionalInformation}
+                            nombrePrograma={concurso.program}
+                            parrafo={concurso.description}
+                            imgModalConcurso={`data:image/jpg;base64,${concurso.bannerImage}`}
+                            estadoSorteo={concurso.contestState}
+                            login={login}
+                            idConcurso={concurso.id}
+                            statusMessage={statusMessage}
                         />
-
-                        <TarjetaOyente tipo={'concursos'} titulo={'Showcase | Entradas al cine'} img={imgConcurso} programaSorteo={'Número 1515'} finalizacionConcurso={'30/04/2023'} estadoSorteo={'finalizado'}/>
-                    </>
+                    )
                 }
 
                 {
                     opcion === 'mis concursos' &&
-                    <>
-                        <TarjetaOyente tipo={'mis concursos'} titulo={'Showcase | Entradas al cine'} img={imgConcurso} estadoMiSorteo={'pendiente'} fechaParticipacion={'10/04/2023'} codigoParticipacion={'123'} resultadoMiSorteo={'pendiente'}/>
-                        <TarjetaOyente 
-                            tipo={'mis concursos'} 
-                            titulo={'Showcase | Entradas al cine'} 
-                            img={imgConcurso} 
-                            estadoMiSorteo={'finalizado'} 
-                            fechaParticipacion={'05/03/2023'} 
-                            codigoParticipacion={'789'} 
-                            resultadoMiSorteo={'ganado'}
-                            infoModal={'Para retirar tus entradas xxx'}
-                            titulo1Modal={'¡Felicidades!'}
-                            titulo2Modal={'Ganaste el concurso'}
-                            titulo3Modal={'Showcase | Entradas para el cine'}
+                    concursosOyente.map(concurso =>
+                        <TarjetaOyente
+                            tipo={'mis concursos'}
+                            titulo={concurso.title}
+                            img={`data:image/jpg;base64,${concurso.image}`}
+                            estadoMiSorteo={concurso.contestState}
+                            fechaParticipacion={format(new Date(concurso.participateDate), 'dd-MM-yyyy')}
+                            resultadoMiSorteo={handleResultConcurso(concurso.isWinner, concurso.contestState)}
+                            infoModal={concurso.description}
                         />
-                        <TarjetaOyente tipo={'mis concursos'} titulo={'Showcase | Entradas al cine'} img={imgConcurso} estadoMiSorteo={'finalizado'} fechaParticipacion={'05/03/2023'} codigoParticipacion={'987'} resultadoMiSorteo={'perdido'}/>
-                    </>
+                    )
                 }
 
                 {
                     opcion === 'beneficios' &&
-                    <>
-                        <TarjetaOyente tipo={'beneficios'} titulo={'Cinemark | 20% de descuento en entradas'} img={imgConcurso} fechaFinBeneficio={'20/04/2024'} usoBeneficio={'cualquier Cinemark Hoyts del país.'} topeReintegro={'$300'} codigoDescuento={'00123'}/>
-                        <TarjetaOyente tipo={'beneficios'} titulo={'Cinemark | 20% de descuento en entradas'} img={imgConcurso} fechaFinBeneficio={'20/04/2024'} usoBeneficio={'cualquier Cinemark Hoyts del país.'} topeReintegro={'$300'} codigoDescuento={'00456'}/>
-                        <TarjetaOyente tipo={'beneficios'} titulo={'Cinemark | 20% de descuento en entradas'} img={imgConcurso} fechaFinBeneficio={'20/04/2024'} usoBeneficio={'cualquier Cinemark Hoyts del país.'} topeReintegro={'$300'} codigoDescuento={'00789'}/>
-                        <TarjetaOyente tipo={'beneficios'} titulo={'Cinemark | 20% de descuento en entradas'} img={imgConcurso} fechaFinBeneficio={'20/04/2024'} usoBeneficio={'cualquier Cinemark Hoyts del país.'} topeReintegro={'$300'} codigoDescuento={'00987'}/>
-                        <TarjetaOyente tipo={'beneficios'} titulo={'Cinemark | 20% de descuento en entradas'} img={imgConcurso} fechaFinBeneficio={'20/04/2024'} usoBeneficio={'cualquier Cinemark Hoyts del país.'} topeReintegro={'$300'} codigoDescuento={'00654'}/>
-                    </>
+                    beneficios.map(beneficio =>
+                        <TarjetaOyente
+                            tipo={'beneficios'}
+                            titulo={beneficio.title}
+                            img={`data:image/jpg;base64,${beneficio.image}`}
+                            fechaFinBeneficio={format(new Date(beneficio.endDate), 'dd-MM-yyyy')}
+                            usoBeneficio={beneficio.benefitUse}
+                            codigoDescuento={beneficio.discountCode}
+                        />
+                    )
                 }
             </div>
         </section>

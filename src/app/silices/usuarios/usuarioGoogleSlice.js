@@ -34,7 +34,6 @@ export const usuarioGoogleSlice = createSlice({
                 state.loading = true
             })
             .addCase(getUserGoogleAsync.fulfilled, (state, action)=>{
-                console.log(action)
                 const { email, name, picture, id} = action.payload.data
                 state.profileGoogle.idGoogle= id
                 state.profileGoogle.email = email

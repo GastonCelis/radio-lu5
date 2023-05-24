@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import logo from '../../assets/logo-lu5.svg'
 import './oyente.css'
@@ -7,6 +8,11 @@ import HomeOyente from '../../components/HomeOyente/HomeOyente';
 import OyenteMobile from './OyenteMobile';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUserAsync } from '../../app/silices/usuarios/usuarioThunk';
+import { setRefreshState, setStatusMessageLogin } from '../../app/silices/login/loginSlice';
+import { setRefreshStateGoogle } from '../../app/silices/usuarios/usuarioGoogleSlice';
+import { setRefreshStateUser } from '../../app/silices/usuarios/usuarioSlice';
+import useCustomGoogleLogin from '../../hooks/useGoogleLogin';
+import { redirectToNewPage } from '../../utils/functions';
 
 const Oyente = () => {
     const [perfil, setPerfil] = useState(false)
@@ -14,6 +20,7 @@ const Oyente = () => {
     const login = useSelector(state => state.loginSlice)
     const { profile, statusMessage } = useSelector(state => state.usuarioSlice)
     const dispatch = useDispatch()
+    const { googleLogOut } = useCustomGoogleLogin()
 
     useEffect(() => {
         const handleResize = () => {
@@ -28,6 +35,18 @@ const Oyente = () => {
 
         return () => window.removeEventListener("resize", handleResize);
     }, []);
+
+    useEffect(()=>{
+        if(login.statusMessage === 'rejectedToken'){
+            googleLogOut()
+            dispatch(setRefreshState())
+            dispatch(setRefreshStateGoogle())
+            dispatch(setRefreshStateUser())
+            dispatch(setStatusMessageLogin(''))
+            redirectToNewPage('/')
+        }
+
+    }, [login.statusMessage])
 
     return (
         <section className='container-oyente'>

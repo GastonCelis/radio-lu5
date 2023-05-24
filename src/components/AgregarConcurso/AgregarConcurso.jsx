@@ -22,7 +22,7 @@ const AgregarConcurso = (props) => {
             setTimeout(()=>{
                 setAgregar(false)
                 setAgregadoOk()
-                dispatch(setStatusMessage())
+                dispatch(setStatusMessage(''))
                 dispatch(setRefreshNuevoConcurso())
             }, 2000)
         }
@@ -32,7 +32,7 @@ const AgregarConcurso = (props) => {
 
             setTimeout(()=>{
                 setAgregadoOk()
-                dispatch(setStatusMessage())
+                dispatch(setStatusMessage(''))
             }, 3000)
         }
     }, [statusMessage])

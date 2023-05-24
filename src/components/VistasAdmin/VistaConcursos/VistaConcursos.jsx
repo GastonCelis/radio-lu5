@@ -46,7 +46,13 @@ const VistaConcursos = (props) => {
 
     const filterVigentes = concursos.filter(concurso => isAfter(new Date(concurso.endDate), new Date()) || isEqual(new Date(concurso.endDate), new Date()))
 
-    console.log(ganadores, filterFinalizados)
+    const matchGanadoresFinalizados = filterFinalizados.map(concurso =>{
+        const findGanador = ganadores.find(ganador => ganador.title === concurso.title)
+        return{
+            ...concurso,
+            winner: findGanador?.fullName
+        }
+    })
 
     return (
         <section>
@@ -104,11 +110,39 @@ const VistaConcursos = (props) => {
             }
 
             {
+                statusMessage === 'pendingAllConcursos' ?
+                <div className='box-loader'>
+                    <Audio
+                        height="80"
+                        width="80"
+                        radius="9"
+                        color="red"
+                        ariaLabel="Cargando..."
+                        wrapperStyle
+                        wrapperClass
+                    />
+                    <p>Cargando...</p>
+                </div>
+                :
                 opcionNav === 'finalizados' &&
-                <TablaConcursos columna1={'Concurso'} columna2={'Finalización'} columna3={'Anunciante'} columna4={'Ganador'} arrayInfo={filterFinalizados} infoColumna4None={true} />
+                <TablaConcursos columna1={'Concurso'} columna2={'Finalización'} columna3={'Anunciante'} columna4={'Ganador'} arrayInfo={matchGanadoresFinalizados} infoColumna4None={true} />
             }
 
             {
+                statusMessage === 'pendingAllConcursos' ?
+                <div className='box-loader'>
+                    <Audio
+                        height="80"
+                        width="80"
+                        radius="9"
+                        color="red"
+                        ariaLabel="Cargando..."
+                        wrapperStyle
+                        wrapperClass
+                    />
+                    <p>Cargando...</p>
+                </div>
+                :
                 opcionNav === 'ganadores' &&
                 <section>
                     <table className='container-table-vistas-admin'>

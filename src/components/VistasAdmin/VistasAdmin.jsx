@@ -32,12 +32,12 @@ const VistasAdmin = (props) => {
 
             {
                 opcion === 'estadisticas' &&
-                <VistaEstadisticas/>
+                <VistaEstadisticas login={login}/>
             }
 
             {
                 opcion === 'beneficios' &&
-                <VistaBeneficios/>
+                <VistaBeneficios login={login}/>
             }
 
             {

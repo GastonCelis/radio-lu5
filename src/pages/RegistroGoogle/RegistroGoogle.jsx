@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import logo from '../../assets/logo-lu5.svg'
 import Boton from '../../components/Boton/Boton';
@@ -10,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { postRegisterAsync } from '../../app/silices/registro/registroThunk';
 import { redirectToNewPage } from '../../utils/functions';
 import imgPerfilDefault from '../../assets/foto-perfil.png'
+import { DATA_GOOGLE } from '../../constants';
 
 const RegistroGoogle = () => {
     const dispatch = useDispatch()
@@ -18,6 +20,7 @@ const RegistroGoogle = () => {
     const [ data, setData ] = useState({ birthDay: '', phone_number: '', dni: '', profile_image: ''})
     const [ validate, setValidate ] = useState(true)
     const [ registerOk, setRegisterOk ] = useState('')
+    const [ politicas, setPoliticas ] = useState(false)
 
     useEffect(() => {
         loadImage()
@@ -78,6 +81,11 @@ const RegistroGoogle = () => {
         }
     }
 
+    const handlePoliticas = ()=>{
+        setPoliticas(!politicas)
+    }
+
+
     const handleRegister = ()=>{
         if(
             profileGoogle.name.length > 0 && 
@@ -90,14 +98,15 @@ const RegistroGoogle = () => {
             generoSeleccionado.length > 0 &&
             localidadSeleccionada.length > 0 &&
             provinciaSeleccionada.length > 0 &&
-            data.profile_image.length > 0
+            data.profile_image.length > 0 &&
+            politicas === true
         ){
             setValidate(true)
             const profileImage = data.profile_image.split(',')[1]
             const body = {
                 full_name: profileGoogle.name,
                 email: profileGoogle.email,
-                password: profileGoogle.idGoogle,
+                password: DATA_GOOGLE,
                 birthDay: new Date(data.birthDay).toISOString(),
                 profession: ocupacionSeleccionada,
                 phone_number: data.phone_number,
@@ -134,7 +143,7 @@ const RegistroGoogle = () => {
                     </div>
 
                     <div className='link-politicas-container'>
-                        <input name='politicas' id='politicas' type='checkbox' className='checkbox-politicas'></input>
+                        <input name='politicas' id='politicas' type='checkbox' className='checkbox-politicas' onClick={handlePoliticas}></input>
                         <label id='politicas' className='link-politicas'>
                             Acepto las políticas de privacidad
                         </label>
@@ -146,6 +155,9 @@ const RegistroGoogle = () => {
                         }
                         {
                             registerOk === 'si' && <span className='span-ok-registro'>¡Se registró correctamente!</span>
+                        }
+                        {
+                            politicas === false && <span className='span-error-registro'>¡Debe aceptar las políticas de privacidad!</span>
                         }
                         <Boton text={'Registrarse'} type={2} onClick={handleRegister}/>
                     </div>

@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { postLoginAsync } from './loginThunk'
-import { isExpired , decodeToken } from "react-jwt";
+import { decodeToken } from "react-jwt";
+import getHours from 'date-fns/getHours'
+import differenceInHours from 'date-fns/differenceInHours'
 
 const initialState = {
     token: '',
@@ -28,6 +30,9 @@ export const loginSlice = createSlice({
         },
         setId: (state, action)=>{
             state.id = action.payload
+        },
+        setStatusMessageLogin: (state, action)=>{
+            state.statusMessage = action.payload
         }
     },
 
@@ -39,30 +44,28 @@ export const loginSlice = createSlice({
             })
             .addCase(postLoginAsync.fulfilled, (state, action)=>{
                 const myDecodedToken = decodeToken(action.payload.data.jwt)
-                const isMyTokenExpired = isExpired(action.payload.data.jwt)
+                const isMyTokenExpired = getHours(new Date())
 
-                if(isMyTokenExpired){
-                    state.token = ''
-                    state.id = ''
-                    state.role = ''
-                } else{
-                    state.token = action.payload.data.jwt
-                    state.id = myDecodedToken.userid
-                    state.role = myDecodedToken.role
-                }
-
+                state.token = action.payload.data.jwt
+                state.id = myDecodedToken.userid
+                state.role = myDecodedToken.role
                 state.expiredToken = isMyTokenExpired
                 state.statusMessage = 'fulfilled'
                 state.loading = false
             })
             .addCase(postLoginAsync.rejected, (state, action)=>{
-                state.statusMessage = 'rejected'
+                const vencimientoToken = differenceInHours(state.expiredToken, new Date())
+                if(vencimientoToken === 6){
+                    state.statusMessage = 'rejectedToken'
+                }else{
+                    state.statusMessage = 'rejected'
+                }
                 state.redirect = true
                 state.loading = false
             })
     }
 })
 
-export const { setRefreshState, setRedirectLogin } = loginSlice.actions
+export const { setRefreshState, setRedirectLogin, setStatusMessageLogin } = loginSlice.actions
 
 export default loginSlice.reducer

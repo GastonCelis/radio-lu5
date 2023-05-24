@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import './beneficio.css'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
+import { deleteBeneficioAsync } from '../../app/silices/beneficio/beneficioThunk';
+import { useDispatch } from 'react-redux';
 
 const Beneficio = (props) => {
-    const { img, titulo, codigoDescuento, fechaFinalizacion, info } = props
+    const { img, titulo, codigoDescuento, fechaFinalizacion, info, login, idBeneficio } = props
     const [eliminar, setEliminar] = useState(false)
+    const dispatch = useDispatch()
 
     const hanlderDelete = ()=>{
+        dispatch(deleteBeneficioAsync({token: login.token, idBeneficio}))
         setEliminar(true)
     }
 

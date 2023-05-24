@@ -16,8 +16,7 @@ const TablaConcursos = (props) => {
                         <th>{columna1}</th>
                         <th>{columna2}</th>
                         <th className={infoColumna4None === false && 'hidden-boder-right'}>{columna3}</th>
-                        {infoColumna4None && <th>{columna4}</th>}
-                        <th></th>
+                        <th>{columna4}</th>
                     </tr>
                 </thead>
 
@@ -26,8 +25,7 @@ const TablaConcursos = (props) => {
                         <th>{columna1}</th>
                         <th>{columna2}</th>
                         <th>{columna3}</th>
-                        {infoColumna4None && <th>{columna4}</th>}
-                        <th></th>
+                        <th>{columna4}</th>
                     </tr>
                 </thead>
 
@@ -36,8 +34,7 @@ const TablaConcursos = (props) => {
                         <th>{columna1}</th>
                         <th>{columna2}</th>
                         <th>{columna3}</th>
-                        {infoColumna4None && <th>{columna4}</th>}
-                        <th></th>
+                        <th>{columna4}</th>
                     </tr>
                 </thead>
 
@@ -48,8 +45,7 @@ const TablaConcursos = (props) => {
                                 <td>{info.title}</td>
                                 <td>{format(new Date(info.endDate), 'dd-MM-yyyy')}</td>
                                 <td>{info.advertiser}</td>
-                                {infoColumna4None && <td>{info.infoColumna4}</td>}
-                                {/* <td>Ver detalle <ExpandMoreIcon sx={{ fontSize: '12px' }} /></td> */}
+                                <td>{info.winner}</td>
                             </tr>
                         )
                     }
