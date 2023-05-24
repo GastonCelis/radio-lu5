@@ -1,163 +1,52 @@
-import React, { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react';
 import './vistaConcursos.css'
 import NavBarConcursos from './NavBarConcursos/NavBarConcursos';
 import TablaConcursos from './TablaConcursos/TablaConcursos';
 import Concurso from '../../Concurso/Concurso';
-import img from '../../../assets/img-test-concurso.png'
-import imgBanner from '../../../assets/img-cinemark.png'
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import AgregarConcurso from '../../AgregarConcurso/AgregarConcurso';
+import { useDispatch, useSelector } from 'react-redux';
+import { Audio } from 'react-loader-spinner'
+import { getAllConcursosAsync, getConcursosWinnersAsync } from '../../../app/silices/concurso/concursoThunk';
+import { setStatusMessage } from '../../../app/silices/concurso/concursoSlice';
+import { format } from 'date-fns';
+import isBefore from 'date-fns/isBefore'
+import isAfter from 'date-fns/isAfter'
+import isEqual from 'date-fns/isEqual'
 
-const vigentes = [
-    {
-        titulo: 'Concurso 1',
-        programa: "Programa 1",
-        anunciante: "Anunciante 1",
-        fechaFinalizacion: "18/04/2024 23:59hs",
-        info: "Concurso X de entradas al cine.",
-        img: img,
-        imgBanner: imgBanner,
-    },
-    {
-        titulo: 'Concurso 2',
-        programa: "Programa 2",
-        anunciante: "Anunciante 2",
-        fechaFinalizacion: "18/04/2024 23:59hs",
-        info: "Concurso X de entradas al cine.",
-        img: img,
-        imgBanner: imgBanner,
-    },
-    {
-        titulo: 'Concurso 3',
-        programa: "Programa 3",
-        anunciante: "Anunciante 3",
-        fechaFinalizacion: "18/04/2024 23:59hs",
-        info: "Concurso X de entradas al cine.",
-        img: img,
-        imgBanner: imgBanner,
-    },
-    {
-        titulo: 'Concurso 4',
-        programa: "Programa 4",
-        anunciante: "Anunciante 4",
-        fechaFinalizacion: "18/04/2024 23:59hs",
-        info: "Concurso X de entradas al cine.",
-        img: img,
-        imgBanner: imgBanner,
-    },
-    {
-        titulo: 'Concurso 5',
-        programa: "Programa 5",
-        anunciante: "Anunciante 5",
-        fechaFinalizacion: "18/04/2024 23:59hs",
-        info: "Concurso X de entradas al cine.",
-        img: img,
-        imgBanner: imgBanner,
-    },
-    {
-        titulo: 'Concurso 6',
-        programa: "Programa 6",
-        anunciante: "Anunciante 6",
-        fechaFinalizacion: "18/04/2024 23:59hs",
-        info: "Concurso X de entradas al cine.",
-        img: img,
-        imgBanner: imgBanner,
-    },
-]
-
-const finalizados = [
-    {
-        infoColumna1: 'Concurso Nombre',
-        infoColumna2: '18-04-2024 23:59hs',
-        infoColumna3: 'Anunciante Nombre',
-        infoColumna4: 'Ganador Nombre'
-    },
-    {
-        infoColumna1: 'Concurso Nombre',
-        infoColumna2: '18-04-2024 23:59hs',
-        infoColumna3: 'Anunciante Nombre',
-        infoColumna4: 'Ganador Nombre'
-    },
-    {
-        infoColumna1: 'Concurso Nombre',
-        infoColumna2: '18-04-2024 23:59hs',
-        infoColumna3: 'Anunciante Nombre',
-        infoColumna4: 'Ganador Nombre'
-    },
-    {
-        infoColumna1: 'Concurso Nombre',
-        infoColumna2: '18-04-2024 23:59hs',
-        infoColumna3: 'Anunciante Nombre',
-        infoColumna4: 'Ganador Nombre'
-    },
-    {
-        infoColumna1: 'Concurso Nombre',
-        infoColumna2: '18-04-2024 23:59hs',
-        infoColumna3: 'Anunciante Nombre',
-        infoColumna4: 'Ganador Nombre'
-    },
-    {
-        infoColumna1: 'Concurso Nombre',
-        infoColumna2: '18-04-2024 23:59hs',
-        infoColumna3: 'Anunciante Nombre',
-        infoColumna4: 'Ganador Nombre'
-    }
-]
-
-const ganadores = [
-    {
-        infoColumna1: 'Nombre Apellido',
-        infoColumna2: 'Concurso Nombre',
-        infoColumna3: '18-04-2024 23:59hs',
-        infoColumna4: 'Pendiente'
-    },
-    {
-        infoColumna1: 'Nombre Apellido',
-        infoColumna2: 'Concurso Nombre',
-        infoColumna3: '18-04-2024 23:59hs',
-        infoColumna4: 'Entregado'
-    },
-    {
-        infoColumna1: 'Nombre Apellido',
-        infoColumna2: 'Concurso Nombre',
-        infoColumna3: '18-04-2024 23:59hs',
-        infoColumna4: 'Cancelado'
-    },
-    {
-        infoColumna1: 'Nombre Apellido',
-        infoColumna2: 'Concurso Nombre',
-        infoColumna3: '18-04-2024 23:59hs',
-        infoColumna4: 'Pendiente'
-    },
-    {
-        infoColumna1: 'Nombre Apellido',
-        infoColumna2: 'Concurso Nombre',
-        infoColumna3: '18-04-2024 23:59hs',
-        infoColumna4: 'Entregado'
-    },
-    {
-        infoColumna1: 'Nombre Apellido',
-        infoColumna2: 'Concurso Nombre',
-        infoColumna3: '18-04-2024 23:59hs',
-        infoColumna4: 'Cancelado'
-    },
-    {
-        infoColumna1: 'Nombre Apellido',
-        infoColumna2: 'Concurso Nombre',
-        infoColumna3: '18-04-2024 23:59hs',
-        infoColumna4: 'Pendiente'
-    }
-]
-
-const VistaConcursos = () => {
+const VistaConcursos = (props) => {
+    const { login } = props
     const [opcionNav, setOpcionNav] = useState('vigentes')
     const [agregar, setAgregar] = useState(false)
+    const { concursos, statusMessage, ganadores } = useSelector(state => state.concursoSlice)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getAllConcursosAsync({ token: login.token }))
+        dispatch(getConcursosWinnersAsync({ token: login.token }))
+    }, [])
+
+    useEffect(() => {
+        if (statusMessage === 'fulfilledPostConcurso' || statusMessage === 'fulfilledPatchWinner') {
+            setTimeout(() => {
+                dispatch(getAllConcursosAsync({ token: login.token }))
+                dispatch(setStatusMessage(''))
+            }, 2500);
+        }
+    }, [statusMessage])
 
     const handlerTitulo = () => {
         if (opcionNav === 'vigentes' || opcionNav === 'agregar') return 'Concursos vigentes'
         if (opcionNav === 'finalizados') return 'Concursos finalizados'
         if (opcionNav === 'ganadores') return 'Ganadores'
     }
+
+    const filterFinalizados = concursos.filter(concurso => isBefore(new Date(concurso.endDate), new Date()))
+
+    const filterVigentes = concursos.filter(concurso => isAfter(new Date(concurso.endDate), new Date()) || isEqual(new Date(concurso.endDate), new Date()))
+
+    console.log(ganadores, filterFinalizados)
 
     return (
         <section>
@@ -166,36 +55,100 @@ const VistaConcursos = () => {
             <h2 className='titulo-vista-concursos-admin'>{handlerTitulo()}</h2>
 
             {
-                (opcionNav === 'vigentes' && agregar === false) &&
-                <>
-                    <div className='boton-agregar-concurso-admin'>
-                        <button onClick={() => setAgregar(true)}>
-                            <AddBoxIcon />
-                            Agregar Concurso
-                        </button>
+                statusMessage === 'pendingAllConcursos' ?
+                    <div className='box-loader'>
+                        <Audio
+                            height="80"
+                            width="80"
+                            radius="9"
+                            color="red"
+                            ariaLabel="Cargando..."
+                            wrapperStyle
+                            wrapperClass
+                        />
+                        <p>Cargando...</p>
                     </div>
+                    :
+                    (opcionNav === 'vigentes' && agregar === false) &&
+                    <>
+                        <div className='boton-agregar-concurso-admin'>
+                            <button onClick={() => setAgregar(true)}>
+                                <AddBoxIcon />
+                                Agregar Concurso
+                            </button>
+                        </div>
 
-                    {
-                        vigentes.map((concurso, index) =>
-                            <Concurso key={index} img={concurso.img} titulo={concurso.titulo} programa={concurso.programa} fechaFinalizacion={concurso.fechaFinalizacion} info={concurso.info} anunciante={concurso.anunciante} imgBanner={concurso.imgBanner} tipo={'concurso'} />
-                        )
-                    }
-                </>
+                        {
+                            filterVigentes.map((concurso, index) =>
+                                <Concurso key={index}
+                                    idConcurso={concurso.id}
+                                    img={concurso.image}
+                                    titulo={concurso.title}
+                                    programa={concurso.program}
+                                    fechaFinalizacion={concurso.endDate}
+                                    info={concurso.aditionalInformation}
+                                    anunciante={concurso.advertiser}
+                                    imgBanner={concurso.bannerImage}
+                                    tipo={'concurso'}
+                                    login={login}
+                                    statusMessage={statusMessage}
+                                />
+                            )
+                        }
+                    </>
             }
 
             {
                 (opcionNav === 'vigentes' && agregar === true) &&
-                <AgregarConcurso setAgregar={setAgregar}/>
+                <AgregarConcurso setAgregar={setAgregar} login={login} />
             }
 
             {
                 opcionNav === 'finalizados' &&
-                <TablaConcursos columna1={'Título'} columna2={'Finalización'} columna3={'Anunciante'} columna4={'Ganador'} arrayInfo={finalizados} infoColumna4None={true} />
+                <TablaConcursos columna1={'Concurso'} columna2={'Finalización'} columna3={'Anunciante'} columna4={'Ganador'} arrayInfo={filterFinalizados} infoColumna4None={true} />
             }
 
             {
                 opcionNav === 'ganadores' &&
-                <TablaConcursos columna1={'Nombre y Apellido'} columna2={'Título'} columna3={'Finalización'} columna4={'Estado'} arrayInfo={ganadores} infoColumna4None={false} />
+                <section>
+                    <table className='container-table-vistas-admin'>
+                        <thead>
+                            <tr className='header-table-vistas'>
+                                <th>Nombre y Apellido</th>
+                                <th>Concurso</th>
+                                <th className={'hidden-boder-right'}>Finalización</th>
+                            </tr>
+                        </thead>
+
+                        <thead className='header-table-vistas-hidden'>
+                            <tr>
+                                <th>Nombre y Apellido</th>
+                                <th>Concurso</th>
+                                <th>Finalización</th>
+                            </tr>
+                        </thead>
+
+                        <thead className='header-table-vistas-hidden'>
+                            <tr>
+                                <th>Nombre y Apellido</th>
+                                <th>Concurso</th>
+                                <th>Finalización</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {
+                                ganadores.map((info, index) =>
+                                    <tr className='body-table-vistas' key={index}>
+                                        <td>{info.fullName}</td>
+                                        <td>{info.title}</td>
+                                        <td>{format(new Date(info.endDate), 'dd-MM-yyyy')}</td>
+                                    </tr>
+                                )
+                            }
+                        </tbody>
+                    </table>
+                </section>
             }
         </section>
     );

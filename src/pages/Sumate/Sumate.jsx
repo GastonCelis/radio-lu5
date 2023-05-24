@@ -1,10 +1,25 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useEffect} from 'react';
 import logo from '../../assets/logo-lu5.svg'
 import './sumate.css'
 import Boton from '../../components/Boton/Boton';
-import LoginGoogle from '../../components/LoginGoogle/LoginGoogle';
+import useCustomGoogleLogin from '../../hooks/useGoogleLogin';
+import { useSelector, useDispatch } from 'react-redux';
+import { setRedirectLogin } from '../../app/silices/login/loginSlice';
+import { redirectToNewPage } from '../../utils/functions'
 
 const Sumate = () => {
+    const dispatch = useDispatch()
+    const { statusMessage, redirect } = useSelector(state => state.loginSlice)
+    const { googleLogin } = useCustomGoogleLogin()
+
+    useEffect(() => {
+        if (statusMessage === 'rejected' && redirect) {
+            redirectToNewPage('/registroGoogle');
+            dispatch(setRedirectLogin(false))
+        }
+    }, [statusMessage]);
+
     return (
         <section className='container-sumate'>
             <div className='main-sumate'>
@@ -24,7 +39,7 @@ const Sumate = () => {
 
                     <div className='btns1-seccion'>
                         <Boton text={'Registrarse'} path={'/registro'}/>
-                        <LoginGoogle/>
+                        <Boton iconGoogle={true} text={'Iniciar sesión con Google'} onClick={() => googleLogin()}/>
                     </div>
 
                     <div className='btn2-seccion'>

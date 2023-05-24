@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './oyenteMobile.css'
 import { Link } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
-import ImgPerfil from "../../assets/foto-perfil.jpg";
 import TarjetaOyente from '../../components/TarjetasOyente/TarjetaOyente';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import imgConcurso from '../../assets/img-test-concurso.png'
@@ -10,10 +9,18 @@ import imgCinemark from '../../assets/img-cinemark.png'
 import logo from '../../assets/logo-lu5.svg'
 import EditPerfil from '../../components/EditPerfil/EditPerfil';
 import EditIcon from "@mui/icons-material/Edit";
+import useCustomGoogleLogin from '../../hooks/useGoogleLogin';
+import { setRefreshState } from '../../app/silices/login/loginSlice';
+import { useDispatch } from 'react-redux';
+import { redirectToNewPage } from '../../utils/functions';
+import { setRefreshStateGoogle } from '../../app/silices/usuarios/usuarioGoogleSlice';
+import { setRefreshStateUser } from '../../app/silices/usuarios/usuarioSlice';
 
 const OyenteMobile = (props) => {
-    const { setPerfil } = props
+    const { setPerfil, profile } = props
     const [opciones, setOpciones] = useState('')
+    const { googleLogOut } = useCustomGoogleLogin()
+    const dispatch = useDispatch()
 
     const handleTituloNav = () => {
         if (opciones === 'concursos') return 'Concursos'
@@ -26,6 +33,15 @@ const OyenteMobile = (props) => {
 
     }
 
+    const handleLogout = ()=>{
+        setPerfil(false)
+        googleLogOut()
+        dispatch(setRefreshState())
+        dispatch(setRefreshStateGoogle())
+        dispatch(setRefreshStateUser())
+        redirectToNewPage('/')
+    }
+
     return (
         <section className='seccion-oyente-mobile'>
             {
@@ -33,8 +49,8 @@ const OyenteMobile = (props) => {
                 <>
                     <header className='header-oyente-mobile'>
                         <img src={logo} alt='Logo LU5' className='logo-mobile' />
-                        <img src={ImgPerfil} alt="Oyente" className="img-nav-oyente img-nav-oyente-mobile" />
-                        <h2>Hola Oyente 1!</h2>
+                        <img src={profile.profileImage} alt="Oyente" className="img-nav-oyente img-nav-oyente-mobile" />
+                        <h2>{`Hola ${profile.fullName}!`}</h2>
                     </header>
 
                     <nav className='nav-mobile-oyente'>
@@ -46,7 +62,7 @@ const OyenteMobile = (props) => {
 
                         <div className='box-botonera-mobile'>
                             <button className='button-nav-oyente-mobile' onClick={() => setOpciones('perfil')}><p>Mi perfil</p></button>
-                            <Link to={'/'} className="opcion-nav-oyente" onClick={() => setPerfil(false)}>
+                            <Link to={'/'} className="opcion-nav-oyente" onClick={handleLogout}>
                                 <LogoutIcon sx={{ fontSize: '18px' }} />
                                 Cerrar sesión
                             </Link>
@@ -63,14 +79,14 @@ const OyenteMobile = (props) => {
 
                         <div className='box-header-mobile'>
                             <div className='inbox-header-mobile'>
-                                <h2 className='titulo-header-mobile'>Hola Oyente 1!</h2>
-                                <Link to={'/'} className="opcion-nav-oyente opcion-nav-oyente-mobile" onClick={() => setPerfil(false)}>
+                                <h2 className='titulo-header-mobile'>{`Hola ${profile.fullName}!`}</h2>
+                                <Link to={'/'} className="opcion-nav-oyente opcion-nav-oyente-mobile" onClick={handleLogout}>
                                     <LogoutIcon sx={{ fontSize: '12px' }} />
                                     Cerrar sesión
                                 </Link>
                             </div>
 
-                            <img src={ImgPerfil} alt="Oyente" className="img-nav-oyente img-nav-oyente-mobile-2" />
+                            <img src={profile.profileImage} alt="Oyente" className="img-nav-oyente img-nav-oyente-mobile-2" />
                         </div>
                     </header>
                     <nav className='atras-nav-mobile' onClick={() => setOpciones('')}><ArrowBackIosNewIcon /> <p>{handleTituloNav()}</p></nav>

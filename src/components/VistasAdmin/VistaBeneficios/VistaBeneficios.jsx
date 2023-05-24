@@ -62,8 +62,8 @@ const VistaBeneficios = (props) => {
                     </div>
 
                     {
-                        beneficios.map(beneficio =>
-                            <Beneficio img={beneficio.img} titulo={beneficio.titulo} codigoDescuento={beneficio.codigoDescuento} fechaFinalizacion={beneficio.fechaFinalizacion} info={beneficio.info} />
+                        beneficios.map((beneficio, index) =>
+                            <Beneficio key={index} img={beneficio.img} titulo={beneficio.titulo} codigoDescuento={beneficio.codigoDescuento} fechaFinalizacion={beneficio.fechaFinalizacion} info={beneficio.info} />
                         )
                     }
                 </>

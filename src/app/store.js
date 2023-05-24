@@ -6,16 +6,23 @@ import thunk from 'redux-thunk';
 import registroSlice from './silices/registro/registroSlice';
 import beneficioSlice from './silices/beneficio/beneficioSlice';
 import concursoSlice from './silices/concurso/concursoSlice';
+import loginSlice from './silices/login/loginSlice';
+import usuarioSlice from './silices/usuarios/usuarioSlice';
+import usuarioGoogleSlice from './silices/usuarios/usuarioGoogleSlice';
 
 const reducers = combineReducers({
     registroSlice,
     beneficioSlice,
-    concursoSlice
+    concursoSlice,
+    loginSlice,
+    usuarioSlice,
+    usuarioGoogleSlice
 });
 
 const persistConfig = {
     key: 'root',
     storage,
+    whitelist: ['usuarioGoogleSlice', 'loginSlice', 'usuarioSlice']
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

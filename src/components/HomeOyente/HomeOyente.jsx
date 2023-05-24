@@ -1,11 +1,20 @@
-import React, { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
 import './homeOyente.css'
 import TarjetaOyente from '../TarjetasOyente/TarjetaOyente';
 import imgConcurso from '../../assets/img-test-concurso.png'
 import imgCinemark from '../../assets/img-cinemark.png'
+import { getAllConcursosAsync } from '../../app/silices/concurso/concursoThunk';
+import { useSelector, useDispatch } from 'react-redux';
 
-const HomeOyente = () => {
+const HomeOyente = (props) => {
+    const {profile, login} = props
     const [opcion, setOpcion] = useState('concursos')
+    const dispatch = useDispatch()
+
+    useEffect(()=>{
+        dispatch(getAllConcursosAsync({token: login.token}))
+    }, [])
 
     return (
         <section className='container-home-oyente'>

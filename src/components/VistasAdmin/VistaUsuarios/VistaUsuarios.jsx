@@ -1,84 +1,58 @@
 import React from 'react';
 import './vistaUsuarios.css'
-import TablaConcursos from '../VistaConcursos/TablaConcursos/TablaConcursos';
-
-const usuarios = [
-    {
-        infoColumna1: 'Nombre Apellido',
-        infoColumna2: '18-04-2024 23:59hs',
-        infoColumna3: '28-04-1992',
-        infoColumna4: 'Córdoba'
-    },
-    {
-        infoColumna1: 'Nombre Apellido',
-        infoColumna2: '18-04-2024 23:59hs',
-        infoColumna3: '28-04-1992',
-        infoColumna4: 'Córdoba'
-    },
-    {
-        infoColumna1: 'Nombre Apellido',
-        infoColumna2: '18-04-2024 23:59hs',
-        infoColumna3: '28-04-1992',
-        infoColumna4: 'Córdoba'
-    },
-    {
-        infoColumna1: 'Nombre Apellido',
-        infoColumna2: '18-04-2024 23:59hs',
-        infoColumna3: '28-04-1992',
-        infoColumna4: 'Córdoba'
-    },
-    {
-        infoColumna1: 'Nombre Apellido',
-        infoColumna2: '18-04-2024 23:59hs',
-        infoColumna3: '28-04-1992',
-        infoColumna4: 'Córdoba'
-    },
-    {
-        infoColumna1: 'Nombre Apellido',
-        infoColumna2: '18-04-2024 23:59hs',
-        infoColumna3: '28-04-1992',
-        infoColumna4: 'Córdoba'
-    },
-    {
-        infoColumna1: 'Nombre Apellido',
-        infoColumna2: '18-04-2024 23:59hs',
-        infoColumna3: '28-04-1992',
-        infoColumna4: 'Córdoba'
-    },
-
-    {
-        infoColumna1: 'Nombre Apellido',
-        infoColumna2: '18-04-2024 23:59hs',
-        infoColumna3: '28-04-1992',
-        infoColumna4: 'Córdoba'
-    },
-    {
-        infoColumna1: 'Nombre Apellido',
-        infoColumna2: '18-04-2024 23:59hs',
-        infoColumna3: '28-04-1992',
-        infoColumna4: 'Córdoba'
-    },
-    {
-        infoColumna1: 'Nombre Apellido',
-        infoColumna2: '18-04-2024 23:59hs',
-        infoColumna3: '28-04-1992',
-        infoColumna4: 'Córdoba'
-    },
-
-    {
-        infoColumna1: 'Nombre Apellido',
-        infoColumna2: '18-04-2024 23:59hs',
-        infoColumna3: '28-04-1992',
-        infoColumna4: 'Córdoba'
-    },
-]
+import { format } from 'date-fns';
+import { useSelector } from 'react-redux';
 
 const VistaUsuarios = () => {
+    const { allUsuarios } = useSelector(state => state.usuarioSlice)
+
     return (
         <section>
             <h2 className='titulo-vista-usuarios-admin'>Usuarios</h2>
 
-            <TablaConcursos columna1={'Nombre y Apellido'} columna2={'Última actividad'} columna3={'Fecha de nacimiento'} columna4={'Ciudad'} arrayInfo={usuarios}/>
+            <section>
+                <table className='container-table-vistas-admin'>
+                    <thead>
+                        <tr className='header-table-vistas'>
+                            <th>Nombre y Apellido</th>
+                            <th>Email</th>
+                            <th>Fecha de nacimiento</th>
+                            <th>Ciudad</th>
+                        </tr>
+                    </thead>
+
+                    <thead className='header-table-vistas-hidden'>
+                        <tr>
+                            <th>Nombre y Apellido</th>
+                            <th>Email</th>
+                            <th>Fecha de nacimiento</th>
+                            <th>Ciudad</th>
+                        </tr>
+                    </thead>
+
+                    <thead className='header-table-vistas-hidden'>
+                        <tr>
+                            <th>Nombre y Apellido</th>
+                            <th>Email</th>
+                            <th>Fecha de nacimiento</th>
+                            <th>Ciudad</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {
+                            allUsuarios.map((info, index) =>
+                                <tr className='body-table-vistas' key={index}>
+                                    <td>{info.fullName}</td>
+                                    <td>{info.email}</td>
+                                    <td>{format(new Date(info.birthDay), 'dd-MM-yyyy')}</td>
+                                    <td>{info.city}</td>
+                                </tr>
+                            )
+                        }
+                    </tbody>
+                </table>
+            </section>
         </section>
     );
 };

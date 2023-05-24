@@ -86,3 +86,7 @@
 .defaultValue{
     color: rgb(190, 190, 190);
 }
+
+.defaultValueNone{
+    color: black;
+}

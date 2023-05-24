@@ -91,3 +91,17 @@
     text-decoration: none;
     color: black;
 }
+
+.span-error-registro{
+    color: var(--color-rojo);
+    font-weight: bold;
+    border: solid 1px var(--color-rojo);
+    padding: 5px;
+}
+
+.span-ok-registro{
+    color: green;
+    font-weight: bold;
+    border: solid 1px green;
+    padding: 5px;
+}

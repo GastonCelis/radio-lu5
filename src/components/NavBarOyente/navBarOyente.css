@@ -23,6 +23,7 @@
 .hola-nav-oyente{
     position: relative;
     margin-left: 20px;
+    min-width: 200px;
 }
 
 .edit-foto-nav{
@@ -53,4 +54,19 @@
 
 .opcion-nav-oyente-selected{
     color: var(--color-rojo);
+}
+
+.edit-foto-nav-p{
+    position: relative;
+    cursor: pointer;
+}
+
+.input-file-editar-perfil-oyente{
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
 }

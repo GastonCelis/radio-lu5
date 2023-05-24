@@ -1,56 +1,116 @@
-import React, { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
 import './agregarConcurso.css'
-import { useDispatch } from 'react-redux';
-import { setNuevoConcurso } from '../../app/silices/concurso/concursoSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { setNuevoConcurso, setRefreshNuevoConcurso, setStatusMessage } from '../../app/silices/concurso/concursoSlice';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
 import Input from '../Input/Input';
+import { postConcursoAsync } from '../../app/silices/concurso/concursoThunk';
 
 const AgregarConcurso = (props) => {
-    const { setAgregar } = props
+    const { setAgregar, login } = props
     const dispatch = useDispatch()
-    const [datos, setDatos] = useState({
-        imagen: null,
-        imagenBanner: null,
-        titulo: '',
-        fechaFinalizacion: '',
-        anunciante: '',
-        programa: '',
-        info: ''
-    })
+    const { nuevoConcurso, statusMessage } = useSelector(state => state.concursoSlice)
+    const [ agregadoOk, setAgregadoOk ] = useState()
+
+    useEffect(()=>{
+        if(statusMessage === 'fulfilledPostConcurso'){
+            setAgregadoOk(true)
+
+            setTimeout(()=>{
+                setAgregar(false)
+                setAgregadoOk()
+                dispatch(setStatusMessage())
+                dispatch(setRefreshNuevoConcurso())
+            }, 2000)
+        }
+
+        if(statusMessage === 'rejectedPostConcurso'){
+            setAgregadoOk(false)
+
+            setTimeout(()=>{
+                setAgregadoOk()
+                dispatch(setStatusMessage())
+            }, 3000)
+        }
+    }, [statusMessage])
 
     const handlerChangeImage = (event) => {
-        setDatos({ ...datos, imagen: URL.createObjectURL(event.target.files[0]) })
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = () => {
+            const base64String = reader.result;
+            const data64Imagen = base64String.split(',')
+            dispatch(setNuevoConcurso({image: data64Imagen[1]}))
+        };
+
+        reader.readAsDataURL(file);
     }
 
     const handlerChangeImageBanner = (event) => {
-        setDatos({ ...datos, imagenBanner: URL.createObjectURL(event.target.files[0]) })
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = () => {
+            const base64String = reader.result;
+            const data64Imagen = base64String.split(',')
+            dispatch(setNuevoConcurso({banner_image: data64Imagen[1]}))
+        };
+
+        reader.readAsDataURL(file);
     }
 
     const handlerChangeTitulo = (event) => {
-        setDatos({ ...datos, titulo: event.target.value })
+        dispatch(setNuevoConcurso({title: event.target.value }))
     }
 
     const handlerChangeAnunciante = (event) => {
-        setDatos({ ...datos, anunciante: event.target.value })
+        dispatch(setNuevoConcurso({advertiser: event.target.value }))
     }
 
     const handlerChangePrograma = (event) => {
-        setDatos({ ...datos, programa: event.target.value })
+        dispatch(setNuevoConcurso({program: event.target.value }))
     }
 
     const handlerChangeFinalizacion = (event) => {
-        setDatos({ ...datos, fechaFinalizacion: event.target.value })
+        if(event.target.value.length <= 10){
+            dispatch(setNuevoConcurso({end_date: event.target.value }))
+        }
     }
 
     const handlerChangeInfo = (event) => {
-        setDatos({ ...datos, info: event.target.value })
+        dispatch(setNuevoConcurso({aditional_information: event.target.value, description: event.target.value }))
     }
 
-    const saveData = () => {
-        dispatch(setNuevoConcurso(datos))
+    const discardImage = ()=>{
+        dispatch(setNuevoConcurso({image: ''}))
+    }
+
+    const discardImageBanner = ()=>{
+        dispatch(setNuevoConcurso({banner_image: ''}))
+    }
+
+    const discardConcurso = ()=>{
+        dispatch(setRefreshNuevoConcurso())
         setAgregar(false)
+    }
+
+    const addConcurso = () => {
+        const body = {
+            title: nuevoConcurso.title,
+            description: nuevoConcurso.description,
+            image: nuevoConcurso.image,
+            end_date: new Date(nuevoConcurso.end_date).toISOString(),
+            advertiser: nuevoConcurso.advertiser,
+            program: nuevoConcurso.program,
+            banner_image: nuevoConcurso.banner_image,
+            aditional_information: nuevoConcurso.aditional_information
+        }
+
+        dispatch(postConcursoAsync({body, token: login.token}))
     }
 
     return (
@@ -60,7 +120,7 @@ const AgregarConcurso = (props) => {
                     <div className='box-agregar-concurso'>
                         <div className='img-input-concurso-agregar'>
                             {
-                                datos.imagen === null ?
+                                nuevoConcurso.image === '' ?
                                     <>
                                         <span>Agregar imagen</span>
                                         <div>
@@ -70,9 +130,9 @@ const AgregarConcurso = (props) => {
                                     </>
                                     :
                                     <>
-                                        <img src={datos.imagen} alt='Nuevo concurso' className='img-mini-agregar-concurso' />
+                                        <img src={`data:image/jpg;base64,${nuevoConcurso.image}`} alt='Nuevo concurso' className='img-mini-agregar-concurso' />
                                         <div className='box-icon-imagen-agregar-concurso'>
-                                            <DeleteForeverIcon onClick={() => setDatos({ ...datos, imagen: null })} />
+                                            <DeleteForeverIcon onClick={discardImage} />
                                         </div>
                                     </>
                             }
@@ -80,7 +140,7 @@ const AgregarConcurso = (props) => {
 
                         <div className='img-input-banner-concurso-agregar'>
                             {
-                                datos.imagenBanner === null ?
+                                nuevoConcurso.banner_image === '' ?
                                     <>
                                         <span>Banner anunciante</span>
                                         <div>
@@ -90,9 +150,9 @@ const AgregarConcurso = (props) => {
                                     </>
                                     :
                                     <>
-                                        <img src={datos.imagenBanner} alt='Nuevo concurso' className='img-banner-agregar-concurso' />
+                                        <img src={`data:image/jpg;base64,${nuevoConcurso.banner_image}`} alt='Nuevo concurso' className='img-banner-agregar-concurso' />
                                         <div className='box-icon-imagen-agregar-concurso'>
-                                            <DeleteForeverIcon onClick={() => setDatos({ ...datos, imagenBanner: null })} />
+                                            <DeleteForeverIcon onClick={discardImageBanner} />
                                         </div>
                                     </>
                             }
@@ -101,12 +161,12 @@ const AgregarConcurso = (props) => {
                         <div className='inbox-agregar-concurso-titulo'>
                             <div>
                                 <span className='span-agregar-concurso'>Título:</span>
-                                <Input type='text' placeholder='Título' width={4} valueInput={' '} onChange={handlerChangeTitulo} />
+                                <Input type='text' placeholder='Título' width={4} value={nuevoConcurso.title} onChange={handlerChangeTitulo} color/>
                             </div>
 
                             <div>
                                 <span className='span-agregar-concurso'>Anunciante:</span>
-                                <Input type='text' placeholder='Anunciante' width={4} valueInput={' '} onChange={handlerChangeAnunciante} />
+                                <Input type='text' placeholder='Anunciante' width={4} value={nuevoConcurso.advertiser} onChange={handlerChangeAnunciante} color/>
                             </div>
                         </div>
                     </div>
@@ -116,12 +176,12 @@ const AgregarConcurso = (props) => {
                     <div>
                         <div className='inbox-agregar-concurso'>
                             <span className='span-agregar-concurso'>Programa que sortea:</span>
-                            <Input type='text' placeholder='Programa' width={4} valueInput={' '} onChange={handlerChangePrograma} />
+                            <Input type='text' placeholder='Programa' width={4} value={nuevoConcurso.program} onChange={handlerChangePrograma} color/>
                         </div>
 
                         <div>
                             <span className='span-agregar-concurso'>Fecha de finalización:</span>
-                            <Input type='date' placeholder='Finalización' width={4} valueInput={' '} onChange={handlerChangeFinalizacion} />
+                            <Input type='date' placeholder='Finalización' width={4} value={nuevoConcurso.end_date} onChange={handlerChangeFinalizacion} color/>
                         </div>
                     </div>
 
@@ -133,12 +193,18 @@ const AgregarConcurso = (props) => {
             </div>
 
             <div className='box-botones-agregar-concurso'>
-                <button className='boton-guardar-agregar-concurso' onClick={saveData}>
+                {
+                    agregadoOk === true && <span className='span-ok-registro'>¡Se agregó el concurso correctamente!</span>
+                }
+                {
+                    agregadoOk === false && <span className='span-error-registro'>¡No se pudo agregar el concurso!</span>
+                }
+                <button className='boton-guardar-agregar-concurso' onClick={addConcurso}>
                     <SaveIcon />
                     Guardar
                 </button>
 
-                <button className='boton-eliminar-agregar-concurso' onClick={() => setAgregar(false)}>
+                <button className='boton-eliminar-agregar-concurso' onClick={discardConcurso}>
                     <DeleteForeverIcon />
                     Descartar
                 </button>

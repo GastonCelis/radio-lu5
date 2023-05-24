@@ -70,6 +70,18 @@
     color: var(--color-gris2);
 }
 
+.span-error-inicio-sesion{
+    color: var(--color-rojo);
+    font-weight: bold;
+    border: solid 1px var(--color-rojo);
+    padding: 5px;
+    opacity: 0;
+}
+
+.span-error-inicio-sesion-view{
+    opacity: 1;
+}
+
 @media only screen and (max-width: 600px) {
     .main-sesion{
         height: 60%;

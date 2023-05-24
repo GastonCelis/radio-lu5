@@ -1,5 +1,6 @@
+export const BACK_URL = process.env.REACT_APP_URL_BACKEND
+export const CLIENT_ID_GOOGLE = process.env.REACT_APP_CLIENT_ID
 export const opcionesGenero = ['Femenino', 'Masculino', 'Prefiero no decirlo']
-
 export const opcionesOcupacion = [
     'Abogado',
     'Administrador de empresas',
@@ -24,6 +25,7 @@ export const opcionesOcupacion = [
     'Marketing y Publicidad',
     'Médico',
     'Operario de fábrica',
+    'Otra',
     'Periodista',
     'Personal de limpieza',
     'Profesor o maestro',
@@ -38,3 +40,5 @@ export const opcionesOcupacion = [
     'Trabajador social',
     'Veterinario'
 ]
+
+export const tokenTest = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxMTg1ZTNhMi0wZGNkLTQ4NzUtODVmNS1mMjRmNjk4MDdjZjYiLCJzdWIiOiJ0cmFrZXRlcm9AZ21haWwuY29tIiwiZW1haWwiOiJ0cmFrZXRlcm9AZ21haWwuY29tIiwidXNlcmlkIjoiYzNiNDQ1MWEtYTlhOS00YmI1LWJjNWUtNGQzZjNiYjNmZjA0Iiwicm9sZSI6ImFkbWluIiwibmJmIjoxNjg0NjAwOTk0LCJleHAiOjE2ODQ2Mjk3OTQsImlhdCI6MTY4NDYwMDk5NCwiaXNzIjoibHU1IiwiYXVkIjoibHU1In0.StEsABdGD1KvJmKQnTbhwMt0s2sbvoKRZyxeNrBBApg'

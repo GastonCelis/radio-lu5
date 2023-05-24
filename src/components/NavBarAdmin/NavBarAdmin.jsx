@@ -1,13 +1,29 @@
 import React from 'react';
 import './navBarAdmin.css'
 import logo from '../../assets/logo-lu5.svg'
-import avatar from '../../assets/foto-perfil.jpg'
+import avatar from '../../assets/foto-perfil.png'
 import EditIcon from "@mui/icons-material/Edit";
 import { Link } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
+import useCustomGoogleLogin from '../../hooks/useGoogleLogin';
+import { setRefreshState } from '../../app/silices/login/loginSlice';
+import { useDispatch } from 'react-redux';
+import { redirectToNewPage } from '../../utils/functions';
+import { setRefreshStateGoogle } from '../../app/silices/usuarios/usuarioGoogleSlice';
+import { setRefreshStateUser } from '../../app/silices/usuarios/usuarioSlice';
 
 const NavBarAdmin = (props) => {
     const { opcion, setOpcion } = props
+    const { googleLogOut } = useCustomGoogleLogin()
+    const dispatch = useDispatch()
+
+    const handleLogout = ()=>{
+        googleLogOut()
+        dispatch(setRefreshState())
+        dispatch(setRefreshStateGoogle())
+        dispatch(setRefreshStateUser())
+        redirectToNewPage('/')
+    }
 
     return (
         <nav className='container-nav-admin'>
@@ -33,7 +49,7 @@ const NavBarAdmin = (props) => {
                 <p className={`opciones-nav-admin ${opcion === 'beneficios' && 'opciones-nav-admin-select'}`} onClick={() => setOpcion('beneficios')}>Beneficios</p>
             </section>
 
-            <Link to={'/'} className="opcion-nav-admin">
+            <Link to={'/'} onClick={handleLogout} className="opcion-nav-admin">
                 <LogoutIcon sx={{ fontSize: '18px' }} />
                 Cerrar sesión
             </Link>

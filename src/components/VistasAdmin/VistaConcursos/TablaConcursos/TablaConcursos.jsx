@@ -1,5 +1,7 @@
 import React from 'react';
 import './tablaConcursos.css'
+import { format } from 'date-fns';
+
 //import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const TablaConcursos = (props) => {
@@ -43,9 +45,9 @@ const TablaConcursos = (props) => {
                     {
                         arrayInfo.map((info, index) =>
                             <tr className='body-table-vistas' key={index}>
-                                <td>{info.infoColumna1}</td>
-                                <td>{info.infoColumna2}</td>
-                                <td>{info.infoColumna3}</td>
+                                <td>{info.title}</td>
+                                <td>{format(new Date(info.endDate), 'dd-MM-yyyy')}</td>
+                                <td>{info.advertiser}</td>
                                 {infoColumna4None && <td>{info.infoColumna4}</td>}
                                 {/* <td>Ver detalle <ExpandMoreIcon sx={{ fontSize: '12px' }} /></td> */}
                             </tr>

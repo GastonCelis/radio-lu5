@@ -4,7 +4,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import './input.css'
 
 const Input = (props) => {
-    const {type, value, defaultValue, placeholder, required, width, onChange, valueInput} = props
+    const {type, value, defaultValue, placeholder, required, width, onChange, valueInput, color} = props
     const [ icon, setIcon ] = useState(false)
     const [ typePswd, setTypePswd ] = useState('password')
 
@@ -15,7 +15,15 @@ const Input = (props) => {
 
     return (
         <div className='input-pswd'>
-            <input type={type === 'password' ? typePswd : type} value={value} defaultValue={defaultValue} placeholder={placeholder} className={`main-input width${width} input-date ${(type === 'date' && valueInput === '') && 'input-date-placeholder'} ${(defaultValue === valueInput) && 'defaultValue'}`} onChange={onChange} required={required}/>
+            <input 
+                type={type === 'password' ? typePswd : type} 
+                value={value} 
+                defaultValue={defaultValue} 
+                placeholder={placeholder} 
+                className={`main-input width${width} input-date ${(type === 'date' && valueInput === '') && 'input-date-placeholder'} ${(defaultValue === valueInput) && 'defaultValue'} ${color && 'defaultValueNone'}`} 
+                onChange={onChange} 
+                required={required}
+            />
             {
                 type === 'date' &&
                 <span className='span-date'>{placeholder}</span>

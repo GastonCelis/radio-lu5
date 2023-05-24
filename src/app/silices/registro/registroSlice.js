@@ -1,24 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { opcionesGenero, opcionesOcupacion } from '../../../utils/constantes'
+import { opcionesGenero, opcionesOcupacion } from '../../../constants/index'
 import { getProvincias } from '../../../services/provincias'
 import { getLocalidades } from '../../../services/localidades'
+import { postRegisterAsync } from './registroThunk'
 
 const initialState = {
     provincias: getProvincias(),
     localidades: ['Seleccione una Provincia'],
     generos: opcionesGenero,
     ocupaciones: opcionesOcupacion,
-    nombreSeleccionado: '',
-    emailSeleccionado: '',
-    nacimientoSeleccionado: '',
-    dniSeleccionado: '',
-    contraseñaSeleccionada: '',
     provinciaSeleccionada: '',
     localidadSeleccionada: '',
     generoSeleccionado: '',
     ocupacionSeleccionada: '',
-    loading: '',
-    mensajeRespuesta: ''
+    loading: false,
+    statusMessage: ''
 }
 
 export const registroSlice = createSlice({
@@ -37,31 +33,30 @@ export const registroSlice = createSlice({
         setLocalidad: (state, action) => {
             state.localidadSeleccionada = action.payload
         },
-        setNombre: (state, action) => {
-            state.nombreSeleccionado = action.payload
-        },
-        setEmail: (state, action) => {
-            state.emailSeleccionado = action.payload
-        },
-        setNacimiento: (state, action) => {
-            state.nacimientoSeleccionado = action.payload
-        },
-        setDni: (state, action) => {
-            state.dniSeleccionado = action.payload
-        },
-        setContraseña: (state, action) => {
-            state.contraseñaSeleccionada = action.payload
-        },
         setAllLocalidades: (state, action) => {
             const localidades = getLocalidades(action.payload)
             state.localidades = localidades
         },
-        setRefreshState: (state) =>{
-            return initialState
-        }
+        setRefreshState: () => initialState
     },
+
+    extraReducers: builder =>{
+        builder
+            .addCase(postRegisterAsync.pending, (state)=>{
+                state.statusMessage = 'pending'
+                state.loading = true
+            })
+            .addCase(postRegisterAsync.fulfilled, (state, action)=>{
+                state.statusMessage = 'fulfilled'
+                state.loading = false
+            })
+            .addCase(postRegisterAsync.rejected, (state, action)=>{
+                state.statusMessage = 'rejected'
+                state.loading = false
+            })
+    }
 })
 
-export const { setProvincia, setGenero, setOcupacion, setLocalidad, setAllLocalidades, setRefreshState, setNombre, setEmail, setNacimiento, setDni, setContraseña } = registroSlice.actions
+export const { setProvincia, setGenero, setOcupacion, setLocalidad, setAllLocalidades, setRefreshState } = registroSlice.actions
 
 export default registroSlice.reducer

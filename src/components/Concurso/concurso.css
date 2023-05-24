@@ -6,7 +6,6 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    margin-bottom: 20px;
     padding: 15px;
 }
 
@@ -91,4 +90,49 @@
 
 .container-beneficio-concurso-hidden{
     display: none;
+}
+
+.selector-ganador-concurso{
+    border: dotted 1px rgb(190, 190, 190);
+    border-top: none;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    margin-bottom: 50px;
+}
+
+.input-selector-ganador-concurso{
+    text-align: center;
+    height: 30px;
+    cursor: pointer;
+}
+
+.button-selector-ganador-concurso{
+    border: solid 1px green;
+    background-color: green;
+    width: 150px;
+    height: 30px;
+    cursor: pointer;
+    color: white;
+    transition: all 400ms;
+}
+
+.button-selector-ganador-concurso:hover{
+    border: solid 1px rgb(1, 85, 1);
+    background-color: rgb(1, 85, 1);
+}
+
+.button-selector-ganador-concurso-disabled{
+    cursor: default;
+    border: solid 1px rgb(97, 97, 97);
+    background-color: rgb(97, 97, 97);
+    pointer-events: none;
+}
+
+.button-selector-ganador-concurso-disabled:hover{
+    border: solid 1px rgb(97, 97, 97);
+    background-color: rgb(97, 97, 97);
 }

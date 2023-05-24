@@ -6,11 +6,11 @@ import { setProvincia, setGenero, setOcupacion, setLocalidad, setAllLocalidades 
 const Select = (props) => {
     const dispatch = useDispatch()
     const dataRegistro = useSelector(state => state.registroSlice)
-    const { opciones, placeholder, width, genero, ocupacion, provincia, localidad } = props
+    const { opciones, placeholder, width, genero, ocupacion, provincia, localidad, color } = props
     const [stylePlaceholder, setStylePlaceholder] = useState(true)
 
     useEffect(() =>{
-        const findProvincia = dataRegistro.provincias.find(prov => prov === provincia)
+        const findProvincia = dataRegistro.provincias.find(prov => prov.toUpperCase() === provincia?.toUpperCase())
         if(findProvincia !== undefined){
             dispatch(setProvincia(provincia))
             dispatch(setAllLocalidades(provincia))
@@ -36,14 +36,14 @@ const Select = (props) => {
     }
 
     return (
-        <select className={`main-input-select width${width} ${stylePlaceholder && 'placeholder-select'}`} onChange={handlerOnChange}>
+        <select className={`main-input-select width${width} ${(stylePlaceholder && color !== true) && 'placeholder-select'}`} onChange={handlerOnChange}>
             {placeholder && <option>{placeholder}</option>}
 
             {
                 opciones === 'genero' &&
                 dataRegistro.generos.map((opcion, index) =>
                     {
-                        return (opcion === genero ?
+                        return (opcion?.toUpperCase() === genero?.toUpperCase() ?
                         <option key={index} selected>{opcion.toUpperCase()}</option>
                         :
                         <option key={index}>{opcion.toUpperCase()}</option>)
@@ -55,7 +55,7 @@ const Select = (props) => {
                 opciones === 'ocupacion' &&
                 dataRegistro.ocupaciones.map((opcion, index) =>
                     {
-                        return (opcion === ocupacion ?
+                        return (opcion?.toUpperCase() === ocupacion?.toUpperCase() ?
                         <option key={index} selected>{opcion.toUpperCase()}</option>
                         :
                         <option key={index}>{opcion.toUpperCase()}</option>)
@@ -67,7 +67,7 @@ const Select = (props) => {
                 opciones === 'localidad' &&
                 dataRegistro.localidades.map((opcion, index) =>
                     {
-                        return (opcion === localidad?.toUpperCase() ?
+                        return (opcion?.toUpperCase() === localidad?.toUpperCase() ?
                         <option key={index} selected>{opcion.toUpperCase()}</option>
                         :
                         <option key={index}>{opcion.toUpperCase()}</option>)
@@ -79,7 +79,7 @@ const Select = (props) => {
                 opciones === 'provincia' &&
                 dataRegistro.provincias.map((opcion, index) =>
                     {
-                        return (opcion === provincia ?
+                        return (opcion?.toUpperCase() === provincia?.toUpperCase() ?
                         <option key={index} selected>{opcion.toUpperCase()}</option>
                         :
                         <option key={index}>{opcion.toUpperCase()}</option>)
