@@ -15,3 +15,10 @@
     flex-direction: column;
     gap: 15px;
 }
+
+.loader-solicitud-clave{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

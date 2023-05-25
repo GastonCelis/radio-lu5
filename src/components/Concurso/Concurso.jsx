@@ -32,7 +32,7 @@ const Concurso = (props) => {
     }
 
     return (
-        <section>
+        <section className={`${eliminar && 'container-beneficio-concurso-hidden'}`}>
             <section className={`container-beneficio-concurso ${eliminar && 'container-beneficio-concurso-hidden'}`}>
                 <div className='boxsuperior-beneficio-concurso'>
                     <div className='box-beneficio-concurso'>

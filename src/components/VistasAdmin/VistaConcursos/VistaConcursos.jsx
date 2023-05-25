@@ -31,6 +31,7 @@ const VistaConcursos = (props) => {
         if (statusMessage === 'fulfilledPostConcurso' || statusMessage === 'fulfilledPatchWinner') {
             setTimeout(() => {
                 dispatch(getAllConcursosAsync({ token: login.token }))
+                dispatch(getConcursosWinnersAsync({ token: login.token }))
                 dispatch(setStatusMessage(''))
             }, 2500);
         }

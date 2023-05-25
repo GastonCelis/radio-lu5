@@ -63,7 +63,7 @@ const InicioSesion = () => {
                         <Input type={'email'} placeholder={'Correo electrónico'} color required={true} onChange={handleChangeEmail}/>
                         <Input type={'password'} placeholder={'Contraseña'} color required={true} onChange={handleChangePassword}/>
                         <div className='link-pwd-container'>
-                            <Link className='link-pwd'>Olvidé mi contraseña</Link>
+                            <Link to={'/solicitudClave'} className='link-pwd'>Olvidé mi contraseña</Link>
                         </div>
                     </form>
 

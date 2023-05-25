@@ -14,6 +14,7 @@ import { getUserAsync } from '../../app/silices/usuarios/usuarioThunk';
 const Admin = () => {
     const [opcion, setOpcion] = useState('concursos')
     const { statusMessage, token, id } = useSelector(state => state.loginSlice)
+    const user = useSelector(state => state.usuarioSlice)
     const dispatch = useDispatch()
     const { googleLogOut } = useCustomGoogleLogin()
 
@@ -22,7 +23,7 @@ const Admin = () => {
     }, []);
 
     useEffect(()=>{
-        if(statusMessage === 'rejectedToken'){
+        if(statusMessage === 'rejectedToken' || user.statusMessage === 'rejectedLogin'){
             googleLogOut()
             dispatch(setRefreshState())
             dispatch(setRefreshStateGoogle())
@@ -31,7 +32,7 @@ const Admin = () => {
             redirectToNewPage('/')
         }
 
-    }, [statusMessage])
+    }, [statusMessage, user.statusMessage])
 
     return (
         <main className='container-admin'>

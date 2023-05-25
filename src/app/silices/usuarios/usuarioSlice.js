@@ -76,7 +76,7 @@ export const usuarioSlice = createSlice({
                 state.loading = false
             })
             .addCase(getUserAsync.rejected, (state)=>{
-                state.statusMessage = 'rejected'
+                state.statusMessage = 'rejectedLogin'
                 state.loading = false
             })
 

@@ -8,6 +8,8 @@ import Admin from "../pages/Admin/Admin";
 import CambiarContraseña from "../pages/CambiarContraseña/CambiarContraseña";
 import RegistroGoogle from "../pages/RegistroGoogle/RegistroGoogle";
 import { useSelector } from 'react-redux';
+import SolicitudContraseña from '../pages/CambiarContraseña/SolicitudContraseña';
+import VerificarCuenta from '../pages/VerificarCuenta/VerificarCuenta';
 
 const Routes = () => {
     const { role } = useSelector(state => state.loginSlice)
@@ -42,7 +44,7 @@ const Routes = () => {
             return <Navigate to={'/admin'}/>
         }
     }
-
+    
     return (
         <Router basename={'/'}>
             <Switch>
@@ -50,7 +52,9 @@ const Routes = () => {
                 <Route exact path={`/sesion`} element={handleRdirect('/sesion')} />
                 <Route exact path={`/registro`} element={handleRdirect('/registro')}/>
                 <Route exact path={`/registroGoogle`} element={handleRdirect('/registroGoogle')}/>
-                <Route exact path={`/cambioContraseña/:contraseñaId`} element={<CambiarContraseña />} />
+                <Route exact path={`/verificarCuenta`} element={<VerificarCuenta />} />
+                <Route exact path={`/solicitudClave`} element={<SolicitudContraseña />} />
+                <Route exact path={`/cambioClave`} element={<CambiarContraseña />} />
                 <Route exact path={`/oyente`} element={role === 'user' ? <Oyente /> : <Navigate to={'/sesion'}/>}/>
                 <Route exact path={`/admin`} element={role === 'admin' ? <Admin /> : <Navigate to={'/sesion'}/>}/>
             </Switch>

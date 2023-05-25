@@ -23,9 +23,10 @@ const OyenteMobile = (props) => {
     const { googleLogOut } = useCustomGoogleLogin()
     const dispatch = useDispatch()
     const login = useSelector(state => state.loginSlice)
+    const user = useSelector(state => state.usuarioSlice)
 
     useEffect(()=>{
-        if(login.statusMessage === 'rejectedToken'){
+        if(login.statusMessage === 'rejectedToken' || user.statusMessage === 'rejectedLogin'){
             googleLogOut()
             dispatch(setRefreshState())
             dispatch(setRefreshStateGoogle())
@@ -34,7 +35,7 @@ const OyenteMobile = (props) => {
             redirectToNewPage('/')
         }
 
-    }, [login.statusMessage])
+    }, [login.statusMessage, user.statusMessage])
 
     const handleTituloNav = () => {
         if (opciones === 'concursos') return 'Concursos'

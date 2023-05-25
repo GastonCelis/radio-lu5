@@ -37,7 +37,7 @@ const Oyente = () => {
     }, []);
 
     useEffect(()=>{
-        if(login.statusMessage === 'rejectedToken'){
+        if(login.statusMessage === 'rejectedToken' || statusMessage === 'rejectedLogin'){
             googleLogOut()
             dispatch(setRefreshState())
             dispatch(setRefreshStateGoogle())
@@ -46,7 +46,7 @@ const Oyente = () => {
             redirectToNewPage('/')
         }
 
-    }, [login.statusMessage])
+    }, [login.statusMessage, statusMessage])
 
     return (
         <section className='container-oyente'>

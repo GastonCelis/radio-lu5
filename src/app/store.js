@@ -9,6 +9,7 @@ import concursoSlice from './silices/concurso/concursoSlice';
 import loginSlice from './silices/login/loginSlice';
 import usuarioSlice from './silices/usuarios/usuarioSlice';
 import usuarioGoogleSlice from './silices/usuarios/usuarioGoogleSlice';
+import claveSlice from './silices/clave/claveSlice';
 
 const reducers = combineReducers({
     registroSlice,
@@ -16,7 +17,8 @@ const reducers = combineReducers({
     concursoSlice,
     loginSlice,
     usuarioSlice,
-    usuarioGoogleSlice
+    usuarioGoogleSlice,
+    claveSlice
 });
 
 const persistConfig = {

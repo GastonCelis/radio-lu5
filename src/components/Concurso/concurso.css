@@ -10,7 +10,8 @@
 }
 
 .img-principal-beneficio-concurso{
-    width: 45%;
+    width: 150px;
+    height: 150px;
 }
 
 .box-beneficio-concurso{
@@ -45,7 +46,8 @@
 }
 
 .img-banner-beneficio-concurso{
-    width: 90%;
+    width: 350px;
+    height: 150px;
 }
 
 .boxsuperior-beneficio-concurso, .boxsuperior2-beneficio-concurso{
