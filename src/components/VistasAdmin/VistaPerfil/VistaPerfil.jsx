@@ -103,14 +103,18 @@ const VistaPerfil = () => {
     }
 
     const handleDni = (event)=>{
-        if(event.target.value.length <= 10){
+        if(event.target.value.length <= 8){
             dispatch(setProfileuUsuario({dni: event.target.value}))
         }
     }
 
     const handleSaveChange = ()=>{
+        const arrayName = profile.full_name.split(' ')
+        const transformName = arrayName.map((element) =>
+            capitalizeFirstLetter(element)
+        )
         const body = {
-            full_name: capitalizeFirstLetter(profile.fullName),
+            full_name: transformName,
             email: profile.email,
             password: profile.password,
             birthDay: new Date(profile.birthDay).toISOString(),

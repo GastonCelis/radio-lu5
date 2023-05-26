@@ -20,7 +20,7 @@ const VistaBeneficios = (props) => {
     }, [])
 
     useEffect(() => {
-        if (statusMessageBenefit === 'fulfilledPostConcurso' || statusMessageBenefit === 'fulfilledPatchWinner') {
+        if (statusMessageBenefit === 'fulfilledAllBeneficios' || statusMessageBenefit === 'fulfilledCreateBeneficios' || statusMessageBenefit === 'fulfilledDeleteBeneficio') {
             setTimeout(() => {
                 dispatch(getAllBeneficiosAsync({ token: login.token }))
                 dispatch(setStatusMessageBenefit(''))
