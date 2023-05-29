@@ -157,3 +157,9 @@
     width: 90%;
     height: 350px;
 }
+
+.span-politicas-titulo{
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+}

@@ -251,7 +251,7 @@ const Registro = () => {
                             politicas === false && <span className='span-error-registro'>¡Debe aceptar las políticas de privacidad!</span>
                         }
                         <Boton text={'Registrarse'} type={2} onClick={handleRegister} />
-                        <Boton text={'Registrarse con Google'} iconGoogle={true} onClick={() => googleLogin()}/>
+                        <Boton text={'Registrarse con Google'} iconGoogle={true} onClick={() => googleLogin()} />
                     </div>
                 </form>
             </div>
@@ -260,23 +260,63 @@ const Registro = () => {
                 leerPoliticas &&
                 <section className='container-politicas'>
                     <div className={`container-politicas-icon ${isScreenWidth600 && 'container-politicas-icon-mobile'}`}>
-                        <CloseIcon sx={{ cursor: 'pointer', fontSize: '30px' }} onClick={() => setLeerPoliticas(false)}/>
+                        <CloseIcon sx={{ cursor: 'pointer', fontSize: '30px' }} onClick={() => setLeerPoliticas(false)} />
                     </div>
 
                     <div className={`container-politicas-div ${isScreenWidth600 && 'container-politicas-div-mobile'}`}>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis totam necessitatibus, sit placeat ratione tempora illo omnis facere adipisci, quae dolores! Aut repellendus consectetur deserunt accusamus mollitia repudiandae atque dolores!
-                            Ullam veniam laboriosam eveniet officiis eos officia ab, molestias aspernatur ea exercitationem sunt maxime quo quod, corrupti voluptatum quam, ratione quos pariatur. Perspiciatis molestiae atque optio saepe, ea reiciendis! Reprehenderit!
-                            Alias soluta eius, placeat iste illum, doloribus praesentium quidem quia aspernatur eum ab assumenda, ipsa modi asperiores illo inventore dolores animi labore. Error, ipsa accusamus deserunt iure numquam laborum reiciendis.
-                            Accusamus tempora impedit quidem maxime, rerum nihil quibusdam sit excepturi labore veritatis, similique distinctio quisquam cumque iusto porro totam nisi minima iure. Quia mollitia, quas culpa dignissimos quam possimus ducimus.
-                            Fuga obcaecati sint id magnam beatae illum. Tempora debitis sit recusandae pariatur doloribus blanditiis quis omnis, exercitationem, labore maiores rerum enim dolore praesentium! Veniam nam nemo aspernatur doloremque asperiores nobis?
-                            Necessitatibus sapiente fuga iste laboriosam possimus? Vitae adipisci pariatur atque quis amet quam non distinctio sint nostrum voluptas laudantium mollitia debitis tempora vel iste quaerat, commodi possimus nulla. Ipsam, aliquam!
-                            Numquam saepe a quis provident aperiam nisi sed soluta odio, amet explicabo magnam quisquam animi ullam facere nam laboriosam minima assumenda adipisci ab, nostrum expedita! Sit officia voluptatum qui maxime.
-                            Asperiores deserunt quia, quis ab quidem assumenda corporis omnis tempore saepe sed vero laborum porro qui iste consectetur, voluptatem error rem optio tempora, delectus quod nesciunt ducimus totam. Deserunt, ipsum.
-                            Minima nostrum tempora aspernatur dolores magnam ipsam veritatis voluptates soluta laudantium animi commodi dolore quae omnis quod temporibus harum nisi placeat, ut fugit ipsum neque. Voluptate atque rem amet sunt.
-                            Amet nisi, itaque repellat dicta quos illo assumenda quisquam delectus asperiores, dolor ducimus quas reiciendis recusandae, expedita magni. Dolorem nostrum ad harum soluta consequatur rerum laborum, tempore sunt hic laudantium.
-                            Non quo quis quidem architecto, obcaecati dicta deserunt eaque vitae voluptates. Fuga placeat voluptatibus voluptas. Esse suscipit vel omnis aspernatur adipisci in est hic necessitatibus alias, sunt, voluptates veritatis minima?
-                            Voluptas, cupiditate obcaecati labore magni sapiente cum quidem eius tempore reiciendis illo tempora tenetur qui praesentium, incidunt, dolorum architecto dignissimos iusto ratione magnam suscipit molestiae esse. Rerum iure quo dicta!
+                            <p className='span-politicas-titulo'>Política de privacidad y de Protección de Datos Personales</p>
+                            <hr/>
+                            <br/>
+                            Para una mejor experiencia, mientras utiliza nuestro Servicio, le solicitaremos que nos proporcione cierta información de identificación personal. La información que solicitamos será retenida por nosotros y utilizada como se describe en esta política de privacidad.
+
+                            Lea esto minuciosamente
+
+                            Este documento indica cómo lu5am.com utilizará y protegerá sus datos personales. Mientras navega en este sitio web. Usted ha aceptado automáticamente las normas de uso, protección y seguridad aquí mencionadas.
+
+                            Protección y Seguridad de sus Datos Personales
+
+                            La seguridad de los datos personales es prioritario para lu5am.com
+                            Este sitio web hará todo lo que esté a su alcance para ofrecer el más alto nivel de seguridad utilizando tecnología avanzada. Adherimos a los requerimientos de la Ley Nacional de Protección de Datos Personales, N° 25.326 y sus normas complementarias.
+
+                            Su privacidad
+
+                            Lu5am.com respeta su privacidad. Toda la información que el lector nos proporcione se tratará con el mayor cuidado y con la mayor seguridad posible, y sólo se utilizará de acuerdo con los límites establecidos en este documento.
+
+                            Cómo se reúne la información
+
+                            Lu5am.com únicamente reúne sus datos personales cuando usted los proporciona en forma directa y con su consentimiento expreso e informado.
+
+                            Cómo lu5am.com utilizará su información
+
+                            La información que nos proporcione será utilizada para: habilitar su participación en promociones, premios o concursos en línea., expandir ofertas de comercialización, para publicar productos y servicios que podrían ser de su interés, para personalizar y mejorar nuestros servicios y para fines estadísticos de este sitio web
+
+                            Al registrarse en el club de oyentes de lu5am.com EL USUARIO deberá brindar información personal, prestando su consentimiento para que la misma sea almacenada directamente en una BASE DE DATOS, encontrándose protegida electrónicamente, utilizando los mecanismos de seguridad informática de protección de la información más completos y eficaces para mantenerla en total confidencialidad, conforme a la Ley Nº 25.326 de Hábeas Data, no obstante lo cual, EL USUARIO puede solicitar la eliminación o modificación de los mismos en el órgano de control de la citada norma, Dirección Nacional de Protección de Datos Personales, dependiente del Ministerio de Justicia, Seguridad y Derechos Humanos Sarmiento 1118, 5to. Piso (CP1041aax); tel. 4383-8510/12/13/15; www.jus.gov.ar/datospersonales/ - infodnpdpa@jus.gov.ar..
+
+                            Lu5am.com se reserva el derecho a modificar la presente política para adaptarla a novedades legislativas o jurisprudenciales así como a prácticas de la industria. En dichos supuestos, anunciará en esta página los cambios introducidos con razonable antelación a su puesta en práctica.
+
+                            Mediante el presente, toda persona que se registra en lu5am.com (en adelante USUARIO) y vuelque información respecto de su nombre, domicilio, sexo, fecha de nacimiento, documento nacional de identidad, ocupación, teléfono, dirección de correo electrónico y/o, presta su consentimiento para que dicha información sea almacenada directamente en una BASE DE DATOS de propiedad de lu5am.com.
+
+                            El Usuario garantiza que los Datos Personales facilitados a lu5am.com son veraces y se hace responsable de comunicar a ésta cualquier modificación en los mismos.
+
+                            Se deja expresamente aclarado que ciertos Servicios prestados por éste sitio u otros sitios vinculados pueden contener Condiciones Particulares con previsiones específicas en materia de protección de Datos Personales.
+
+                            Los Datos Personales serán incorporados a una base de datos que es de titularidad de lu5am.com (la "Base").
+
+                            EL USUARIO presta su consentimiento para que lu5am.com realice operaciones y procedimientos sistemáticos, electrónicos o no, que permitan la recolección, conservación, ordenación, almacenamiento, modificación, evaluación, bloqueo, cesión y en general, el procesamiento de sus DATOS PERSONALES (en adelante TRATAMIENTO DE DATOS PERSONALES).
+
+                            La finalidad de la recogida y tratamiento de los Datos Personales es la que se detalla a continuación:
+
+                            Para habilitar su participación en promociones, premios o concursos en línea.
+
+                            Para el desarrollo de nuevos productos y servicios que satisfagan las necesidades del Usuario
+                            .
+                            Para contactarse, vía mail o telefónicamente, con el Usuario a fin de relevar opiniones sobre los contenidos de lu5am.com,  la programación de LU5, y de cualquier de los productos digitales relacionados con la emisora.
+
+                            LU5 ha adoptado los niveles de seguridad de protección de los Datos Personales legalmente requeridos, y ha instalado todos los medios y medidas técnicas a su alcance para evitar la pérdida, mal uso, alteración, acceso no autorizado y robo de los Datos Personales facilitados por el usuario. Ello no obstante, el Usuario debe ser consciente de que las medidas de seguridad en Internet no son inexpugnables. Por tal motivo, debe tener presente que siempre que divulguen voluntariamente información personal online, ésta puede ser recogida y utilizada por otros. Por lo tanto, si bien ponemos nuestro mayor esfuerzo por proteger su información personal, lu5 no será responsable por la difusión de los datos personales de nuestros visitantes efectuada por fuentes ajenas a ésta ni será responsable por los daños y perjuicios que la misma genere.
+                            El Usuario tiene reconocidos los derechos de acceso, cancelación, rectificación y oposición, así como tienen reconocido el derecho a ser informados de los permisos de acceso realizados contactándose con lu5 a través del correo electrónico lu5@lu5am.com.ar .
+
+                            El Usuario podrá ejercer su derecho de retiro o bloqueo total o parcial de su nombre en nuestra base de datos, mediante solicitud formal enviada al mail lu5@lu5am.com.ar.
                         </p>
                     </div>
                 </section>
