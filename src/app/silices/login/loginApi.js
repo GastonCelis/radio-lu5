@@ -21,6 +21,7 @@ export const postLogin = (email, password) => {
                 });
             })
             .catch(err => {
+                console.log(err)
                 return reject(err)
             });
     });

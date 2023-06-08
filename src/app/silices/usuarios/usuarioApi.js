@@ -68,7 +68,6 @@ export const getAllUsers = (token) => {
 };
 
 export const putUser = (token, idUser, body) => {
-    console.log({token, idUser, body})
     return new Promise((resolve, reject) => {
         return axios({
             url: `${BACK_URL}/api/v1/members/${idUser}`,

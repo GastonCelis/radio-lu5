@@ -21,6 +21,14 @@ const HomeOyente = (props) => {
         dispatch(getConcursosOyenteAsync({ token: login.token, idUsuario: profile.id }))
     }, [])
 
+    useEffect(() => {
+        if(statusMessage === 'pendingParticipanteConcurso' || statusMessage === 'pendingConcursosOyente'){
+            dispatch(getAllConcursosAsync({ token: login.token }))
+            dispatch(getAllBeneficiosAsync({ token: login.token }))
+            dispatch(getConcursosOyenteAsync({ token: login.token, idUsuario: profile.id }))
+        }
+    }, [statusMessage])
+
     const handleResultConcurso = (isWinner, contestState) => {
         if (isWinner === false && contestState === 'ENTREGADO') {
             return 'perdido'
@@ -48,6 +56,7 @@ const HomeOyente = (props) => {
                     opcion === 'concursos' &&
                     concursos.map(concurso =>
                         <TarjetaOyente
+                            key={concurso.title}
                             tipo={'concursos'}
                             titulo={concurso.title}
                             img={`data:image/jpg;base64,${concurso.image}`}
@@ -69,6 +78,7 @@ const HomeOyente = (props) => {
                     opcion === 'mis concursos' &&
                     concursosOyente.map(concurso =>
                         <TarjetaOyente
+                            key={concurso.title}
                             tipo={'mis concursos'}
                             titulo={concurso.title}
                             img={`data:image/jpg;base64,${concurso.image}`}
@@ -84,6 +94,7 @@ const HomeOyente = (props) => {
                     opcion === 'beneficios' &&
                     beneficios.map(beneficio =>
                         <TarjetaOyente
+                            key={beneficio.title}
                             tipo={'beneficios'}
                             titulo={beneficio.title}
                             img={`data:image/jpg;base64,${beneficio.image}`}

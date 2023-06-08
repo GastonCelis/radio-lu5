@@ -89,7 +89,7 @@ const RegistroGoogle = () => {
     }
 
     const handleDni = (event) => {
-        if (event.target.value.length <= 10) {
+        if (event.target.value.length <= 8) {
             setData({ ...data, dni: event.target.value })
         }
     }

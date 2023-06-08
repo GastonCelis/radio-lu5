@@ -124,12 +124,12 @@ const EditPerfil = (props) => {
     }
 
     const handleSaveChange = () => {
-        const arrayName = profile.full_name.split(' ')
+        const arrayName = profile.fullName.split(' ')
         const transformName = arrayName.map((element) =>
             capitalizeFirstLetter(element)
         )
         const body = {
-            full_name: transformName,
+            full_name: transformName.join(' '),
             email: profile.email,
             password: profile.password,
             birthDay: new Date(profile.birthDay).toISOString(),
