@@ -10,12 +10,35 @@ import RegistroGoogle from "../pages/RegistroGoogle/RegistroGoogle";
 import { useSelector } from 'react-redux';
 import SolicitudContraseña from '../pages/CambiarContraseña/SolicitudContraseña';
 import VerificarCuenta from '../pages/VerificarCuenta/VerificarCuenta';
+import { Audio } from 'react-loader-spinner'
 
 const Routes = () => {
     const { role } = useSelector(state => state.loginSlice)
-    const {statusMessage} = useSelector(state => state.usuarioGoogleSlice)
+    const {statusMessage, loading} = useSelector(state => state.usuarioGoogleSlice)
+    const beneficioSlice = useSelector(state => state.beneficioSlice)
+    const concursoSlice = useSelector(state => state.concursoSlice)
+    const loginSlice = useSelector(state => state.loginSlice)
+    const registroSlice = useSelector(state => state.registroSlice)
+    const usuarioSlice = useSelector(state => state.usuarioSlice)
 
     const handleRdirect = (path)=>{
+        if(loading || beneficioSlice.loading || concursoSlice.loading || loginSlice.loading || registroSlice.loading || usuarioSlice.loading){
+            return (
+                <div className='box-loader'>
+                    <Audio
+                        height="80"
+                        width="80"
+                        radius="9"
+                        color="red"
+                        ariaLabel="Cargando..."
+                        wrapperStyle
+                        wrapperClass
+                    />
+                    <p>Cargando...</p>
+                </div>
+            )
+        }
+
         if(role !== 'user' && role !== 'admin'){
             if(path === '/'){
                 return <Sumate />
