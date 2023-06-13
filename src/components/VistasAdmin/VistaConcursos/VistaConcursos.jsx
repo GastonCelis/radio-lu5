@@ -99,6 +99,8 @@ const VistaConcursos = (props) => {
                                     tipo={'concurso'}
                                     login={login}
                                     statusMessage={statusMessage}
+                                    concursos={concursos}
+                                    ganadores={ganadores}
                                 />
                             )
                         }

@@ -138,3 +138,11 @@
     border: solid 1px rgb(97, 97, 97);
     background-color: rgb(97, 97, 97);
 }
+
+.ganador-concurso-text{
+    font-size: 20px;
+}
+
+.ganador-concurso-text > span{
+    color: green;
+}

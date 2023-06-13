@@ -3,28 +3,29 @@ import './concurso.css'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteConcursoAsync, patchWinnerConcursoAsync } from '../../app/silices/concurso/concursoThunk';
+import Boton from '../Boton/Boton';
+import { format } from 'date-fns';
+import { Audio } from 'react-loader-spinner'
 
 const Concurso = (props) => {
-    const { img, titulo, programa, fechaFinalizacion, info, anunciante, imgBanner, idConcurso, login, statusMessage } = props
+    const { img, titulo, programa, fechaFinalizacion, info, anunciante, imgBanner, idConcurso, login, statusMessage, concursos, ganadores } = props
     const [eliminar, setEliminar] = useState(false)
     const dispatch = useDispatch()
     const { allUsuarios } = useSelector(state => state.usuarioSlice)
-    const [userSlected, setUserSlected] = useState('')
+    const concursoSlect = concursos.find(concurso => concurso.id === idConcurso)
+    const winner = ganadores.find(ganador => ganador.title === concursoSlect.title)
 
     const hanlderDelete = () => {
         dispatch(deleteConcursoAsync({ token: login.token, idConcurso }))
         setEliminar(true)
     }
 
-    const handleSelectWinner = (event) => {
-        const findUser = allUsuarios.find(user => user.fullName === event.target.value)
-        findUser ? setUserSlected(findUser) : setUserSlected('')
-    }
-
-    const handleWinner = () => {
+    const handleSelectWinner = () => {
+        const randomIndex = Math.floor(Math.random() * allUsuarios.length)
+        const userWinner = allUsuarios[randomIndex]
         const body = {
             contest_id: idConcurso,
-            winner_id: userSlected.id,
+            winner_id: userWinner.id,
             contest_state: 'ENTREGADO'
         }
 
@@ -48,7 +49,7 @@ const Concurso = (props) => {
 
                             <div>
                                 <span className='span-beneficio-concurso'>Fecha de finalización:</span>
-                                <p className='parrafo-beneficio-concurso'>{fechaFinalizacion}</p>
+                                <p className='parrafo-beneficio-concurso'>{format(new Date(fechaFinalizacion), 'dd-MM-yyyy')}</p>
                             </div>
                         </div>
                     </div>
@@ -77,29 +78,27 @@ const Concurso = (props) => {
                 </div>
             </section>
             <div className='selector-ganador-concurso'>
-                <label htmlFor="winner">Seleccione al ganador:</label>
-                <input
-                    type="text"
-                    id="winner"
-                    list="winners-list"
-                    placeholder="Usuarios..."
-                    className='input-selector-ganador-concurso'
-                    onChange={handleSelectWinner}
-                />
-                <datalist id="winners-list">
-                    {allUsuarios.map((user) => (
-                        <option key={user.fullName} value={user.fullName} />
-                    ))}
-                </datalist>
                 {
-                    statusMessage !== 'fulfilledPatchWinner' && statusMessage !== 'rejectedPatchWinner' &&
-                    <button className={`button-selector-ganador-concurso ${userSlected === '' && 'button-selector-ganador-concurso-disabled'}`} onClick={handleWinner}>Guardar elección</button>
-                }
-                {
-                    statusMessage === 'fulfilledPatchWinner' && <span className='span-ok-registro'>¡Ganador seleccionado correctamente!</span>
-                }
-                {
-                    statusMessage === 'rejectedPatchWinner' && <span className='span-error-registro'>¡Error al seleccionar el ganador!</span>
+                    winner?.fullName === '' || winner === undefined ?
+                        statusMessage === 'pendingPatchWinner' ?
+                            <div>
+                                <Audio
+                                    height="80"
+                                    width="80"
+                                    radius="9"
+                                    color="red"
+                                    ariaLabel="Cargando..."
+                                    wrapperStyle
+                                    wrapperClass
+                                />
+                                <p>Cargando...</p>
+                            </div>
+                            :
+                            statusMessage === 'fulfilledPatchWinner' ? <span className='span-ok-registro'>¡Ganador seleccionado correctamente!</span> :
+                                statusMessage === 'rejectedPatchWinner' ? <span className='span-error-registro'>¡Error al seleccionar el ganador!</span> :
+                                    <Boton type={2} text={'Seleccionar ganador aleatorio'} onClick={handleSelectWinner} />
+                        :
+                        <h2 className='ganador-concurso-text'>El ganador es: <span>{winner?.fullName}</span></h2>
                 }
             </div>
         </section>
