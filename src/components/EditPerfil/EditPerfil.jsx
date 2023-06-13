@@ -9,12 +9,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { capitalizeFirstLetter } from '../../utils/functions';
 import { putUserAsync } from '../../app/silices/usuarios/usuarioThunk';
 import { setProfileuUsuario, setStatusMessage } from '../../app/silices/usuarios/usuarioSlice';
+import { Audio } from 'react-loader-spinner'
 
 const EditPerfil = (props) => {
     const { setPerfil, profile, login, statusMessage } = props
     const dispatch = useDispatch()
     const [isScreenWidth600, setIsScreenWidth600] = useState(false);
     const { profileGoogle } = useSelector(state => state.usuarioGoogleSlice)
+    const { loading } = useSelector(state => state.usuarioSlice)
     const { localidadSeleccionada, ocupacionSeleccionada, provinciaSeleccionada, generoSeleccionado } = useSelector(state => state.registroSlice)
     const [dataPass, setDataPass] = useState({ pass1: '', pass2: '' })
     const [passLength, setPassLength] = useState(true)
@@ -128,6 +130,7 @@ const EditPerfil = (props) => {
         const transformName = arrayName.map((element) =>
             capitalizeFirstLetter(element)
         )
+
         const body = {
             full_name: transformName.join(' '),
             email: profile.email,
@@ -146,7 +149,7 @@ const EditPerfil = (props) => {
             dispatch(putUserAsync({ token: login.token, idUser: login.id, body }))
         }
     }
-
+    
     return (
         <div className='container-perfil-oyente'>
             <form className='container-box-perfil-oyente'>
@@ -194,7 +197,24 @@ const EditPerfil = (props) => {
                     {
                         validPass === false && <span className='span-error-registro'>¡Las contraseñas no coinciden!</span>
                     }
-                    <Boton type={2} text={'Confirmar cambios'} onClick={handleSaveChange} />
+                    
+                    {
+                        loading ?
+                        <div>
+                            <Audio
+                                height="80"
+                                width="80"
+                                radius="9"
+                                color="red"
+                                ariaLabel="Cargando..."
+                                wrapperStyle
+                                wrapperClass
+                            />
+                            <p>Cargando...</p>
+                        </div>
+                        :
+                        <Boton type={2} text={'Confirmar cambios'} onClick={handleSaveChange} />
+                    }
                     {
                         !isScreenWidth600 &&
                         <div className='box-volver-perfil' onClick={() => setPerfil(false)}>

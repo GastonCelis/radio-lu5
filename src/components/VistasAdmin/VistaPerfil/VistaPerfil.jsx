@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import './vistaPerfil.css'
 import Input from '../../Input/Input'
 import Select from '../../Select/Select'
@@ -8,107 +8,108 @@ import { useSelector, useDispatch } from 'react-redux';
 import { capitalizeFirstLetter } from '../../../utils/functions';
 import { setProfileuUsuario, setStatusMessage } from '../../../app/silices/usuarios/usuarioSlice';
 import { putUserAsync } from '../../../app/silices/usuarios/usuarioThunk';
+import { Audio } from 'react-loader-spinner'
 
 const VistaPerfil = () => {
-    const { profile, statusMessage } = useSelector(state => state.usuarioSlice)
+    const { profile, statusMessage, loading } = useSelector(state => state.usuarioSlice)
     const { localidadSeleccionada, ocupacionSeleccionada, provinciaSeleccionada, generoSeleccionado } = useSelector(state => state.registroSlice)
     const dispatch = useDispatch()
     const login = useSelector(state => state.loginSlice)
-    const [ dataPass, setDataPass ] = useState({pass1: '', pass2: ''})
-    const [ passLength, setPassLength ] = useState(true)
-    const [ validPass, setValidPass ] = useState(true)
-    const [ validMail, setValidMail ] = useState(true)
-    const [ validate, setValidate ] = useState()
+    const [dataPass, setDataPass] = useState({ pass1: '', pass2: '' })
+    const [passLength, setPassLength] = useState(true)
+    const [validPass, setValidPass] = useState(true)
+    const [validMail, setValidMail] = useState(true)
+    const [validate, setValidate] = useState()
 
-    useEffect(()=>{
-        if(statusMessage === 'updateFulfilled'){
+    useEffect(() => {
+        if (statusMessage === 'updateFulfilled') {
             setValidate(true)
 
-            setTimeout(()=>{
+            setTimeout(() => {
                 dispatch(setStatusMessage(''))
                 setValidate()
             }, 2000)
         }
 
-        if(statusMessage === 'updateRejected'){
+        if (statusMessage === 'updateRejected') {
             setValidate(false)
 
-            setTimeout(()=>{
+            setTimeout(() => {
                 dispatch(setStatusMessage(''))
                 setValidate()
             }, 3000)
         }
     }, [statusMessage])
 
-    useEffect(()=>{
-        if(dataPass.pass1 === dataPass.pass2 && dataPass.pass1 !== '' && dataPass.pass2 !== ''){
-            dispatch(setProfileuUsuario({password: dataPass.pass1}))
+    useEffect(() => {
+        if (dataPass.pass1 === dataPass.pass2 && dataPass.pass1 !== '' && dataPass.pass2 !== '') {
+            dispatch(setProfileuUsuario({ password: dataPass.pass1 }))
         }
     }, [dataPass.pass1, dataPass.pass2])
 
-    const handleFullName = (event)=>{
-        dispatch(setProfileuUsuario({fullName: event.target.value}))
+    const handleFullName = (event) => {
+        dispatch(setProfileuUsuario({ fullName: event.target.value }))
     }
 
-    const handleEmail = (event)=>{
-        if(event.target.value.includes("@") && event.target.value.includes(".")){
+    const handleEmail = (event) => {
+        if (event.target.value.includes("@") && event.target.value.includes(".")) {
             setValidMail(true)
-        } else{
+        } else {
             setValidMail(false)
         }
 
-        dispatch(setProfileuUsuario({email: event.target.value}))
+        dispatch(setProfileuUsuario({ email: event.target.value }))
     }
 
-    const handlePassword = (event)=>{
-        setDataPass({...dataPass, pass1: event.target.value})
+    const handlePassword = (event) => {
+        setDataPass({ ...dataPass, pass1: event.target.value })
 
-        if(event.target.value !== dataPass.pass2){
+        if (event.target.value !== dataPass.pass2) {
             setValidPass(false)
-        } else{
+        } else {
             setValidPass(true)
         }
 
-        if(event.target.value.length < 6){
+        if (event.target.value.length < 6) {
             setPassLength(false)
-        } else{
+        } else {
             setPassLength(true)
         }
     }
 
-    const handlePassword2 = (event)=>{
-        setDataPass({...dataPass, pass2: event.target.value})
+    const handlePassword2 = (event) => {
+        setDataPass({ ...dataPass, pass2: event.target.value })
 
-        if(dataPass.pass1 !== event.target.value){
+        if (dataPass.pass1 !== event.target.value) {
             setValidPass(false)
-        } else{
+        } else {
             setValidPass(true)
         }
 
-        if(event.target.value.length < 6){
+        if (event.target.value.length < 6) {
             setPassLength(false)
-        } else{
+        } else {
             setPassLength(true)
         }
     }
 
-    const handleBirthDay = (event)=>{
-        if(event.target.value.length <= 10){
-            dispatch(setProfileuUsuario({birthDay: event.target.value}))
+    const handleBirthDay = (event) => {
+        if (event.target.value.length <= 10) {
+            dispatch(setProfileuUsuario({ birthDay: event.target.value }))
         }
     }
 
-    const handlePhoneNumber = (event)=>{
-        dispatch(setProfileuUsuario({phoneNumber: event.target.value}))
+    const handlePhoneNumber = (event) => {
+        dispatch(setProfileuUsuario({ phoneNumber: event.target.value }))
     }
 
-    const handleDni = (event)=>{
-        if(event.target.value.length <= 8){
-            dispatch(setProfileuUsuario({dni: event.target.value}))
+    const handleDni = (event) => {
+        if (event.target.value.length <= 8) {
+            dispatch(setProfileuUsuario({ dni: event.target.value }))
         }
     }
 
-    const handleSaveChange = ()=>{
+    const handleSaveChange = () => {
         const arrayName = profile.fullName.split(' ')
         const transformName = arrayName.map((element) =>
             capitalizeFirstLetter(element)
@@ -126,9 +127,9 @@ const VistaPerfil = () => {
             province: provinciaSeleccionada === '' ? profile.province : provinciaSeleccionada,
             profile_image: profile.profileImage,
         }
-        console.log(body)
-        if(passLength && validPass){
-            dispatch(putUserAsync({token: login.token, idUser: login.id, body}))
+
+        if (passLength && validPass) {
+            dispatch(putUserAsync({ token: login.token, idUser: login.id, body }))
         }
     }
 
@@ -138,22 +139,22 @@ const VistaPerfil = () => {
 
             <form className='container-box-perfil-admin'>
                 <div className='box-inputs-perfil-admin'>
-                    <Input type={'text'} placeholder={'Nombre y apellido'} value={profile.fullName} valueInput={profile.fullName} width={1} onChange={handleFullName}/>
-                    <Input type={'email'} placeholder={'Email'} value={profile.email} valueInput={profile.email} width={1} onChange={handleEmail}/>
-                    <Input type={'date'} placeholder={'Fecha de nacimiento'} value={profile.birthDay} valueInput={profile.birthDay} onChange={handleBirthDay}/>
-                    <Input type={'number'} placeholder={'D.N.I'} value={profile.dni} valueInput={profile.dni} onChange={handleDni}/>
-                    <Input type={'number'} placeholder={'Teléfono'} value={profile.phoneNumber} valueInput={profile.phoneNumber} onChange={handlePhoneNumber}/>
-                    <Select opciones={'genero'} genero={profile.genre} color/>
-                    <Select opciones={'ocupacion'} ocupacion={profile.profession} color/>
-                    <Select opciones={'provincia'} provincia={profile.province} color/>
-                    <Select opciones={'localidad'} localidad={profile.city} color/>
+                    <Input type={'text'} placeholder={'Nombre y apellido'} value={profile.fullName} valueInput={profile.fullName} width={1} onChange={handleFullName} />
+                    <Input type={'email'} placeholder={'Email'} value={profile.email} valueInput={profile.email} width={1} onChange={handleEmail} />
+                    <Input type={'date'} placeholder={'Fecha de nacimiento'} value={profile.birthDay} valueInput={profile.birthDay} onChange={handleBirthDay} />
+                    <Input type={'number'} placeholder={'D.N.I'} value={profile.dni} valueInput={profile.dni} onChange={handleDni} />
+                    <Input type={'number'} placeholder={'Teléfono'} value={profile.phoneNumber} valueInput={profile.phoneNumber} onChange={handlePhoneNumber} />
+                    <Select opciones={'genero'} genero={profile.genre} color />
+                    <Select opciones={'ocupacion'} ocupacion={profile.profession} color />
+                    <Select opciones={'provincia'} provincia={profile.province} color />
+                    <Select opciones={'localidad'} localidad={profile.city} color />
                 </div>
 
                 <p className='texto-perfil-admin'>Modificar contraseña</p>
 
                 <div className='box-inputs-perfil-admin'>
-                    <Input type={'password'} placeholder={'Nueva contraseña'} onChange={handlePassword}/>
-                    <Input type={'password'} placeholder={'Confirmar contraseña'} onChange={handlePassword2}/>
+                    <Input type={'password'} placeholder={'Nueva contraseña'} onChange={handlePassword} />
+                    <Input type={'password'} placeholder={'Confirmar contraseña'} onChange={handlePassword2} />
                 </div>
 
                 <div className='botones-perfil-admin'>
@@ -172,7 +173,24 @@ const VistaPerfil = () => {
                     {
                         validPass === false && <span className='span-error-registro'>¡Las contraseñas no coinciden!</span>
                     }
-                    <Boton type={2} text={'Confirma cambios'} onClick={handleSaveChange}/>
+
+                    {
+                        loading ?
+                        <div>
+                            <Audio
+                                height="80"
+                                width="80"
+                                radius="9"
+                                color="red"
+                                ariaLabel="Cargando..."
+                                wrapperStyle
+                                wrapperClass
+                            />
+                            <p>Cargando...</p>
+                        </div>
+                        :
+                        <Boton type={2} text={'Confirma cambios'} onClick={handleSaveChange} />
+                    }
                 </div>
             </form>
         </div>

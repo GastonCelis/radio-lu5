@@ -16,7 +16,7 @@ const initialState = {
     cantidadParticipantes: [],
     ganadores: [],
     concursosOyente: [],
-    loading: '',
+    loading: false,
     statusMessage: ''
 }
 

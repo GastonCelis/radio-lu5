@@ -70,7 +70,7 @@ const Oyente = () => {
                                 perfil ?
                                     <EditPerfil setPerfil={setPerfil} profile={profile} login={login} statusMessage={statusMessage}/>
                                     :
-                                    <HomeOyente profile={profile} login={login}/>
+                                    <HomeOyente profile={profile} setPerfil={setPerfil} login={login}/>
                             }
                         </div>
                     </>

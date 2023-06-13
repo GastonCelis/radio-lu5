@@ -12,7 +12,7 @@ const initialState = {
         discount_code: ''
     },
     statusMessageBenefit: '',
-    loading: '',
+    loading: false,
 }
 
 export const beneficioSlice = createSlice({
