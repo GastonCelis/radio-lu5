@@ -11,14 +11,14 @@
 }
 
 .img-tarjeta-oyente{
-    width: 140px;
-    height: 140px;
+    width: 120px;
+    height: 120px;
     margin-right: 10px;
 }
 
 .box-tarjeta-oyente, .box-texto-tarjeta-oyente{
     width: 100%;
-    height: 100%;
+    height: 125px;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;

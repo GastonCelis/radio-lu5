@@ -5,11 +5,15 @@
     justify-content: center;
     align-items: center;
     width: 350px;
-    height: 30px;
+    height: 40px;
     border: solid 1px #b9b8b8;
     padding-left: 14px;
     color: black;
     cursor: pointer;
+    font-family: var(--font-family-regular);
+    font-style: normal;
+    font-size: 12px;
+    font-weight: bold;
 }
 
 .main-input::placeholder{
@@ -26,7 +30,7 @@
 
 .icon-input{
     position: absolute;
-    top: 4px;
+    top: 8px;
     right: 10px;
     cursor: pointer;
 }
@@ -45,36 +49,43 @@
 
 .span-date{
     position: absolute;
-    top: 7px;
+    top: 11px;
     left: 14px;
     font-family: var(--font-family-regular);
     font-style: normal;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
     color: rgb(190, 190, 190);
     cursor: default;
     z-index: -1;
 }
 
+.span-date-none{
+    display: none;
+}
+
 .input-date-placeholder[type="date"] {
     font-family: var(--font-family-regular);
     font-style: normal;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
     color: rgb(190, 190, 190);
 }
 
 .input-date[type="date"]{
     text-align: end;
-    gap: 12px;
-    justify-content: flex-end;
     padding-right: 15px;
     background-color: transparent;
 }
 
+.input-date-ok[type="date"]{
+    text-align: start;
+}
+
 .input-date[type="date"]::-webkit-calendar-picker-indicator{
-    padding-top: 3px;
-    cursor: pointer;
+    display: none;
+    cursor: default;
+    pointer-events: none;
 }
 
 .main-input[type='number']::-webkit-inner-spin-button,

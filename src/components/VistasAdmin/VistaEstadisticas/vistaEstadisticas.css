@@ -24,3 +24,9 @@
     margin-top: 50px;
     width: max-content;
 }
+
+.datos-insuficientes-estadisticas{
+    color: red;
+    font-size: 18px;
+    text-align: center;
+}

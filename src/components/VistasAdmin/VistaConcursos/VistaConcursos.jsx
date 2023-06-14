@@ -8,23 +8,21 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import AgregarConcurso from '../../AgregarConcurso/AgregarConcurso';
 import { useDispatch, useSelector } from 'react-redux';
 import { Audio } from 'react-loader-spinner'
-import { getAllConcursosAsync, getConcursosWinnersAsync } from '../../../app/silices/concurso/concursoThunk';
+import { getAllConcursosAsync, getConcursosWinnersAsync, getParticipantesEnConcursosAsync } from '../../../app/silices/concurso/concursoThunk';
 import { setStatusMessage } from '../../../app/silices/concurso/concursoSlice';
 import { format } from 'date-fns';
-import isBefore from 'date-fns/isBefore'
-import isAfter from 'date-fns/isAfter'
-import isEqual from 'date-fns/isEqual'
 
 const VistaConcursos = (props) => {
     const { login } = props
     const [opcionNav, setOpcionNav] = useState('vigentes')
     const [agregar, setAgregar] = useState(false)
-    const { concursos, statusMessage, ganadores } = useSelector(state => state.concursoSlice)
+    const { concursos, statusMessage, ganadores, cantidadParticipantes } = useSelector(state => state.concursoSlice)
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(getAllConcursosAsync({ token: login.token }))
         dispatch(getConcursosWinnersAsync({ token: login.token }))
+        dispatch(getParticipantesEnConcursosAsync({ token: login.token }))
     }, [])
 
     useEffect(() => {
@@ -32,6 +30,7 @@ const VistaConcursos = (props) => {
             setTimeout(() => {
                 dispatch(getAllConcursosAsync({ token: login.token }))
                 dispatch(getConcursosWinnersAsync({ token: login.token }))
+                dispatch(getParticipantesEnConcursosAsync({ token: login.token }))
                 dispatch(setStatusMessage(''))
             }, 2500);
         }
@@ -43,9 +42,9 @@ const VistaConcursos = (props) => {
         if (opcionNav === 'ganadores') return 'Ganadores'
     }
 
-    const filterFinalizados = concursos.filter(concurso => isBefore(new Date(concurso.endDate), new Date()))
+    const filterFinalizados = concursos.filter(concurso => concurso.contestState === "ENTREGADO")
 
-    const filterVigentes = concursos.filter(concurso => isAfter(new Date(concurso.endDate), new Date()) || isEqual(new Date(concurso.endDate), new Date()))
+    const filterVigentes = concursos.filter(concurso => concurso.contestState === "PENDIENTE")
 
     const matchGanadoresFinalizados = filterFinalizados.map(concurso =>{
         const findGanador = ganadores.find(ganador => ganador.title === concurso.title)
@@ -101,6 +100,7 @@ const VistaConcursos = (props) => {
                                     statusMessage={statusMessage}
                                     concursos={concursos}
                                     ganadores={ganadores}
+                                    cantidadParticipantes={cantidadParticipantes}
                                 />
                             )
                         }

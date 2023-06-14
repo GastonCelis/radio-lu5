@@ -28,8 +28,8 @@ const OyenteMobile = (props) => {
     const { concursos, statusMessage, concursosOyente } = useSelector(state => state.concursoSlice)
     const { beneficios } = useSelector(state => state.beneficioSlice)
 
-    useEffect(()=>{
-        if(login.statusMessage === 'rejectedToken' || user.statusMessage === 'rejectedLogin'){
+    useEffect(() => {
+        if (login.statusMessage === 'rejectedToken' || user.statusMessage === 'rejectedLogin') {
             googleLogOut()
             dispatch(setRefreshState())
             dispatch(setRefreshStateGoogle())
@@ -47,12 +47,22 @@ const OyenteMobile = (props) => {
     }, [])
 
     useEffect(() => {
-        if(statusMessage === 'pendingParticipanteConcurso' || statusMessage === 'pendingConcursosOyente'){
+        if (statusMessage === 'pendingParticipanteConcurso' || statusMessage === 'pendingConcursosOyente') {
             dispatch(getAllConcursosAsync({ token: login.token }))
             dispatch(getAllBeneficiosAsync({ token: login.token }))
             dispatch(getConcursosOyenteAsync({ token: login.token, idUsuario: profile.id }))
         }
     }, [statusMessage])
+
+    const sortedConcursos = [...concursos].sort((a, b) => {
+        if (a.contestState === 'ENTREGADO' && b.contestState !== 'ENTREGADO') {
+            return 1;
+        } else if (a.contestState !== 'ENTREGADO' && b.contestState === 'ENTREGADO') {
+            return -1;
+        } else {
+            return 0;
+        }
+    });
 
     const handleTituloNav = () => {
         if (opciones === 'concursos') return 'Concursos'
@@ -61,7 +71,7 @@ const OyenteMobile = (props) => {
         if (opciones === 'perfil') return 'Mi perfil'
     }
 
-    const handleLogout = ()=>{
+    const handleLogout = () => {
         setPerfil(false)
         googleLogOut()
         dispatch(setRefreshState())
@@ -84,14 +94,14 @@ const OyenteMobile = (props) => {
         }
     }
 
-    const hanlderChangeImage = async (event)=>{
+    const hanlderChangeImage = async (event) => {
         const file = event.target.files[0];
         const reader = new FileReader();
 
         reader.onload = () => {
-        const base64String = reader.result;
-        const data64Imagen = base64String.split(',')
-        dispatch(setProfileuUsuario({profileImage: data64Imagen[1]}))
+            const base64String = reader.result;
+            const data64Imagen = base64String.split(',')
+            dispatch(setProfileuUsuario({ profileImage: data64Imagen[1] }))
         };
 
         reader.readAsDataURL(file);
@@ -148,13 +158,13 @@ const OyenteMobile = (props) => {
                 </>
             }
 
-            
-            
+
+
             {
                 opciones === 'concursos' &&
-                concursos.map(concurso =>
+                sortedConcursos.map((concurso, index) =>
                     <TarjetaOyente
-                        key={concurso.title}
+                        key={index}
                         tipo={'concursos'}
                         titulo={concurso.title}
                         img={`data:image/jpg;base64,${concurso.image}`}
@@ -171,12 +181,12 @@ const OyenteMobile = (props) => {
                     />
                 )
             }
-            
+
             {
                 opciones === 'mis concursos' &&
-                concursosOyente.map(concurso =>
+                concursosOyente.map((concurso, index) =>
                     <TarjetaOyente
-                        key={concurso.title}
+                        key={index}
                         tipo={'mis concursos'}
                         titulo={concurso.title}
                         img={`data:image/jpg;base64,${concurso.image}`}
@@ -190,9 +200,9 @@ const OyenteMobile = (props) => {
 
             {
                 opciones === 'beneficios' &&
-                beneficios.map(beneficio =>
+                beneficios.map((beneficio, index) =>
                     <TarjetaOyente
-                        key={beneficio.title}
+                        key={index}
                         tipo={'beneficios'}
                         titulo={beneficio.title}
                         img={`data:image/jpg;base64,${beneficio.image}`}

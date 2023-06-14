@@ -29,6 +29,16 @@ const HomeOyente = (props) => {
         }
     }, [statusMessage])
 
+    const sortedConcursos = [...concursos].sort((a, b) => {
+        if (a.contestState === 'ENTREGADO' && b.contestState !== 'ENTREGADO') {
+            return 1;
+        } else if (a.contestState !== 'ENTREGADO' && b.contestState === 'ENTREGADO') {
+            return -1;
+        } else {
+            return 0;
+        }
+    });
+
     const handleResultConcurso = (isWinner, contestState) => {
         if (isWinner === false && contestState === 'ENTREGADO') {
             return 'perdido'
@@ -54,9 +64,9 @@ const HomeOyente = (props) => {
             <div className='box-home-oyente'>
                 {
                     opcion === 'concursos' &&
-                    concursos.map(concurso =>
+                    sortedConcursos.map((concurso, index) =>
                         <TarjetaOyente
-                            key={concurso.title}
+                            key={index}
                             tipo={'concursos'}
                             titulo={concurso.title}
                             img={`data:image/jpg;base64,${concurso.image}`}
@@ -69,16 +79,15 @@ const HomeOyente = (props) => {
                             estadoSorteo={concurso.contestState}
                             login={login}
                             idConcurso={concurso.id}
-                            statusMessage={statusMessage}
                         />
                     )
                 }
 
                 {
                     opcion === 'mis concursos' &&
-                    concursosOyente.map(concurso =>
+                    concursosOyente.map((concurso, index) =>
                         <TarjetaOyente
-                            key={concurso.title}
+                            key={index}
                             tipo={'mis concursos'}
                             titulo={concurso.title}
                             img={`data:image/jpg;base64,${concurso.image}`}
@@ -92,9 +101,9 @@ const HomeOyente = (props) => {
 
                 {
                     opcion === 'beneficios' &&
-                    beneficios.map(beneficio =>
+                    beneficios.map((beneficio, index) =>
                         <TarjetaOyente
-                            key={beneficio.title}
+                            key={index}
                             tipo={'beneficios'}
                             titulo={beneficio.title}
                             img={`data:image/jpg;base64,${beneficio.image}`}

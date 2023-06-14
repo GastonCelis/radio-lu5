@@ -104,7 +104,8 @@
 
 .atras-nav-mobile > p{
     width: 100%;
-    font-size: 16px;
+    font-size: 18px;
+    font-family: var(--font-family-bold);
     text-align: center;
 }
 
@@ -132,4 +133,3 @@
     right: 0;
     cursor: pointer;
 }
-

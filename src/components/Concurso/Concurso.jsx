@@ -8,12 +8,13 @@ import { format } from 'date-fns';
 import { Audio } from 'react-loader-spinner'
 
 const Concurso = (props) => {
-    const { img, titulo, programa, fechaFinalizacion, info, anunciante, imgBanner, idConcurso, login, statusMessage, concursos, ganadores } = props
+    const { img, titulo, programa, fechaFinalizacion, info, anunciante, imgBanner, idConcurso, login, statusMessage, concursos, ganadores, cantidadParticipantes } = props
     const [eliminar, setEliminar] = useState(false)
     const dispatch = useDispatch()
     const { allUsuarios } = useSelector(state => state.usuarioSlice)
     const concursoSlect = concursos.find(concurso => concurso.id === idConcurso)
     const winner = ganadores.find(ganador => ganador.title === concursoSlect.title)
+    const participantes = cantidadParticipantes?.find(participante => participante.contestName === titulo)?.participants
 
     const hanlderDelete = () => {
         dispatch(deleteConcursoAsync({ token: login.token, idConcurso }))
@@ -71,10 +72,13 @@ const Concurso = (props) => {
                         <img src={`data:image/jpg;base64,${imgBanner}`} alt='Concurso / Beneficio LU5' className='img-banner-beneficio-concurso' />
                     </div>
 
-                    <button className='boton-eliminar-beneficio-concurso' onClick={hanlderDelete}>
-                        <DeleteForeverIcon />
-                        Eliminar
-                    </button>
+                    {
+                        (participantes === 0 || participantes === undefined) &&
+                        <button className='boton-eliminar-beneficio-concurso' onClick={hanlderDelete}>
+                            <DeleteForeverIcon />
+                            Eliminar
+                        </button>
+                    }
                 </div>
             </section>
             <div className='selector-ganador-concurso'>

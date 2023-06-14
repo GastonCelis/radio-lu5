@@ -7,25 +7,24 @@ import { postParticipanteConcursoAsync } from "../../app/silices/concurso/concur
 import { useDispatch } from "react-redux";
 
 const TarjetaOyente = (props) => {
-    const { estadoSorteo, 
-        tipo, 
-        programaSorteo, 
-        finalizacionConcurso, 
-        titulo, 
-        img, 
-        estadoMiSorteo, 
-        fechaParticipacion, 
-        resultadoMiSorteo, 
-        codigoDescuento, 
-        fechaFinBeneficio, 
-        usoBeneficio, 
+    const { estadoSorteo,
+        tipo,
+        programaSorteo,
+        finalizacionConcurso,
+        titulo,
+        img,
+        estadoMiSorteo,
+        fechaParticipacion,
+        resultadoMiSorteo,
+        codigoDescuento,
+        fechaFinBeneficio,
+        usoBeneficio,
         infoModal,
         nombrePrograma,
         parrafo,
         imgModalConcurso,
         login,
         idConcurso,
-        statusMessage
     } = props
     const [codigo, setCodigo] = useState(false)
     const [openModal, setOpenModal] = useState(false)
@@ -45,17 +44,6 @@ const TarjetaOyente = (props) => {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    useEffect(()=>{
-        if(statusMessage === 'fulfilledParticipanteConcurso'){
-            setOpenModal(true)
-
-            setTimeout(() => {
-                setOpenModal(false)
-                setOpenModalConcurso(false)
-            }, 2500);
-        }
-    }, [statusMessage])
-
     const handleCopy = (text) => {
         navigator.clipboard.writeText(text);
 
@@ -65,12 +53,19 @@ const TarjetaOyente = (props) => {
         }, 1000);
     };
 
-    const handleInscription = () =>{
+    const handleInscription = () => {
         const body = {
             member_id: login.id,
             contest_id: idConcurso,
         }
-        dispatch(postParticipanteConcursoAsync({body, token: login.token}))
+        dispatch(postParticipanteConcursoAsync({ body, token: login.token }))
+
+        setOpenModal(true)
+
+        setTimeout(() => {
+            setOpenModal(false)
+            setOpenModalConcurso(false)
+        }, 2500);
     }
 
     return (
@@ -89,28 +84,32 @@ const TarjetaOyente = (props) => {
                             </div>
 
                             {estadoSorteo === "FINALIZADO" || estadoSorteo === 'ENTREGADO' ? (
-                                <Boton text={"Sorteo finalizado"} type={3} hidden={isScreenWidth600}/>
+                                <Boton text={"Sorteo finalizado"} type={3} hidden={isScreenWidth600} />
                             ) : (
-                                <Boton text={"Inscribirse"} type={2} onClick={handleInscription} hidden={isScreenWidth600}/>
+                                <Boton text={"Inscribirse"} type={2} onClick={handleInscription} hidden={isScreenWidth600} />
                             )}
                         </div>
-                        
+
                         <div className="mobile-botones-tarjetas">
-                            <p className="ver-mas-tarjeta" onClick={() => setOpenModalConcurso(true)}>+ Ver más</p>
+                            {
+                                estadoSorteo === "PENDIENTE" &&
+                                <p className="ver-mas-tarjeta" onClick={() => setOpenModalConcurso(true)}>+ Ver más</p>
+                            }
+
                             {estadoSorteo === "FINALIZADO" || estadoSorteo === 'ENTREGADO' ? (
-                                <Boton text={"Sorteo finalizado"} type={5} hidden={!isScreenWidth600 && true}/>
+                                <Boton text={"Sorteo finalizado"} type={5} hidden={!isScreenWidth600 && true} />
                             ) : (
-                                <Boton text={"Inscribirse"} type={4} onClick={handleInscription} hidden={!isScreenWidth600 && true}/>
+                                <Boton text={"Inscribirse"} type={4} onClick={handleInscription} hidden={!isScreenWidth600 && true} />
                             )}
                         </div>
                     </div>
                     {
                         openModal &&
-                        <Modal setOpenModal={setOpenModal} info={infoModal} titulo={titulo} iconOk={true}/>
+                        <Modal setOpenModal={setOpenModal} info={infoModal} titulo={titulo} iconOk={true} />
                     }
                     {
                         openModalConcurso &&
-                        <Modal setOpenModalConcurso={setOpenModalConcurso} onClick={handleInscription} titulo={titulo} concurso={true} fechConcurso={finalizacionConcurso} nombrePrograma={nombrePrograma} parrafo={parrafo} imgConcurso={imgModalConcurso}/>
+                        <Modal setOpenModalConcurso={setOpenModalConcurso} onClick={handleInscription} titulo={titulo} concurso={true} fechConcurso={finalizacionConcurso} nombrePrograma={nombrePrograma} parrafo={parrafo} imgConcurso={imgModalConcurso} />
                     }
                 </div>
             )}
@@ -160,7 +159,7 @@ const TarjetaOyente = (props) => {
                     </div>
                     {
                         openModal &&
-                        <Modal setOpenModal={setOpenModal} info={infoModal} titulo={titulo} ganado={true}/>
+                        <Modal setOpenModal={setOpenModal} info={infoModal} titulo={titulo} ganado={true} />
                     }
                 </div>
             )}

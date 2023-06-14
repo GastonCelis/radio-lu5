@@ -20,13 +20,13 @@ const Input = (props) => {
                 value={value} 
                 defaultValue={defaultValue} 
                 placeholder={placeholder} 
-                className={`main-input width${width} input-date ${(type === 'date' && valueInput === '') && 'input-date-placeholder'} ${(defaultValue === valueInput) && 'defaultValue'} ${color && 'defaultValueNone'}`} 
+                className={`main-input width${width} input-date ${(type === 'date' && valueInput === '') && 'input-date-placeholder'} ${(defaultValue === valueInput) && 'defaultValue'} ${color && 'defaultValueNone'} ${(type === 'date' && value !== '') && 'input-date-ok'}`} 
                 onChange={onChange} 
                 required={required}
             />
             {
                 type === 'date' &&
-                <span className='span-date'>{placeholder}</span>
+                <span className={`span-date ${(type === 'date' && value !== '') && 'span-date-none'}`}>{placeholder}</span>
             }
             {
                 type === 'password' &&
