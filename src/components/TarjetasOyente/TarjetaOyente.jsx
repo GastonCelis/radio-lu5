@@ -72,7 +72,9 @@ const TarjetaOyente = (props) => {
         <>
             {tipo === "concursos" && (
                 <div className="container-tarjeta-oyente">
-                    <img src={img} alt="Concursos" className="img-tarjeta-oyente" />
+                    <div className="box-img-mobile-exact">
+                        <img src={img} alt="Concursos" className="img-tarjeta-oyente" />
+                    </div>  
 
                     <div className="box-tarjeta-oyente">
                         <h2 className="titulo-tarjeta-oyente">{titulo}</h2>
@@ -92,8 +94,10 @@ const TarjetaOyente = (props) => {
 
                         <div className="mobile-botones-tarjetas">
                             {
-                                estadoSorteo === "PENDIENTE" &&
+                                estadoSorteo === "PENDIENTE" ?
                                 <p className="ver-mas-tarjeta" onClick={() => setOpenModalConcurso(true)}>+ Ver más</p>
+                                :
+                                <p className="ver-mas-tarjeta ver-mas-tarjeta-oculta" onClick={() => setOpenModalConcurso(true)}>+ Ver más</p>
                             }
 
                             {estadoSorteo === "FINALIZADO" || estadoSorteo === 'ENTREGADO' ? (

@@ -131,7 +131,9 @@ const Registro = () => {
     }
 
     const handlePhoneNumber = (event) => {
-        setData({ ...data, phone_number: event.target.value })
+        if (event.target.value.length <= 13) {
+            setData({ ...data, phone_number: event.target.value })
+        }
     }
 
     const handleDni = (event) => {
@@ -202,15 +204,71 @@ const Registro = () => {
 
                 <form className='seccion-registro'>
                     <div className='inputs-seccion-registro'>
-                        <Input type={'text'} placeholder={'Nombre y apellido'} defaultValue={''} required={true} width={isScreenWidth600 ? '' : 2} onChange={handleFullName} />
-                        <Input type={'email'} placeholder={'Email'} defaultValue={''} required={true} width={isScreenWidth600 ? '' : 2} onChange={handleEmail} />
-                        <Input type={'date'} placeholder={'Fecha de nacimiento'} value={data.birthDay} color required={true} onChange={handleBirthDay} />
-                        <Input type={'number'} placeholder={'D.N.I'} required={true} onChange={handleDni} value={data.dni} color={true} />
-                        <Input type={'number'} placeholder={'Teléfono'} defaultValue={''} required={true} onChange={handlePhoneNumber} />
-                        <Select placeholder={'Género'} opciones={'genero'} />
-                        <Select placeholder={'Provincia'} opciones={'provincia'} />
-                        <Select placeholder={'Localidad'} opciones={'localidad'} />
-                        <Select placeholder={'Ocupación'} opciones={'ocupacion'} />
+                        <div>
+                            <Input type={'text'} placeholder={'Nombre y apellido'} defaultValue={''} required={true} width={isScreenWidth600 ? '' : 2} onChange={handleFullName} />
+                            {
+                                (validate === false && data.full_name.length === 0) && <span className='span-error-registro'>¡Datos incompletos!</span>
+                            }
+                        </div>
+
+                        <div>
+                            <Input type={'email'} placeholder={'Email'} defaultValue={''} required={true} width={isScreenWidth600 ? '' : 2} onChange={handleEmail} />
+                            {
+                                (validate === false && data.email.length === 0) && <span className='span-error-registro'>¡Datos incompletos!</span>
+                            }
+                            {
+                                validMail === false && <span className='span-error-registro'>¡El email ingresado esta incompleto o incorrecto!</span>
+                            }
+                        </div>
+
+                        <div>
+                            <Input type={'date'} placeholder={'Fecha de nacimiento'} value={data.birthDay} color required={true} onChange={handleBirthDay} />
+                            {
+                                (validate === false && data.birthDay.length === 0) && <span className='span-error-registro'>¡Datos incompletos!</span>
+                            }
+                        </div>
+
+                        <div>
+                            <Input type={'number'} placeholder={'D.N.I'} required={true} onChange={handleDni} value={data.dni} color={true} />
+                            {
+                                (validate === false && data.dni.length === 0) && <span className='span-error-registro'>¡Datos incompletos!</span>
+                            }
+                        </div>
+
+                        <div>
+                            <Input type={'number'} placeholder={'Teléfono'} defaultValue={''} value={data.phone_number} required={true} onChange={handlePhoneNumber} />
+                            {
+                                (validate === false && data.phone_number.length === 0) && <span className='span-error-registro'>¡Datos incompletos!</span>
+                            }
+                        </div>
+
+                        <div>
+                            <Select placeholder={'Género'} opciones={'genero'} />
+                            {
+                                (validate === false && generoSeleccionado.length === 0) && <span className='span-error-registro'>¡Datos incompletos!</span>
+                            }
+                        </div>
+
+                        <div>
+                            <Select placeholder={'Provincia'} opciones={'provincia'} />
+                            {
+                                (validate === false && provinciaSeleccionada.length === 0) && <span className='span-error-registro'>¡Datos incompletos!</span>
+                            }
+                        </div>
+
+                        <div>
+                            <Select placeholder={'Localidad'} opciones={'localidad'} />
+                            {
+                                (validate === false && localidadSeleccionada.length === 0) && <span className='span-error-registro'>¡Datos incompletos!</span>
+                            }
+                        </div>
+
+                        <div>
+                            <Select placeholder={'Ocupación'} opciones={'ocupacion'} />
+                            {
+                                (validate === false && ocupacionSeleccionada.length === 0) && <span className='span-error-registro'>¡Datos incompletos!</span>
+                            }
+                        </div>
                     </div>
 
                     <div className='link-politicas-container'>
@@ -223,18 +281,16 @@ const Registro = () => {
                         </label>
                     </div>
 
+                    {
+                        politicas === false && <span className='span-error-registro span-error-registro-politicas'>¡Debe aceptar las políticas de privacidad!</span>
+                    }
+
                     <div className='inputs-seccion-registro'>
                         <Input type={'password'} placeholder={'Contraseña'} defaultValue={''} required={true} onChange={handlePassword} />
                         <Input type={'password'} placeholder={'Repetir contraseña'} defaultValue={''} required={true} onChange={handlePassword2} />
                     </div>
 
                     <div className='btns1-seccion-registro'>
-                        {
-                            validate === false && <span className='span-error-registro'>¡Datos incompletos!</span>
-                        }
-                        {
-                            validMail === false && <span className='span-error-registro'>¡El email ingresado esta incompleto o incorrecto!</span>
-                        }
                         {
                             validPass.passLength === false && <span className='span-error-registro'>¡La contraseña debe tener más de 6 caracteres!</span>
                         }
@@ -246,9 +302,6 @@ const Registro = () => {
                         }
                         {
                             registerOk === 'si' && <span className='span-ok-registro'>¡Se registró correctamente!</span>
-                        }
-                        {
-                            politicas === false && <span className='span-error-registro'>¡Debe aceptar las políticas de privacidad!</span>
                         }
                         <Boton text={'Registrarse'} type={2} onClick={handleRegister} />
                         <Boton text={'Registrarse con Google'} iconGoogle={true} onClick={() => googleLogin()} />
@@ -266,8 +319,8 @@ const Registro = () => {
                     <div className={`container-politicas-div ${isScreenWidth600 && 'container-politicas-div-mobile'}`}>
                         <p>
                             <p className='span-politicas-titulo'>Política de privacidad y de Protección de Datos Personales</p>
-                            <hr/>
-                            <br/>
+                            <hr />
+                            <br />
                             Para una mejor experiencia, mientras utiliza nuestro Servicio, le solicitaremos que nos proporcione cierta información de identificación personal. La información que solicitamos será retenida por nosotros y utilizada como se describe en esta política de privacidad.
 
                             Lea esto minuciosamente

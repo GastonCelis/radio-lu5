@@ -13,14 +13,18 @@ import { setRefreshStateGoogle } from '../../app/silices/usuarios/usuarioGoogleS
 import { setRefreshStateUser } from '../../app/silices/usuarios/usuarioSlice';
 import useCustomGoogleLogin from '../../hooks/useGoogleLogin';
 import { redirectToNewPage } from '../../utils/functions';
+import { getAllConcursosAsync, getConcursosOyenteAsync } from '../../app/silices/concurso/concursoThunk';
+import { getAllBeneficiosAsync } from '../../app/silices/beneficio/beneficioThunk';
 
 const Oyente = () => {
     const [perfil, setPerfil] = useState(false)
     const [isScreenWidth600, setIsScreenWidth600] = useState(false);
     const login = useSelector(state => state.loginSlice)
     const { profile, statusMessage } = useSelector(state => state.usuarioSlice)
+    const concurso = useSelector(state => state.concursoSlice)
     const dispatch = useDispatch()
     const { googleLogOut } = useCustomGoogleLogin()
+    const [bandera, setBandera] = useState(true)
 
     useEffect(() => {
         const handleResize = () => {
@@ -47,6 +51,27 @@ const Oyente = () => {
         }
 
     }, [login.statusMessage, statusMessage])
+
+    useEffect(() => {
+        dispatch(getAllConcursosAsync({ token: login.token }))
+        dispatch(getAllBeneficiosAsync({ token: login.token }))
+        dispatch(getConcursosOyenteAsync({ token: login.token, idUsuario: profile.id }))
+    }, [])
+
+    useEffect(() => {
+        if(profile.id !== '' && bandera === true){
+            dispatch(getConcursosOyenteAsync({ token: login.token, idUsuario: profile.id }))
+            setBandera(false)
+        }
+    }, [profile.id, bandera])
+
+    useEffect(() => {
+        if (concurso.statusMessage === 'pendingParticipanteConcurso' || concurso.statusMessage === 'pendingConcursosOyente') {
+            dispatch(getAllConcursosAsync({ token: login.token }))
+            dispatch(getAllBeneficiosAsync({ token: login.token }))
+            dispatch(getConcursosOyenteAsync({ token: login.token, idUsuario: profile.id }))
+        }
+    }, [concurso.statusMessage])
 
     return (
         <section className='container-oyente'>

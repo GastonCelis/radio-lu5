@@ -15,8 +15,9 @@
 
 .container-registro{
     position: relative;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
+    margin-top: 20px;
 }
 
 .header-registro{
@@ -98,6 +99,11 @@
     font-weight: bold;
     border: solid 1px var(--color-rojo);
     padding: 5px;
+    z-index: 0;
+}
+
+.span-error-registro-politicas{
+    margin-bottom: 20px;
 }
 
 .span-ok-registro{

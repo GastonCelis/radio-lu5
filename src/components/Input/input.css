@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
     width: 350px;
-    height: 40px;
+    height: 45px;
     border: solid 1px #b9b8b8;
     padding-left: 14px;
     color: black;
@@ -14,6 +14,7 @@
     font-style: normal;
     font-size: 12px;
     font-weight: bold;
+    z-index: 100;
 }
 
 .main-input::placeholder{
@@ -82,10 +83,16 @@
     text-align: start;
 }
 
-.input-date[type="date"]::-webkit-calendar-picker-indicator{
+.input-date-ok-mobile[type="date"]{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.input-date[type="date"]::-webkit-calendar-picker-indicator, .input-date-ok-mobile[type="date"]::-webkit-calendar-picker-indicator{
     display: none;
     cursor: default;
     pointer-events: none;
+    color: red;
 }
 
 .main-input[type='number']::-webkit-inner-spin-button,

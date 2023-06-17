@@ -10,7 +10,7 @@
     padding: 20px 0;
 }
 
-.img-tarjeta-oyente{
+.img-tarjeta-oyente, .box-img-mobile-exact{
     width: 120px;
     height: 120px;
     margin-right: 10px;
@@ -63,6 +63,12 @@
 .info-descuento-tarjeta-oyente{
     text-align: end;
     cursor: pointer;
+}
+
+.ver-mas-tarjeta-oculta{
+    opacity: 0;
+    cursor: default;
+    pointer-events: none;
 }
 
 @media only screen and (max-width: 600px){

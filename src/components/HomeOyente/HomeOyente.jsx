@@ -1,33 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './homeOyente.css'
 import TarjetaOyente from '../TarjetasOyente/TarjetaOyente';
-import { getAllConcursosAsync, getConcursosOyenteAsync } from '../../app/silices/concurso/concursoThunk';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { format } from 'date-fns';
-import { getAllBeneficiosAsync } from '../../app/silices/beneficio/beneficioThunk';
 
 const HomeOyente = (props) => {
     const { login } = props
     const [opcion, setOpcion] = useState('concursos')
-    const dispatch = useDispatch()
-    const { concursos, statusMessage, concursosOyente } = useSelector(state => state.concursoSlice)
-    const { profile } = useSelector(state => state.usuarioSlice)
+    const { concursos, concursosOyente } = useSelector(state => state.concursoSlice)
     const { beneficios } = useSelector(state => state.beneficioSlice)
-
-    useEffect(() => {
-        dispatch(getAllConcursosAsync({ token: login.token }))
-        dispatch(getAllBeneficiosAsync({ token: login.token }))
-        dispatch(getConcursosOyenteAsync({ token: login.token, idUsuario: profile.id }))
-    }, [])
-
-    useEffect(() => {
-        if(statusMessage === 'pendingParticipanteConcurso' || statusMessage === 'pendingConcursosOyente'){
-            dispatch(getAllConcursosAsync({ token: login.token }))
-            dispatch(getAllBeneficiosAsync({ token: login.token }))
-            dispatch(getConcursosOyenteAsync({ token: login.token, idUsuario: profile.id }))
-        }
-    }, [statusMessage])
 
     const sortedConcursos = [...concursos].sort((a, b) => {
         if (a.contestState === 'ENTREGADO' && b.contestState !== 'ENTREGADO') {

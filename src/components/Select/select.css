@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
     width: 350px;
-    height: 30px;
+    height: 45px;
     border: solid 1px #b9b8b8;
     padding-left: 12px;
     font-family: var(--font-family-regular);
@@ -20,6 +20,8 @@
     background-size: 14px 14px;
     background-repeat: no-repeat;
     background-position: 95% center;
+    z-index: 100;
+    position: relative;
 }
 
 .main-input-select option{

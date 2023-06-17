@@ -14,8 +14,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { redirectToNewPage } from '../../utils/functions';
 import { setRefreshStateGoogle } from '../../app/silices/usuarios/usuarioGoogleSlice';
 import { setRefreshStateUser, setProfileuUsuario } from '../../app/silices/usuarios/usuarioSlice';
-import { getAllConcursosAsync, getConcursosOyenteAsync } from '../../app/silices/concurso/concursoThunk';
-import { getAllBeneficiosAsync } from '../../app/silices/beneficio/beneficioThunk';
 import { format } from 'date-fns';
 
 const OyenteMobile = (props) => {
@@ -39,20 +37,6 @@ const OyenteMobile = (props) => {
         }
 
     }, [login.statusMessage, user.statusMessage])
-
-    useEffect(() => {
-        dispatch(getAllConcursosAsync({ token: login.token }))
-        dispatch(getAllBeneficiosAsync({ token: login.token }))
-        dispatch(getConcursosOyenteAsync({ token: login.token, idUsuario: profile.id }))
-    }, [])
-
-    useEffect(() => {
-        if (statusMessage === 'pendingParticipanteConcurso' || statusMessage === 'pendingConcursosOyente') {
-            dispatch(getAllConcursosAsync({ token: login.token }))
-            dispatch(getAllBeneficiosAsync({ token: login.token }))
-            dispatch(getConcursosOyenteAsync({ token: login.token, idUsuario: profile.id }))
-        }
-    }, [statusMessage])
 
     const sortedConcursos = [...concursos].sort((a, b) => {
         if (a.contestState === 'ENTREGADO' && b.contestState !== 'ENTREGADO') {

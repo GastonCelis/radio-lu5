@@ -116,7 +116,9 @@ const EditPerfil = (props) => {
     }
 
     const handlePhoneNumber = (event) => {
-        dispatch(setProfileuUsuario({ phoneNumber: event.target.value }))
+        if (event.target.value.length <= 13){
+            dispatch(setProfileuUsuario({ phoneNumber: event.target.value }))
+        }
     }
 
     const handleDni = (event) => {

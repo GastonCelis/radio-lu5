@@ -85,7 +85,9 @@ const RegistroGoogle = () => {
     }
 
     const handlePhoneNumber = (event) => {
-        setData({ ...data, phone_number: event.target.value })
+        if (event.target.value.length <= 13) {
+            setData({ ...data, phone_number: event.target.value })
+        }
     }
 
     const handleDni = (event) => {
@@ -146,13 +148,54 @@ const RegistroGoogle = () => {
 
                 <form className='seccion-registro'>
                     <div className='inputs-seccion-registro'>
-                        <Input type={'date'} placeholder={'Fecha de nacimiento'} value={data.birthDay} color required={true} onChange={handleBirthDay} />
-                        <Input type={'number'} placeholder={'D.N.I'} required={true} onChange={handleDni} value={data.dni} color={true} />
-                        <Input type={'number'} placeholder={'Teléfono'} defaultValue={''} required={true} onChange={handlePhoneNumber} />
-                        <Select placeholder={'Género'} opciones={'genero'} />
-                        <Select placeholder={'Ocupación'} opciones={'ocupacion'} />
-                        <Select placeholder={'Provincia'} opciones={'provincia'} />
-                        <Select placeholder={'Localidad'} opciones={'localidad'} />
+                        <div>
+                            <Input type={'date'} placeholder={'Fecha de nacimiento'} value={data.birthDay} color required={true} onChange={handleBirthDay} />
+                            {
+                                (validate === false && data.birthDay.length === 0) && <span className='span-error-registro'>¡Datos incompletos!</span>
+                            }
+                        </div>
+
+                        <div>
+                            <Input type={'number'} placeholder={'D.N.I'} required={true} onChange={handleDni} value={data.dni} color={true} />
+                            {
+                                (validate === false && data.dni.length === 0) && <span className='span-error-registro'>¡Datos incompletos!</span>
+                            }
+                        </div>
+
+                        <div>
+                            <Input type={'number'} placeholder={'Teléfono'} defaultValue={''} value={data.phone_number} required={true} onChange={handlePhoneNumber} />
+                            {
+                                (validate === false && data.phone_number.length === 0) && <span className='span-error-registro'>¡Datos incompletos!</span>
+                            }
+                        </div>
+
+                        <div>
+                            <Select placeholder={'Género'} opciones={'genero'} />
+                            {
+                                (validate === false && generoSeleccionado.length === 0) && <span className='span-error-registro'>¡Datos incompletos!</span>
+                            }
+                        </div>
+
+                        <div>
+                            <Select placeholder={'Ocupación'} opciones={'ocupacion'} />
+                            {
+                                (validate === false && ocupacionSeleccionada.length === 0) && <span className='span-error-registro'>¡Datos incompletos!</span>
+                            }
+                        </div>
+
+                        <div>
+                            <Select placeholder={'Provincia'} opciones={'provincia'} />
+                            {
+                                (validate === false && provinciaSeleccionada.length === 0) && <span className='span-error-registro'>¡Datos incompletos!</span>
+                            }
+                        </div>
+
+                        <div>
+                            <Select placeholder={'Localidad'} opciones={'localidad'} />
+                            {
+                                (validate === false && localidadSeleccionada.length === 0) && <span className='span-error-registro'>¡Datos incompletos!</span>
+                            }
+                        </div>
                     </div>
 
                     <div className='link-politicas-container'>
@@ -165,15 +208,13 @@ const RegistroGoogle = () => {
                         </label>
                     </div>
 
+                    {
+                        politicas === false && <span className='span-error-registro span-error-registro-politicas'>¡Debe aceptar las políticas de privacidad!</span>
+                    }
+
                     <div className='btns1-seccion-registro'>
                         {
-                            validate === false && <span className='span-error-registro'>¡Datos incompletos!</span>
-                        }
-                        {
                             registerOk === 'si' && <span className='span-ok-registro'>¡Se registró correctamente!</span>
-                        }
-                        {
-                            politicas === false && <span className='span-error-registro'>¡Debe aceptar las políticas de privacidad!</span>
                         }
                         <Boton text={'Registrarse'} type={2} onClick={handleRegister} />
                     </div>
