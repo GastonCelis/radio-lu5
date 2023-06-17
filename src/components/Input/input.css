@@ -88,11 +88,11 @@
     justify-content: flex-start;
 }
 
-.input-date[type="date"]::-webkit-calendar-picker-indicator, .input-date-ok-mobile[type="date"]::-webkit-calendar-picker-indicator{
+.input-date[type="date"]::-webkit-calendar-picker-indicator{
     display: none;
     cursor: default;
     pointer-events: none;
-    color: red;
+    
 }
 
 .main-input[type='number']::-webkit-inner-spin-button,
