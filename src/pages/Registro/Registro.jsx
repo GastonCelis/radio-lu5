@@ -21,7 +21,7 @@ const Registro = () => {
     const dispatch = useDispatch()
     const { localidadSeleccionada, ocupacionSeleccionada, provinciaSeleccionada, generoSeleccionado, statusMessage } = useSelector(state => state.registroSlice)
     const login = useSelector(state => state.loginSlice)
-    const [data, setData] = useState({ full_name: '', email: '', password: '', password2: '', birthDay: '', phone_number: '', dni: '', profile_image: '' })
+    const [data, setData] = useState({ name: '', lastName: '', email: '', password: '', password2: '', birthDay: '', phone_number: '', dni: '', profile_image: '' })
     const [validPass, setValidass] = useState({ passLength: true, passOk: true })
     const [validMail, setValidMail] = useState(true)
     const [validate, setValidate] = useState(true)
@@ -90,8 +90,12 @@ const Registro = () => {
         }
     };
 
-    const handleFullName = (event) => {
-        setData({ ...data, full_name: event.target.value })
+    const handleName = (event) => {
+        setData({ ...data, name: event.target.value })
+    }
+
+    const handleLastName = (event) => {
+        setData({ ...data, lastName: event.target.value })
     }
 
     const handleEmail = (event) => {
@@ -137,7 +141,7 @@ const Registro = () => {
     }
 
     const handleDni = (event) => {
-        if (event.target.value.length <= 8) {
+        if (event.target.value.length <= 8 && event.target.value !== 'e' && event.target.value !== 'E') {
             setData({ ...data, dni: event.target.value })
         }
     }
@@ -153,7 +157,8 @@ const Registro = () => {
             setValidass({ ...validPass, passOk: true })
 
             if (
-                data.full_name.length > 0 &&
+                data.name.length > 0 &&
+                data.lastName.length > 0 &&
                 data.email.length > 0 &&
                 data.password.length > 0 &&
                 data.birthDay.length > 0 &&
@@ -168,7 +173,7 @@ const Registro = () => {
                 politicas === true
             ) {
                 setValidate(true)
-                const arrayName = data.full_name.split(' ')
+                const arrayName = [data.name, data.lastName]
                 const transformName = arrayName.map((element) =>
                     capitalizeFirstLetter(element)
                 )
@@ -202,12 +207,24 @@ const Registro = () => {
 
                 <h2 className='titulo-seccion-registro'>Registrarse</h2>
 
+                {   
+                    isScreenWidth600 === true &&
+                    <Link to={'/'} className='volver-registro volver-registro-mobile'><ArrowBackIosNewIcon sx={{ fontSize: '14px' }} /> <p>Página principal</p></Link>
+                }
+
                 <form className='seccion-registro'>
                     <div className='inputs-seccion-registro'>
                         <div>
-                            <Input type={'text'} placeholder={'Nombre y apellido'} defaultValue={''} required={true} width={isScreenWidth600 ? '' : 2} onChange={handleFullName} />
+                            <Input type={'text'} placeholder={'Nombre'} defaultValue={''} required={true} onChange={handleName} />
                             {
-                                (validate === false && data.full_name.length === 0) && <span className='span-error-registro'>¡Datos incompletos!</span>
+                                (validate === false && data.name.length === 0) && <span className='span-error-registro'>¡Datos incompletos!</span>
+                            }
+                        </div>
+
+                        <div>
+                            <Input type={'text'} placeholder={'Apellido'} defaultValue={''} required={true} onChange={handleLastName} />
+                            {
+                                (validate === false && data.lastName.length === 0) && <span className='span-error-registro'>¡Datos incompletos!</span>
                             }
                         </div>
 
@@ -218,6 +235,20 @@ const Registro = () => {
                             }
                             {
                                 validMail === false && <span className='span-error-registro'>¡El email ingresado esta incompleto o incorrecto!</span>
+                            }
+                        </div>
+
+                        <div>
+                            <Input type={'password'} placeholder={'Contraseña'} defaultValue={''} required={true} onChange={handlePassword} />
+                            {
+                                (validate === false && data.password.length === 0) && <span className='span-error-registro'>¡Datos incompletos!</span>
+                            }
+                        </div>
+
+                        <div>
+                            <Input type={'password'} placeholder={'Repetir contraseña'} defaultValue={''} required={true} onChange={handlePassword2} />
+                            {
+                                (validate === false && data.password2.length === 0) && <span className='span-error-registro'>¡Datos incompletos!</span>
                             }
                         </div>
 
@@ -285,12 +316,7 @@ const Registro = () => {
                         politicas === false && <span className='span-error-registro span-error-registro-politicas'>¡Debe aceptar las políticas de privacidad!</span>
                     }
 
-                    <div className='inputs-seccion-registro'>
-                        <Input type={'password'} placeholder={'Contraseña'} defaultValue={''} required={true} onChange={handlePassword} />
-                        <Input type={'password'} placeholder={'Repetir contraseña'} defaultValue={''} required={true} onChange={handlePassword2} />
-                    </div>
-
-                    <div className='btns1-seccion-registro'>
+                    <div className={isScreenWidth600 ? 'btns1-seccion-registro btns1-seccion-registro-mobile' : 'btns1-seccion-registro'}>
                         {
                             validPass.passLength === false && <span className='span-error-registro'>¡La contraseña debe tener más de 6 caracteres!</span>
                         }
@@ -303,12 +329,17 @@ const Registro = () => {
                         {
                             registerOk === 'si' && <span className='span-ok-registro'>¡Se registró correctamente!</span>
                         }
-                        <Boton text={'Registrarse'} type={2} onClick={handleRegister} />
-                        <Boton text={'Registrarse con Google'} iconGoogle={true} onClick={() => googleLogin()} />
+                        <Boton text={'Registrarte'} type={2} onClick={handleRegister} />
+                        <Boton text={'Registrarte con Google'} iconGoogle={true} onClick={() => googleLogin()} />
                     </div>
                 </form>
             </div>
-            <Link to={'/'} className='volver-registro'><ArrowBackIosNewIcon sx={{ fontSize: '14px' }} /> <p>Página principal</p></Link>
+                        
+            {
+                isScreenWidth600 === false &&
+                <Link to={'/'} className='volver-registro'><ArrowBackIosNewIcon sx={{ fontSize: '14px' }} /> <p>Página principal</p></Link>
+            }
+            
             {
                 leerPoliticas &&
                 <section className='container-politicas'>

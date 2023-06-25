@@ -10,6 +10,13 @@ import { capitalizeFirstLetter } from '../../utils/functions';
 import { putUserAsync } from '../../app/silices/usuarios/usuarioThunk';
 import { setProfileuUsuario, setStatusMessage } from '../../app/silices/usuarios/usuarioSlice';
 import { Audio } from 'react-loader-spinner'
+import { Link } from "react-router-dom";
+import LogoutIcon from "@mui/icons-material/Logout";
+import useCustomGoogleLogin from '../../hooks/useGoogleLogin';
+import { setRefreshState } from '../../app/silices/login/loginSlice';
+import { redirectToNewPage } from '../../utils/functions';
+import { setRefreshStateGoogle } from '../../app/silices/usuarios/usuarioGoogleSlice';
+import { setRefreshStateUser } from '../../app/silices/usuarios/usuarioSlice';
 
 const EditPerfil = (props) => {
     const { setPerfil, profile, login, statusMessage } = props
@@ -23,6 +30,7 @@ const EditPerfil = (props) => {
     const [validPass, setValidPass] = useState(true)
     const [validMail, setValidMail] = useState(true)
     const [validate, setValidate] = useState()
+    const { googleLogOut } = useCustomGoogleLogin()
 
     useEffect(() => {
         const handleResize = () => {
@@ -116,13 +124,13 @@ const EditPerfil = (props) => {
     }
 
     const handlePhoneNumber = (event) => {
-        if (event.target.value.length <= 13){
+        if (event.target.value.length <= 13 && event.target.value !== 'e' && event.target.value !== 'E') {
             dispatch(setProfileuUsuario({ phoneNumber: event.target.value }))
         }
     }
 
     const handleDni = (event) => {
-        if (event.target.value.length <= 8) {
+        if (event.target.value.length <= 8 && event.target.value !== 'e' && event.target.value !== 'E') {
             dispatch(setProfileuUsuario({ dni: event.target.value }))
         }
     }
@@ -151,7 +159,16 @@ const EditPerfil = (props) => {
             dispatch(putUserAsync({ token: login.token, idUser: login.id, body }))
         }
     }
-    
+
+    const handleLogout = () => {
+        setPerfil(false)
+        googleLogOut()
+        dispatch(setRefreshState())
+        dispatch(setRefreshStateGoogle())
+        dispatch(setRefreshStateUser())
+        redirectToNewPage('/')
+    }
+
     return (
         <div className='container-perfil-oyente'>
             <form className='container-box-perfil-oyente'>
@@ -199,23 +216,23 @@ const EditPerfil = (props) => {
                     {
                         validPass === false && <span className='span-error-registro'>¡Las contraseñas no coinciden!</span>
                     }
-                    
+
                     {
                         loading ?
-                        <div>
-                            <Audio
-                                height="80"
-                                width="80"
-                                radius="9"
-                                color="red"
-                                ariaLabel="Cargando..."
-                                wrapperStyle
-                                wrapperClass
-                            />
-                            <p>Cargando...</p>
-                        </div>
-                        :
-                        <Boton type={2} text={'Confirmar cambios'} onClick={handleSaveChange} />
+                            <div>
+                                <Audio
+                                    height="80"
+                                    width="80"
+                                    radius="9"
+                                    color="red"
+                                    ariaLabel="Cargando..."
+                                    wrapperStyle
+                                    wrapperClass
+                                />
+                                <p>Cargando...</p>
+                            </div>
+                            :
+                            <Boton type={2} text={'Confirmar cambios'} onClick={handleSaveChange} />
                     }
                     {
                         !isScreenWidth600 &&
@@ -228,6 +245,11 @@ const EditPerfil = (props) => {
                     }
                 </div>
             </form>
+
+            <Link to={'/'} className="opcion-nav-oyente" onClick={handleLogout}>
+                <LogoutIcon sx={{ fontSize: '18px' }} />
+                Cerrar sesión
+            </Link>
         </div>
     );
 };

@@ -57,6 +57,10 @@
     gap: 15px;
 }
 
+.btns1-seccion-registro-mobile{
+    margin-bottom: 20px;
+}
+
 .inputs-seccion-registro{
     flex-direction: row;
     flex-wrap: wrap;
@@ -92,6 +96,16 @@
     gap: 5px;
     text-decoration: none;
     color: black;
+}
+
+.volver-registro-mobile{
+    margin-bottom: 0;
+    padding-left: 25px;
+    justify-content: flex-start;
+}
+
+.volver-registro-mobile2{
+    padding-left: 0;
 }
 
 .span-error-registro{
@@ -132,6 +146,7 @@
     flex-direction: column;
     gap: 20px;
     background-color: rgba(228, 228, 228, 0.747);
+    z-index: 9999;
 }
 
 .container-politicas-div{

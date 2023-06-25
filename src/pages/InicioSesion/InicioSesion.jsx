@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from '../../assets/logo-lu5.svg'
 import Boton from '../../components/Boton/Boton';
 import Input from '../../components/Input/Input';
@@ -17,8 +17,21 @@ const InicioSesion = () => {
     const { googleLogin } = useCustomGoogleLogin()
     const dispatch = useDispatch()
     const { statusMessage, redirect, token, id } = useSelector(state => state.loginSlice)
-    const [ data, setData ] = useState({email: '', password: ''})
-    const [ vacio, setVacio ] = useState(false)
+    const [data, setData] = useState({ email: '', password: '' })
+    const [vacio, setVacio] = useState(false)
+    const [isScreenWidth600, setIsScreenWidth600] = useState(false);
+
+    useEffect(() => {
+        const handleResize = () => {
+            const { innerWidth: width } = window;
+            setIsScreenWidth600(width <= 600);
+        };
+
+        window.addEventListener("resize", handleResize);
+        handleResize();
+
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     useEffect(() => {
         if (statusMessage === 'rejected' && redirect) {
@@ -27,51 +40,63 @@ const InicioSesion = () => {
         }
     }, [statusMessage]);
 
-    useEffect(()=>{
-        if(token.length > 0 && id.length > 0){
-            dispatch(getUserAsync({token: token, idUser: id}))
+    useEffect(() => {
+        if (token.length > 0 && id.length > 0) {
+            dispatch(getUserAsync({ token: token, idUser: id }))
         }
     }, [token, id])
 
-    const handleChangeEmail = (event)=>{
-        setData({...data, email: event.target.value})
+    const handleChangeEmail = (event) => {
+        setData({ ...data, email: event.target.value })
     }
 
-    const handleChangePassword = (event)=>{
-        setData({...data, password: event.target.value})
+    const handleChangePassword = (event) => {
+        setData({ ...data, password: event.target.value })
     }
 
-    const handleLogin = ()=>{
-        if(data.email.length === 0 || data.password.length === 0){
+    const handleLogin = () => {
+        if (data.email.length === 0 || data.password.length === 0) {
             return setVacio(true)
         }
-        dispatch(postLoginAsync({email: data.email, password: data.password}))
-        setVacio(false) 
+        dispatch(postLoginAsync({ email: data.email, password: data.password }))
+        setVacio(false)
     }
 
     return (
         <section className='container-sesion'>
             <div className='main-sesion'>
                 <div className='header-sesion'>
-                    <img src={logo} alt='Logo LU5' className='logo-sesion'/>
+                    <img src={logo} alt='Logo LU5' className='logo-sesion' />
                 </div>
 
                 <h2 className='titulo-seccion'>Iniciar sesión</h2>
-                
+
+                {
+                    isScreenWidth600 &&
+                    <Link to={'/'} className='volver-registro volver-registro-mobile volver-registro-mobile2'><ArrowBackIosNewIcon sx={{ fontSize: '14px' }} /> <p>Página principal</p></Link>
+                }
+
                 <section className='seccion-sesion'>
-                    <form className='inputs-seccion'>
-                        <Input type={'email'} placeholder={'Correo electrónico'} color required={true} onChange={handleChangeEmail}/>
-                        <Input type={'password'} placeholder={'Contraseña'} color required={true} onChange={handleChangePassword}/>
+                    <form className='inputs-seccion distancia-botones-inicio-sesion'>
+                        <Input type={'email'} placeholder={'Correo electrónico'} color required={true} onChange={handleChangeEmail} />
+                        <Input type={'password'} placeholder={'Contraseña'} color required={true} onChange={handleChangePassword} />
                         <div className='link-pwd-container'>
                             <Link to={'/solicitudClave'} className='link-pwd'>Olvidé mi contraseña</Link>
                         </div>
                     </form>
 
+                    {
+                        vacio &&
+                        <span className={'span-error-inicio-sesion span-error-inicio-sesion-view'}>!Datos incompletos¡</span>
+                    }
+
                     <div className='btns1-seccion'>
-                        <span className={`span-error-inicio-sesion ${vacio && 'span-error-inicio-sesion-view'}`}>!Datos incompletos¡</span>
-                        <Boton text={'Iniciar sesión'} type={2} onClick={handleLogin}/>
-                        <Boton iconGoogle={true} text={'Iniciar sesión con Google'} onClick={() => googleLogin()}/>
-                        <Link to={'/'} className='volver-registro'><ArrowBackIosNewIcon sx={{fontSize: '14px'}}/> <p>Página principal</p></Link>
+                        <Boton text={'Iniciar sesión'} type={2} onClick={handleLogin} />
+                        <Boton iconGoogle={true} text={'Iniciar sesión con Google'} onClick={() => googleLogin()} />
+                        {
+                            isScreenWidth600 === false &&
+                            <Link to={'/'} className='volver-registro'><ArrowBackIosNewIcon sx={{ fontSize: '14px' }} /> <p>Página principal</p></Link>
+                        }
                     </div>
                 </section>
             </div>

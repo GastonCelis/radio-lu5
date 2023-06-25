@@ -10,6 +10,7 @@ const HomeOyente = (props) => {
     const [opcion, setOpcion] = useState('concursos')
     const { concursos, concursosOyente } = useSelector(state => state.concursoSlice)
     const { beneficios } = useSelector(state => state.beneficioSlice)
+    const newOrderConcursos = []
 
     const sortedConcursos = [...concursos].sort((a, b) => {
         if (a.contestState === 'ENTREGADO' && b.contestState !== 'ENTREGADO') {
@@ -20,6 +21,22 @@ const HomeOyente = (props) => {
             return 0;
         }
     });
+
+    concursos.forEach(data => {
+        const findConcurso = concursosOyente?.find(info => info.id === data.id)
+
+        if (data.contestState === 'ENTREGADO') {
+            return newOrderConcursos.push(data)
+        }
+
+        if (data.contestState !== 'ENTREGADO') {
+            if (findConcurso === undefined) {
+                return newOrderConcursos.unshift(data)
+            } else {
+                return newOrderConcursos.push(data)
+            }
+        }
+    })
 
     const handleResultConcurso = (isWinner, contestState) => {
         if (isWinner === false && contestState === 'ENTREGADO') {
@@ -46,7 +63,7 @@ const HomeOyente = (props) => {
             <div className='box-home-oyente'>
                 {
                     opcion === 'concursos' &&
-                    sortedConcursos.map((concurso, index) =>
+                    newOrderConcursos.map((concurso, index) =>
                         <TarjetaOyente
                             key={index}
                             tipo={'concursos'}
@@ -61,6 +78,7 @@ const HomeOyente = (props) => {
                             estadoSorteo={concurso.contestState}
                             login={login}
                             idConcurso={concurso.id}
+                            concursosOyente={concursosOyente}
                         />
                     )
                 }

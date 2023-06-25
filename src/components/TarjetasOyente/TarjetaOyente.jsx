@@ -25,12 +25,14 @@ const TarjetaOyente = (props) => {
         imgModalConcurso,
         login,
         idConcurso,
+        concursosOyente
     } = props
     const [codigo, setCodigo] = useState(false)
     const [openModal, setOpenModal] = useState(false)
     const [openModalConcurso, setOpenModalConcurso] = useState(false)
     const [isScreenWidth600, setIsScreenWidth600] = useState(false);
     const dispatch = useDispatch()
+    const findConcurso = concursosOyente?.find(data => data.id === idConcurso)
 
     useEffect(() => {
         const handleResize = () => {
@@ -74,7 +76,7 @@ const TarjetaOyente = (props) => {
                 <div className="container-tarjeta-oyente">
                     <div className="box-img-mobile-exact">
                         <img src={img} alt="Concursos" className="img-tarjeta-oyente" />
-                    </div>  
+                    </div>
 
                     <div className="box-tarjeta-oyente">
                         <h2 className="titulo-tarjeta-oyente">{titulo}</h2>
@@ -87,24 +89,30 @@ const TarjetaOyente = (props) => {
 
                             {estadoSorteo === "FINALIZADO" || estadoSorteo === 'ENTREGADO' ? (
                                 <Boton text={"Sorteo finalizado"} type={3} hidden={isScreenWidth600} />
-                            ) : (
-                                <Boton text={"Inscribirse"} type={2} onClick={handleInscription} hidden={isScreenWidth600} />
-                            )}
+                            ) :
+                                findConcurso === undefined ?
+                                    <Boton text={"Inscribirse"} type={2} onClick={handleInscription} hidden={isScreenWidth600} />
+                                    :
+                                    <Boton text={"Estas inscripto"} type={3} onClick={handleInscription} hidden={isScreenWidth600} />
+                            }
                         </div>
 
                         <div className="mobile-botones-tarjetas">
                             {
-                                estadoSorteo === "PENDIENTE" ?
-                                <p className="ver-mas-tarjeta" onClick={() => setOpenModalConcurso(true)}>+ Ver más</p>
-                                :
-                                <p className="ver-mas-tarjeta ver-mas-tarjeta-oculta" onClick={() => setOpenModalConcurso(true)}>+ Ver más</p>
+                                (estadoSorteo === "PENDIENTE" && findConcurso === undefined) ?
+                                    <p className="ver-mas-tarjeta" onClick={() => setOpenModalConcurso(true)}>+ Ver más</p>
+                                    :
+                                    <p className="ver-mas-tarjeta ver-mas-tarjeta-oculta" onClick={() => setOpenModalConcurso(true)}>+ Ver más</p>
                             }
 
                             {estadoSorteo === "FINALIZADO" || estadoSorteo === 'ENTREGADO' ? (
                                 <Boton text={"Sorteo finalizado"} type={5} hidden={!isScreenWidth600 && true} />
-                            ) : (
-                                <Boton text={"Inscribirse"} type={4} onClick={handleInscription} hidden={!isScreenWidth600 && true} />
-                            )}
+                            ) :
+                                findConcurso === undefined ?
+                                    <Boton text={"Inscribirse"} type={4} onClick={handleInscription} hidden={!isScreenWidth600 && true} />
+                                    :
+                                    <Boton text={"Estas inscripto"} type={5} onClick={handleInscription} hidden={!isScreenWidth600 && true} />
+                            }
                         </div>
                     </div>
                     {

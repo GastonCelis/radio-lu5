@@ -82,6 +82,10 @@
     opacity: 1;
 }
 
+.distancia-botones-inicio-sesion{
+    margin-bottom: 30px;
+}
+
 @media only screen and (max-width: 600px) {
     .main-sesion{
         height: 60%;

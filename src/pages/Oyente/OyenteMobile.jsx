@@ -1,8 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import './oyenteMobile.css'
-import { Link } from "react-router-dom";
-import LogoutIcon from "@mui/icons-material/Logout";
 import TarjetaOyente from '../../components/TarjetasOyente/TarjetaOyente';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import logo from '../../assets/logo-lu5.svg'
@@ -18,13 +16,14 @@ import { format } from 'date-fns';
 
 const OyenteMobile = (props) => {
     const { setPerfil, profile } = props
-    const [opciones, setOpciones] = useState('')
+    const [opciones, setOpciones] = useState('concursos')
     const { googleLogOut } = useCustomGoogleLogin()
     const dispatch = useDispatch()
     const login = useSelector(state => state.loginSlice)
     const user = useSelector(state => state.usuarioSlice)
     const { concursos, statusMessage, concursosOyente } = useSelector(state => state.concursoSlice)
     const { beneficios } = useSelector(state => state.beneficioSlice)
+    const newOrderConcursos = []
 
     useEffect(() => {
         if (login.statusMessage === 'rejectedToken' || user.statusMessage === 'rejectedLogin') {
@@ -48,20 +47,27 @@ const OyenteMobile = (props) => {
         }
     });
 
+    concursos.forEach(data => {
+        const findConcurso = concursosOyente?.find(info => info.id === data.id)
+
+        if (data.contestState === 'ENTREGADO') {
+            return newOrderConcursos.push(data)
+        }
+
+        if (data.contestState !== 'ENTREGADO') {
+            if (findConcurso === undefined) {
+                return newOrderConcursos.unshift(data)
+            } else {
+                return newOrderConcursos.push(data)
+            }
+        }
+    })
+
     const handleTituloNav = () => {
         if (opciones === 'concursos') return 'Concursos'
         if (opciones === 'mis concursos') return 'Mis Concursos'
         if (opciones === 'beneficios') return 'Beneficios'
         if (opciones === 'perfil') return 'Mi perfil'
-    }
-
-    const handleLogout = () => {
-        setPerfil(false)
-        googleLogOut()
-        dispatch(setRefreshState())
-        dispatch(setRefreshStateGoogle())
-        dispatch(setRefreshStateUser())
-        redirectToNewPage('/')
     }
 
     const handleResultConcurso = (isWinner, contestState) => {
@@ -109,12 +115,8 @@ const OyenteMobile = (props) => {
                             <button className='button-nav-oyente-mobile' onClick={() => setOpciones('beneficios')}><p>Beneficios</p></button>
                         </div>
 
-                        <div className='box-botonera-mobile'>
+                        <div className='box-botonera-mobile box-botonera-mobile-perfil'>
                             <button className='button-nav-oyente-mobile' onClick={() => setOpciones('perfil')}><p>Mi perfil</p></button>
-                            <Link to={'/'} className="opcion-nav-oyente" onClick={handleLogout}>
-                                <LogoutIcon sx={{ fontSize: '18px' }} />
-                                Cerrar sesión
-                            </Link>
                         </div>
                     </nav>
                 </>
@@ -129,10 +131,6 @@ const OyenteMobile = (props) => {
                         <div className='box-header-mobile'>
                             <div className='inbox-header-mobile'>
                                 <h2 className='titulo-header-mobile'>{`Hola ${profile.fullName}!`}</h2>
-                                <Link to={'/'} className="opcion-nav-oyente opcion-nav-oyente-mobile" onClick={handleLogout}>
-                                    <LogoutIcon sx={{ fontSize: '12px' }} />
-                                    Cerrar sesión
-                                </Link>
                             </div>
 
                             <img src={`data:image/jpg;base64,${profile.profileImage}`} alt="Oyente" className="img-nav-oyente img-nav-oyente-mobile-2" />
@@ -143,10 +141,9 @@ const OyenteMobile = (props) => {
             }
 
 
-
             {
                 opciones === 'concursos' &&
-                sortedConcursos.map((concurso, index) =>
+                newOrderConcursos.map((concurso, index) =>
                     <TarjetaOyente
                         key={index}
                         tipo={'concursos'}
@@ -162,6 +159,7 @@ const OyenteMobile = (props) => {
                         login={login}
                         idConcurso={concurso.id}
                         statusMessage={statusMessage}
+                        concursosOyente={concursosOyente}
                     />
                 )
             }

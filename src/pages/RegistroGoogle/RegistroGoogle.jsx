@@ -85,13 +85,13 @@ const RegistroGoogle = () => {
     }
 
     const handlePhoneNumber = (event) => {
-        if (event.target.value.length <= 13) {
+        if (event.target.value.length <= 13 && event.target.value !== 'e' && event.target.value !== 'E') {
             setData({ ...data, phone_number: event.target.value })
         }
     }
 
     const handleDni = (event) => {
-        if (event.target.value.length <= 8) {
+        if (event.target.value.length <= 8 && event.target.value !== 'e' && event.target.value !== 'E') {
             setData({ ...data, dni: event.target.value })
         }
     }
@@ -216,7 +216,7 @@ const RegistroGoogle = () => {
                         {
                             registerOk === 'si' && <span className='span-ok-registro'>¡Se registró correctamente!</span>
                         }
-                        <Boton text={'Registrarse'} type={2} onClick={handleRegister} />
+                        <Boton text={'Registrarte'} type={2} onClick={handleRegister} />
                     </div>
                 </form>
             </div>

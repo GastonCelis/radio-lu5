@@ -40,8 +40,8 @@ const Oyente = () => {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    useEffect(()=>{
-        if(login.statusMessage === 'rejectedToken' || statusMessage === 'rejectedLogin'){
+    useEffect(() => {
+        if (login.statusMessage === 'rejectedToken' || statusMessage === 'rejectedLogin') {
             googleLogOut()
             dispatch(setRefreshState())
             dispatch(setRefreshStateGoogle())
@@ -59,7 +59,7 @@ const Oyente = () => {
     }, [])
 
     useEffect(() => {
-        if(profile.id !== '' && bandera === true){
+        if (profile.id !== '' && bandera === true) {
             dispatch(getConcursosOyenteAsync({ token: login.token, idUsuario: profile.id }))
             setBandera(false)
         }
@@ -78,24 +78,24 @@ const Oyente = () => {
             {
                 isScreenWidth600 ?
                     <>
-                        <OyenteMobile setPerfil={setPerfil} profile={profile}/>
+                        <OyenteMobile setPerfil={setPerfil} profile={profile} />
                     </>
                     :
                     <>
                         <div className='header-sesion'>
                             <img src={logo} alt='Logo LU5' className='logo-sesion' />
                         </div>
-                        
+
                         <div className='box-oyente'>
-                            <NavBarOyente perfil={perfil} setPerfil={setPerfil} profile={profile}/>
+                            <NavBarOyente perfil={perfil} setPerfil={setPerfil} profile={profile} />
                         </div>
 
                         <div className={`box2-oyente ${perfil && 'box2-oyente-perfil-home'}`}>
                             {
                                 perfil ?
-                                    <EditPerfil setPerfil={setPerfil} profile={profile} login={login} statusMessage={statusMessage}/>
+                                    <EditPerfil setPerfil={setPerfil} profile={profile} login={login} statusMessage={statusMessage} />
                                     :
-                                    <HomeOyente profile={profile} setPerfil={setPerfil} login={login}/>
+                                    <HomeOyente profile={profile} setPerfil={setPerfil} login={login} />
                             }
                         </div>
                     </>

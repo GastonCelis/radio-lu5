@@ -100,13 +100,13 @@ const VistaPerfil = () => {
     }
 
     const handlePhoneNumber = (event) => {
-        if (event.target.value.length <= 13){
+        if (event.target.value.length <= 13 && event.target.value !== 'e' && event.target.value !== 'E'){
             dispatch(setProfileuUsuario({ phoneNumber: event.target.value }))
         }
     }
 
     const handleDni = (event) => {
-        if (event.target.value.length <= 8) {
+        if (event.target.value.length <= 8 && event.target.value !== 'e' && event.target.value !== 'E') {
             dispatch(setProfileuUsuario({ dni: event.target.value }))
         }
     }
