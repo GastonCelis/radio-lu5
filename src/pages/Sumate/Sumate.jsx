@@ -42,7 +42,7 @@ const Sumate = () => {
                         <Boton iconGoogle={true} text={'Iniciar sesión con Google'} onClick={() => googleLogin()}/>
                     </div>
 
-                    <div className='btn2-seccion'>
+                    <div className='btn2-seccion espacio-boton-inicio-sesion'>
                         <p className='text-seccion'>¿Ya tenés una cuenta?</p>
                         <Boton text={'Iniciar sesión'} path={'/sesion'}/>
                     </div>
